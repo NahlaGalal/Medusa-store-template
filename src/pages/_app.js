@@ -4,7 +4,6 @@ import React from "react"
 import { QueryClient } from "react-query"
 import { ThemeProvider } from "theme-ui"
 import { ProductProvider } from "../context/product-context"
-import "../fonts/index.css"
 import theme from "../theme"
 
 const BACKEND_URL =

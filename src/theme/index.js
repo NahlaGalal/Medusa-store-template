@@ -1,8 +1,7 @@
 const theme = {
   fonts: {
-    body: "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif",
-    heading:
-      "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif",
+    body: "Roboto",
+    heading: "Literata",
   },
   fontWeights: {
     body: 400,
@@ -10,17 +9,12 @@ const theme = {
   },
   breakpoints: ["720px"],
   colors: {
-    primary: "#111827",
-    medusaGreen: "#56FBB1",
-    medusa100: "#454B54",
-    deepBlue: "#0A3149",
-    ui: "#F7F7FA",
-    cool: "#EEF0F5",
-    background: "#F7F7FA",
-    salmon: "#FF9B9B",
-    placeholder: "#BBBBBB",
-    grey: "#E5E7EB",
-    darkGrey: "#6B7280",
+    brand: "#C59F55",
+    secondary: "#0B2346",
+    darkBlack: "#000000",
+    darkGrey: "#888888",
+    lightGrey: "#DDDDDD",
+    white: "#FFFFFF"
   },
   layout: {
     stepContainer: {

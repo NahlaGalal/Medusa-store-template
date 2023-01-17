@@ -30,7 +30,6 @@ const Field = ({ formik, value, name, set, placeholder, disabled }) => {
           borderColor: error ? "salmon" : "#E5E7EB;",
           fontSize: "14px",
           fontWeight: 300,
-          fontFamily: "Inter",
         }}
         variant="field"
       />

@@ -1,8 +1,25 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import NextLink from "next/link"
-import { Flex, Link, NavLink } from "theme-ui"
+import { useRouter } from "next/router"
+import { client } from "../../utils/client"
+import { Button, Flex, Link, NavLink } from "theme-ui"
 
 const Navbar = () => {
+  const [isRegistered, setIsRegistered] = useState(false)
+  const route = useRouter()
+
+  useEffect(() => {
+    setIsRegistered(!!localStorage.getItem("id"))
+  }, [])
+
+  const logoutHandler = async () => {
+    const res = await client.auth.deleteSession()
+    if (res.response.status === 200) {
+      localStorage.removeItem("id")
+      route.push("/login")
+    }
+  }
+
   return (
     <Flex
       as="nav"
@@ -40,9 +57,18 @@ const Navbar = () => {
           </NextLink>
         </li>
         <li>
-          <NextLink href={"/register"} passHref>
-            <NavLink sx={{ fontWeight: 400 }}>Register</NavLink>
-          </NextLink>
+          {isRegistered ? (
+            <Button
+              sx={{ p: 0, background: "transparent", cursor: "pointer" }}
+              onClick={logoutHandler}
+            >
+              Logout
+            </Button>
+          ) : (
+            <NextLink href={"/register"} passHref>
+              <NavLink sx={{ fontWeight: 400 }}>Register</NavLink>
+            </NextLink>
+          )}
         </li>
       </Flex>
     </Flex>

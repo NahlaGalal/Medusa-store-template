@@ -3,20 +3,16 @@
 import { useFormik } from "formik"
 import React, { useState } from "react"
 import { Box, Button, Container, Divider, Flex, Link } from "theme-ui"
-import Medusa from "@medusajs/medusa-js"
 import { useRouter } from "next/router"
 import NextLink from "next/link"
 import * as Yup from "yup"
 import Layout from "../components/layout/layout"
 import Spinner from "../components/spinner/spinner"
 import Login from "../components/shipping/forms/login"
+import { client } from "../utils/client"
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false)
-  const medusa = new Medusa({
-    baseUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "",
-    maxRetries: 2,
-  })
   const router = useRouter()
 
   const handleSubmit = e => {
@@ -46,7 +42,7 @@ const LoginPage = () => {
         login: { email, password },
       } = values
       try {
-        const res = await medusa.auth.authenticate({ email, password })
+        const res = await client.auth.authenticate({ email, password })
 
         if (res.response.status === 200) {
           localStorage.setItem("id", res.customer.id)

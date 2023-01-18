@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
       const { register } = values
       const res = await createCustomer.mutateAsync({ ...register })
-      if (res.response.status === 200) router.push("/")
+      if (res.response.status === 200) router.push("/login")
     },
   })
 

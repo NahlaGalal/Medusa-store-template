@@ -1,7 +1,9 @@
+// @ts-check
+
 import { Flex, Input } from "@theme-ui/components"
 import React, { useEffect, useState } from "react"
 
-const Field = ({ formik, value, name, set, placeholder, disabled }) => {
+const Field = ({ formik, value, name, set, placeholder, disabled, type }) => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
@@ -20,6 +22,7 @@ const Field = ({ formik, value, name, set, placeholder, disabled }) => {
       }}
     >
       <Input
+        type={type || "text"}
         defaultValue={value}
         disabled={disabled}
         name={`${set}.${name}`}

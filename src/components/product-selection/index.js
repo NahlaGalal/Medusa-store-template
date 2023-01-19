@@ -1,3 +1,5 @@
+// @ts-check
+
 import { Box, Button, Divider, Flex, Text } from "@theme-ui/components"
 import { useCart } from "medusa-react"
 import React, { useContext } from "react"

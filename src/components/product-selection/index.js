@@ -37,7 +37,6 @@ const ProductSelection = ({
 
   return (
     <Box>
-      <Text variant="header3">Product</Text>
       <Flex sx={{ mt: "16px", justifyContent: "center" }}>
         <ProductDisplay region={region} product={product} />
       </Flex>

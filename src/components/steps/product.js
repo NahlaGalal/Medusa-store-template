@@ -1,3 +1,5 @@
+// @ts-check
+
 import { Card, Flex } from "@theme-ui/components"
 import { useCart } from "medusa-react"
 import Image from "next/image"
@@ -5,14 +7,7 @@ import React, { useState } from "react"
 import ProductSelection from "../product-selection"
 import Spinner from "../spinner/spinner"
 
-const Product = ({
-  product,
-  regions,
-  country,
-  region,
-  activeStep,
-  setActiveStep,
-}) => {
+const Product = ({ product, country, region, activeStep, setActiveStep }) => {
   const [loading, setLoading] = useState(false)
   const { cart } = useCart()
 
@@ -46,7 +41,6 @@ const Product = ({
         <Card variant="container">
           <ProductSelection
             region={region}
-            regions={regions}
             country={country}
             product={product}
             nextStep={() => setActiveStep("shipping")}
@@ -57,7 +51,7 @@ const Product = ({
         <Card
           variant="accordionTrigger"
           onClick={() => setActiveStep("product")}
-          sx={triggerStyles}
+          sx={{ ...triggerStyles }}
         >
           Product
           {cart?.id && (

@@ -106,7 +106,15 @@ const Forms = ({ country, region, nextStep, setLoading }) => {
       <Box>
         <>
           <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-          <Button onClick={handleSubmit} variant="cta">
+          <Button
+            onClick={handleSubmit}
+            variant="cta"
+            sx={{
+              color: "secondary",
+              backgroundColor: "brand",
+              fontWeight: 600,
+            }}
+          >
             Go to payment
           </Button>
         </>

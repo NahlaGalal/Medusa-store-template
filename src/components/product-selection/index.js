@@ -27,6 +27,7 @@ const ProductSelection = ({
           quantity,
         },
       ],
+      sales_channel_id: "sc_01GQ57XEKX3Y352T3RABX9W24M",
     })
 
     await startCheckout.mutateAsync()
@@ -41,7 +42,11 @@ const ProductSelection = ({
         <ProductDisplay region={region} product={product} />
       </Flex>
       <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-      <Button sx={{}} onClick={() => handleSubmit()} variant="cta">
+      <Button
+        sx={{ color: "secondary", backgroundColor: "brand", fontWeight: 600 }}
+        onClick={() => handleSubmit()}
+        variant="cta"
+      >
         Continue
       </Button>
     </Box>

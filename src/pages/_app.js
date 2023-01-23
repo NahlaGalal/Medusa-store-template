@@ -4,6 +4,7 @@ import React from "react"
 import { QueryClient } from "react-query"
 import { ThemeProvider } from "theme-ui"
 import { ProductProvider } from "../context/product-context"
+import { CollectionProvider } from "../context/collectionContext"
 import theme from "../theme"
 
 const BACKEND_URL =
@@ -35,7 +36,9 @@ const App = ({ Component, pageProps }) => {
             <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,700&family=Roboto:wght@400;700&display=swap" rel="stylesheet"></link>
           </Head>
           <ProductProvider>
-            <Component {...pageProps} />
+            <CollectionProvider>
+              <Component {...pageProps} />
+            </CollectionProvider>
           </ProductProvider>
         </CartProvider>
       </MedusaProvider>

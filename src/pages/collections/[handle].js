@@ -1,12 +1,12 @@
 // @ts-check
 import React from "react"
 import { Card, Flex, Grid, Image, Link, Text } from "theme-ui"
-import NextLink from "next/link"
 import { formatVariantPrice } from "medusa-react"
-import Layout from "../components/layout/layout"
-import { client } from "../utils/client"
+import NextLink from "next/link"
+import Layout from "../../components/layout/layout"
+import { client } from "../../utils/client"
 
-const Shop = ({ products, region }) => {
+const Collections = ({ products, region }) => {
   return (
     <Layout>
       <Grid columns={3} gap={24}>
@@ -81,8 +81,23 @@ const Shop = ({ products, region }) => {
   )
 }
 
-export async function getStaticProps() {
-  const { products } = await client.products.list()
+export async function getStaticPaths() {
+  const { collections } = await client.collections.list()
+
+  const paths = collections
+    .map(({ handle }) => ({
+      params: { handle },
+    }))
+    .filter(p => !!p.params.handle)
+
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps({ params: { handle } }) {
+  const { collections } = await client.collections.list({ handle: [handle] })
+  const { products } = await client.products.list({
+    collection_id: [collections[0].id],
+  })
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Africa")
@@ -90,4 +105,4 @@ export async function getStaticProps() {
   return { props: { products, region } }
 }
 
-export default Shop
+export default Collections

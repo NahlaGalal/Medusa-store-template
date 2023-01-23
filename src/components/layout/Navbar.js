@@ -85,7 +85,12 @@ const Navbar = () => {
               {collection.map(item => (
                 <li key={item.id}>
                   <NextLink href={`/collections/${item.handle}`} passHref>
-                    <NavLink sx={{ fontWeight: 400 }}>{item.title}</NavLink>
+                    <NavLink
+                      sx={{ fontWeight: 400 }}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      {item.title}
+                    </NavLink>
                   </NextLink>
                 </li>
               ))}

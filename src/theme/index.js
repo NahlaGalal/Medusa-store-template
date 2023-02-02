@@ -79,9 +79,7 @@ const theme = {
       height: "33px",
       border: "none",
       borderRadius: "0 4px 4px 0",
-      "&:hover": {
-        bg: "ui",
-      },
+      cursor: "pointer",
     },
     decrementor: {
       bg: "transparent",

@@ -72,7 +72,7 @@ const ProductPage = ({ product }) => {
                   <Image
                     src={currentImg.url}
                     alt="Product media"
-                    sx={{ maxHeight: "200px", objectFit: "cover" }}
+                    sx={{ maxHeight: "200px", objectFit: "contain" }}
                   />
 
                   {/* Product images */}
@@ -90,6 +90,9 @@ const ProductPage = ({ product }) => {
                           borderRadius: "4px",
                           cursor: "pointer",
                           transition: "all 0.4s ease-in-out",
+                          maxHeight: "80px",
+                          width: "80px",
+                          objectFit: "contain",
                           borderColor:
                             currentImg.id === id ? "secondary" : "brand",
                         }}

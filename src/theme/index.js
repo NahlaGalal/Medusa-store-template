@@ -54,24 +54,27 @@ const theme = {
   },
   buttons: {
     cta: {
-      bg: "primary",
-      color: "white",
+      bg: "brand",
+      color: "secondary",
       fontWeight: "500",
-      fontSize: "14px",
-      height: "40px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "100%",
+      height: "33px",
       cursor: "pointer",
+      borderRadius: 0,
+      border: "1px solid",
+      borderColor: "secondary",
+      transition: "all 0.4s ease-in-out",
       "&:disabled": {
         opacity: 0.5,
         cursor: "default",
       },
+      "&.active": {
+        color: "brand",
+        bg: "secondary",
+      }
     },
     incrementor: {
-      bg: "transparent",
-      color: "primary",
+      bg: "secondary",
+      color: "brand",
       flexGrow: "1",
       height: "33px",
       border: "none",
@@ -81,8 +84,8 @@ const theme = {
       },
     },
     decrementor: {
-      bg: "transparent",
-      color: "primary",
+      bg: "secondary",
+      color: "brand",
       flexGrow: "1",
       height: "33px",
       border: "none",
@@ -93,7 +96,7 @@ const theme = {
     },
     edit: {
       bg: "transparent",
-      color: "primary",
+      color: "brand",
       cursor: "pointer",
       fontSize: "14px",
       textDecoration: "underline",
@@ -135,7 +138,7 @@ const theme = {
         textDecoration: "none",
         color: "#3B82F6",
         "&:hover": {
-          color: "primary",
+          color: "brand",
         },
       },
     },
@@ -147,7 +150,7 @@ const theme = {
       fontWeight: 500,
       textDecoration: "none",
       "&:hover": {
-        color: "primary",
+        color: "brand",
       },
     },
     termsLink: {

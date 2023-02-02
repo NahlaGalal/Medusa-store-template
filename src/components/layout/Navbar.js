@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import NextLink from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/router"
 import { client } from "../../utils/client"
 import { Button, Flex, Link, NavLink } from "theme-ui"
@@ -41,7 +42,9 @@ const Navbar = () => {
       }}
     >
       <NextLink href="/" passHref>
-        <Link sx={{ color: "white" }}>Logo</Link>
+        <Link sx={{ color: "white" }}>
+          <Image src={"/Logo.png"} alt="Logo" height={60} width={60} />
+        </Link>
       </NextLink>
 
       <Flex as="ul" sx={{ listStyleType: "none", gap: 16, p: 0, mx: "auto" }}>

@@ -7,7 +7,7 @@ const theme = {
     body: 400,
     heading: 700,
   },
-  breakpoints: ["720px"],
+  breakpoints: ["768px", "1200px"],
   colors: {
     brand: "#C59F55",
     secondary: "#0B2346",
@@ -22,6 +22,10 @@ const theme = {
       height: "100%",
       mb: "8px",
     },
+    container: {
+      width: "80%",
+      mx: "auto"
+    }
   },
   cards: {
     accordionTrigger: {
@@ -45,6 +49,7 @@ const theme = {
       borderRadius: "8px",
       justifyContent: "center",
       transition: "all .2s linear",
+      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.2)"
     },
   },
   buttons: {

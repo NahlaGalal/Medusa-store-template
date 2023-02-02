@@ -24,8 +24,6 @@ const ProductPage = ({ product }) => {
   })
   const [currentSection, setCurrentSection] = useState("description")
 
-  console.log(product)
-
   const renderOptionsValues = () => {
     const activeOptionObj = product.options.find(opt => opt.id === activeOption)
     const optionValues = activeOptionObj.values.filter(
@@ -106,7 +104,7 @@ const ProductPage = ({ product }) => {
                   <Heading color="brand" mb={2}>
                     {product.title}
                   </Heading>
-                  <Text as="p">{product.collection.title}</Text>
+                  <Text as="p">{product?.collection?.title}</Text>
 
                   {/* Choose a variant */}
                   <Flex my={2} sx={{ flexWrap: "wrap" }}>

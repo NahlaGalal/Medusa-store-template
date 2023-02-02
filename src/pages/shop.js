@@ -6,7 +6,7 @@ import { formatVariantPrice } from "medusa-react"
 import Layout from "../components/layout/layout"
 import { client } from "../utils/client"
 
-const Shop = ({ products, region }) => {
+const Shop = ({ products }) => {
   return (
     <Layout>
       <Container variant="layout.container">
@@ -55,7 +55,7 @@ const Shop = ({ products, region }) => {
                         </Link>
                       </NextLink>
                     </Text>
-                    <Text
+                    {/* <Text
                       sx={{
                         fontSize: "14px",
                         fontWeight: 300,
@@ -66,7 +66,7 @@ const Shop = ({ products, region }) => {
                         variant: product.variants[0],
                         region,
                       })}`}
-                    </Text>
+                    </Text> */}
                   </Flex>
                 </Flex>
                 <Text
@@ -95,13 +95,13 @@ const Shop = ({ products, region }) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { products } = await client.products.list()
-  const { regions } = await client.regions.list()
+  // const { regions } = await client.regions.list()
 
-  const region = regions.find(region => region.name === "Africa")
+  // const region = regions.find(region => region.name === "Africa")
 
-  return { props: { products, region } }
+  return { props: { products } }
 }
 
 export default Shop

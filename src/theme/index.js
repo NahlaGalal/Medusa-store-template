@@ -14,7 +14,7 @@ const theme = {
     darkBlack: "#000000",
     darkGrey: "#888888",
     lightGrey: "#DDDDDD",
-    white: "#FFFFFF"
+    white: "#FFFFFF",
   },
   layout: {
     stepContainer: {
@@ -24,8 +24,8 @@ const theme = {
     },
     container: {
       width: "80%",
-      mx: "auto"
-    }
+      mx: "auto",
+    },
   },
   cards: {
     accordionTrigger: {
@@ -49,7 +49,7 @@ const theme = {
       borderRadius: "8px",
       justifyContent: "center",
       transition: "all .2s linear",
-      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.2)"
+      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.2)",
     },
   },
   buttons: {
@@ -70,7 +70,7 @@ const theme = {
       "&.active": {
         color: "brand",
         bg: "secondary",
-      }
+      },
     },
     incrementor: {
       bg: "secondary",
@@ -84,15 +84,13 @@ const theme = {
       },
     },
     decrementor: {
-      bg: "secondary",
+      bg: "transparent",
       color: "brand",
-      flexGrow: "1",
       height: "33px",
       border: "none",
-      borderRadius: "4px 0 0 4px",
-      "&:hover": {
-        bg: "ui",
-      },
+      borderRadius: "0",
+      cursor: "pointer",
+      transition: "all 0.4s ease-in-out",
     },
     edit: {
       bg: "transparent",

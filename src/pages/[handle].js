@@ -47,7 +47,6 @@ const ProductPage = ({ product }) => {
         }
         sx={{
           borderRadius: "4px",
-          border: 0,
           minWidth: `calc(100% / ${optionValues.length})`,
         }}
       >
@@ -104,7 +103,7 @@ const ProductPage = ({ product }) => {
 
                 <Flex sx={{ flexDirection: "column" }}>
                   {/* Product title and collection */}
-                  <Heading color="secondary" mb={2}>
+                  <Heading color="brand" mb={2}>
                     {product.title}
                   </Heading>
                   <Text as="p">{product.collection.title}</Text>

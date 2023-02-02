@@ -35,10 +35,10 @@ const Navbar = () => {
       as="nav"
       sx={{
         flexWrap: "wrap",
-        backgroundColor: "secondary",
-        color: "white",
-        py: 20,
+        color: "brand",
+        py: 10,
         px: "5%",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)"
       }}
     >
       <NextLink href="/" passHref>
@@ -47,7 +47,16 @@ const Navbar = () => {
         </Link>
       </NextLink>
 
-      <Flex as="ul" sx={{ listStyleType: "none", gap: 16, p: 0, mx: "auto" }}>
+      <Flex
+        as="ul"
+        sx={{
+          listStyleType: "none",
+          gap: 16,
+          p: 0,
+          mx: "auto",
+          alignItems: "center",
+        }}
+      >
         <li>
           <NextLink href={"/"} passHref>
             <NavLink sx={{ fontWeight: 400 }}>Home</NavLink>
@@ -60,7 +69,12 @@ const Navbar = () => {
         </li>
         <li style={{ position: "relative" }}>
           <Button
-            sx={{ p: 0, background: "transparent", cursor: "pointer" }}
+            sx={{
+              p: 0,
+              background: "transparent",
+              cursor: "pointer",
+              color: "brand",
+            }}
             onClick={e => {
               e.stopPropagation()
               setIsDropdownOpen(!isDropdownOpen)
@@ -89,7 +103,7 @@ const Navbar = () => {
                 <li key={item.id}>
                   <NextLink href={`/collections/${item.handle}`} passHref>
                     <NavLink
-                      sx={{ fontWeight: 400 }}
+                      sx={{ fontWeight: 400, color: "white" }}
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {item.title}
@@ -108,7 +122,12 @@ const Navbar = () => {
         <li>
           {isRegistered ? (
             <Button
-              sx={{ p: 0, background: "transparent", cursor: "pointer" }}
+              sx={{
+                p: 0,
+                background: "transparent",
+                cursor: "pointer",
+                color: "brand",
+              }}
               onClick={logoutHandler}
             >
               Logout

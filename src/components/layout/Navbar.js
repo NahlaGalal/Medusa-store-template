@@ -115,8 +115,8 @@ const Navbar = () => {
           )}
         </li>
         <li>
-          <NextLink href={"/about"} passHref>
-            <NavLink sx={{ fontWeight: 400 }}>About</NavLink>
+          <NextLink href={"/cart"} passHref>
+            <NavLink sx={{ fontWeight: 400 }}>Cart</NavLink>
           </NextLink>
         </li>
         <li>

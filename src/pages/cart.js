@@ -1,12 +1,29 @@
-// @ts-check
-import React from "react"
+import React, { useEffect, useState } from "react"
+import Layout from "../components/layout/layout"
 import { Card, Container, Flex, Grid, Image, Link, Text } from "theme-ui"
 import NextLink from "next/link"
 import { formatVariantPrice } from "medusa-react"
-import Layout from "../components/layout/layout"
 import { client } from "../utils/client"
 
-const Shop = ({ products, region }) => {
+const Cart = ({ region }) => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const getCartItems = async () => {
+      const cartId = localStorage.getItem("cart_id")
+      let res
+
+      if (cartId) res = await client.carts.retrieve(cartId)
+      else res = await client.carts.create()
+
+      const cart = res.cart
+      localStorage.setItem("cart_id", cart.id)
+      setProducts(cart.items)
+    }
+
+    getCartItems()
+  }, [])
+
   return (
     <Layout>
       <Container variant="layout.container">
@@ -62,10 +79,10 @@ const Shop = ({ products, region }) => {
                         mb: "1em",
                       }}
                     >
-                      {`${formatVariantPrice({
+                      {/* {`${formatVariantPrice({
                         variant: product.variants[0],
                         region,
-                      })}`}
+                      })}`} */}
                     </Text>
                   </Flex>
                 </Flex>
@@ -96,12 +113,11 @@ const Shop = ({ products, region }) => {
 }
 
 export async function getServerSideProps() {
-  const { products } = await client.products.list()
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
 
-  return { props: { products, region } }
+  return { props: { region } }
 }
 
-export default Shop
+export default Cart

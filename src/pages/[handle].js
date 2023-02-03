@@ -2,18 +2,10 @@
 
 import Head from "next/head"
 import React, { useState } from "react"
+import { useRouter } from "next/router"
 import Layout from "../components/layout/layout"
 import { client } from "../utils/client"
-import {
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-  Image,
-  Button,
-  Box,
-} from "theme-ui"
+import { Container, Flex, Grid, Heading, Text, Image, Button } from "theme-ui"
 
 const ProductPage = ({ product }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -23,6 +15,7 @@ const ProductPage = ({ product }) => {
     url: product.thumbnail,
   })
   const [currentSection, setCurrentSection] = useState("description")
+  const router = useRouter()
 
   const renderOptionsValues = () => {
     const activeOptionObj = product.options.find(opt => opt.id === activeOption)
@@ -51,6 +44,38 @@ const ProductPage = ({ product }) => {
         {optionVal.value}
       </Button>
     ))
+  }
+
+  const getVariantId = () => {
+    const variant = product.variants.find(variant =>
+      variant.options.every(
+        option => activeOptionVal[option.option_id] === option.id
+      )
+    )
+    if (variant) return variant.id
+    return undefined
+  }
+
+  const addToCartHandler = async () => {
+    const id = localStorage.getItem("cart_id")
+    let res
+
+    if (id) {
+      res = await client.carts.retrieve(id)
+    } else {
+      res = await client.carts.create()
+    }
+    
+    const {
+      cart: { id: cart_id },
+    } = res
+
+    localStorage.setItem("cart_id", cart_id)
+    const variant_id = getVariantId()
+    if(variant_id) {
+      await client.carts.lineItems.create(cart_id, { variant_id, quantity: 1 })
+      router.push("/cart")
+    }
   }
 
   return (
@@ -147,6 +172,7 @@ const ProductPage = ({ product }) => {
                     <Button
                       variant="buttons.incrementor"
                       sx={{ borderRadius: "20px", gap: 3 }}
+                      onClick={addToCartHandler}
                     >
                       Add to Cart
                     </Button>
@@ -243,3 +269,5 @@ export async function getStaticProps({ params }) {
 }
 
 export default ProductPage
+// TODO: Loading
+// FIXME: Variants

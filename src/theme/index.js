@@ -63,6 +63,7 @@ const theme = {
       border: "1px solid",
       borderColor: "brand",
       transition: "all 0.4s ease-in-out",
+      textDecoration: "none",
       "&:disabled": {
         opacity: 0.5,
         cursor: "default",

@@ -1,11 +1,17 @@
-import { Box, Text } from "@theme-ui/components"
+import { Box, Heading } from "@theme-ui/components"
 import React, { useEffect, useState } from "react"
 import Field from "./field"
 import FieldSplitter from "./field-splitter"
 import SelectShipping from "./select-shipping"
 
-const Delivery = ({ formik, region, country, setLoading }) => {
+const Delivery = ({
+  formik,
+  region,
+  country,
+  setLoading,
+}) => {
   const [fullCountry, setFullCountry] = useState("")
+
   useEffect(() => {
     formik.setFieldValue("delivery.country_code", country)
   }, [country])
@@ -16,15 +22,9 @@ const Delivery = ({ formik, region, country, setLoading }) => {
 
   return (
     <Box as="form">
-      <Text
-        as="h3"
-        sx={{
-          mb: "8px",
-        }}
-        variant="subheading"
-      >
+      <Heading as="h3" sx={{ mb: "8px", color: "secondary" }}>
         Delivery address
-      </Text>
+      </Heading>
       <>
         <Field
           formik={formik}
@@ -54,9 +54,9 @@ const Delivery = ({ formik, region, country, setLoading }) => {
           }
         />
         <Field formik={formik} value={fullCountry} disabled={true} />
-        <Text mt={4} as="h3" sx={{}} variant="subheading">
+        <Heading mt={4} as="h3" sx={{ color: "secondary" }}>
           Shipping method
-        </Text>
+        </Heading>
         <SelectShipping
           formik={formik}
           placeholder={"Select shipping method"}

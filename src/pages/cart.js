@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import {
-  Button,
   Card,
   Container,
   Flex,
@@ -21,7 +20,7 @@ const Cart = ({ collections }) => {
     const getCartItems = async () => {
       const cartId = localStorage.getItem("cart_id")
       let res
-      // console.log(cartId)
+
       setLoading(true)
       if (cartId) res = await client.carts.retrieve(cartId)
       else res = await client.carts.create()
@@ -120,9 +119,21 @@ const Cart = ({ collections }) => {
         ))}
       </Grid>
 
-      <Button variant="cta" sx={{ mx: "auto", mb: 4, display: "block" }}>
-        Proceed to Buy
-      </Button>
+      {products.length ? (
+        <Link
+          variant="buttons.cta"
+          sx={{
+            mx: "auto",
+            mb: 4,
+            display: "block",
+            width: "max-content",
+            padding: "8px 16px",
+          }}
+          href="/shipping"
+        >
+          Proceed to Buy
+        </Link>
+      ) : undefined}
     </Container>
   )
 }

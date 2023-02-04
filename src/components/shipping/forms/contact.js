@@ -1,20 +1,20 @@
-import { Box, Text } from "@theme-ui/components"
+import { Box, Heading } from "@theme-ui/components"
 import React from "react"
 import Field from "./field"
 import FieldSplitter from "./field-splitter"
 
-const Contact = ({ formik, summarize = false }) => {
+const Contact = ({ formik }) => {
   return (
     <Box as="form">
-      <Text
-        as="h2"
+      <Heading
+        as="h3"
         sx={{
           mb: "8px",
         }}
-        variant="subheading"
+        color="secondary"
       >
         Contact
-      </Text>
+      </Heading>
       <FieldSplitter
         split="50/50"
         left={

@@ -1,18 +1,15 @@
-import { Box, Button, Divider, Text } from "@theme-ui/components"
+import { Box, Button, Divider, Heading, Spinner } from "@theme-ui/components"
 import { useFormik } from "formik"
-import { useCart } from "medusa-react"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import * as Yup from "yup"
+import { useRouter } from "next/router"
 import Contact from "./contact"
 import Delivery from "./delivery"
+import { client } from "../../../utils/client"
 
-const Forms = ({ country, region, nextStep, setLoading }) => {
-  const { updateCart, addShippingMethod, cart } = useCart()
-
-  const [isValid, setIsValid] = useState({
-    contact: false,
-    delivery: false,
-  })
+const Forms = ({ country, region }) => {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -22,17 +19,17 @@ const Forms = ({ country, region, nextStep, setLoading }) => {
   const formik = useFormik({
     initialValues: {
       contact: {
-        first_name: cart?.shipping_address?.first_name || "",
-        last_name: cart?.shipping_address?.last_name || "",
-        email: cart?.email || "",
-        phone: cart?.shipping_address?.phone || "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
       },
       delivery: {
-        address_1: cart?.shipping_address?.address_1 || "",
-        postal_code: cart?.shipping_address?.postal_code || "",
-        city: cart?.shipping_address?.city || "",
-        country_code: cart?.shipping_address?.country_code || "",
-        shipping_option: cart?.shipping_methods?.[0]?.shipping_option_id || "",
+        address_1: "",
+        postal_code: "",
+        city: "",
+        country_code: "",
+        shipping_option: "",
       },
     },
     validationSchema: Yup.object({
@@ -54,12 +51,12 @@ const Forms = ({ country, region, nextStep, setLoading }) => {
     }),
     onSubmit: async values => {
       setLoading(true)
-      setIsValid({ delivery: true, contact: true })
 
       const { delivery, contact } = values
+      const cartId = localStorage.getItem("cart_id")
 
-      return updateCart
-        .mutateAsync({
+      return client.carts
+        .update(cartId, {
           email: contact.email,
           shipping_address: {
             first_name: contact.first_name,
@@ -67,28 +64,77 @@ const Forms = ({ country, region, nextStep, setLoading }) => {
             address_1: delivery.address_1,
             country_code: delivery.country_code,
             postal_code: delivery.postal_code,
-            province: delivery.province,
             city: delivery.city,
             phone: contact.phone,
           },
         })
         .then(() => {
-          return addShippingMethod.mutateAsync({
+          return client.carts.addShippingMethod(cartId, {
             option_id: delivery.shipping_option,
           })
         })
         .finally(() => {
           setLoading(false)
-          nextStep()
+          router.push("/payment")
         })
     },
   })
 
-  return (
-    <Box>
-      <Text variant="header3">Shipping and info</Text>
+  useEffect(() => {
+    const getCart = async () => {
+      setLoading(true)
+
+      const cartId = localStorage.getItem("cart_id")
+      let res
+
+      if (cartId) res = await client.carts.retrieve(cartId)
+      else res = await client.carts.create()
+
+      const { customer } = await client.customers.retrieve()
+      const { cart } = res
+
+      formik.setValues({
+        contact: {
+          first_name:
+            cart?.shipping_address?.first_name || customer.first_name || "",
+          last_name:
+            cart?.shipping_address?.last_name || customer.last_name || "",
+          email: cart?.email || customer.email || "",
+          phone: cart.shipping_address?.phone || customer.phone || "",
+        },
+        delivery: {
+          address_1: cart?.shipping_address?.address_1 || "",
+          postal_code: cart?.shipping_address?.postal_code || "",
+          city: cart?.shipping_address?.city || "",
+          country_code: cart?.shipping_address?.country_code || "",
+          shipping_option:
+            cart?.shipping_methods?.[0]?.shipping_option_id || "",
+        },
+      })
+
+      setLoading(false)
+    }
+
+    getCart()
+  }, [])
+
+  return loading ? (
+    <Spinner
+      sx={{
+        margin: "auto",
+        width: 100,
+        height: 100,
+        color: "brand",
+        display: "block",
+      }}
+    />
+  ) : (
+    <Box sx={{ my: 4 }}>
+      <Heading sx={{ textAlign: "center", color: "brand" }}>
+        Shipping and info
+      </Heading>
       <Box mb={4} sx={{ mb: 4, mt: "16px" }}>
-        <Contact formik={formik} summarize={false} setIsValid={setIsValid} />
+        <Contact formik={formik} />
       </Box>
 
       <Box pt={1}>
@@ -96,28 +142,24 @@ const Forms = ({ country, region, nextStep, setLoading }) => {
           region={region}
           country={country}
           formik={formik}
-          isValid={isValid}
-          summarize={false}
-          setIsValid={setIsValid}
           setLoading={setLoading}
         />
       </Box>
 
       <Box>
-        <>
-          <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-          <Button
-            onClick={handleSubmit}
-            variant="cta"
-            sx={{
-              color: "secondary",
-              backgroundColor: "brand",
-              fontWeight: 600,
-            }}
-          >
-            Go to payment
-          </Button>
-        </>
+        <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
+        <Button
+          onClick={handleSubmit}
+          variant="cta"
+          sx={{
+            color: "white",
+            backgroundColor: "brand",
+            margin: "auto",
+            display: "block",
+          }}
+        >
+          Get shipping methods
+        </Button>
       </Box>
     </Box>
   )

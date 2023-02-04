@@ -135,7 +135,7 @@ export async function getStaticProps({ params: { handle } }) {
   })
   const { regions } = await client.regions.list()
 
-  const region = regions.find(region => region.name === "Africa")
+  const region = regions.find(region => region.name === "Afrika")
 
   return { props: { products, region, collection: collections[0].title } }
 }

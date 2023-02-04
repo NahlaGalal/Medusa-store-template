@@ -96,6 +96,7 @@ const Navbar = () => {
                 gap: 2,
                 borderRadius: 4,
                 top: 24,
+                width: "max-content"
               }}
               onClick={e => e.stopPropagation()}
             >

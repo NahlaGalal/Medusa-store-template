@@ -1,11 +1,12 @@
 // @ts-check
 
 import Head from "next/head"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { useRouter } from "next/router"
 import { formatVariantPrice } from "medusa-react"
 import { client } from "../utils/client"
 import { Container, Flex, Grid, Heading, Text, Image, Button } from "theme-ui"
+import { PublicContext } from "../context/publicContext"
 
 const ProductPage = ({ product, region }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -16,6 +17,7 @@ const ProductPage = ({ product, region }) => {
   })
   const [currentSection, setCurrentSection] = useState("description")
   const router = useRouter()
+  const { setLoading } = useContext(PublicContext)
 
   const renderOptionsValues = () => {
     const activeOptionObj = product.options.find(opt => opt.id === activeOption)
@@ -59,6 +61,7 @@ const ProductPage = ({ product, region }) => {
   const addToCartHandler = async () => {
     const id = localStorage.getItem("cart_id")
     let res
+    setLoading(true)
 
     if (id) {
       res = await client.carts.retrieve(id)
@@ -76,6 +79,7 @@ const ProductPage = ({ product, region }) => {
       await client.carts.lineItems.create(cart_id, { variant_id, quantity: 1 })
       router.push("/cart")
     }
+    setLoading(false)
   }
 
   return (

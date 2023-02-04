@@ -8,11 +8,17 @@ const Layout = ({ children }) => {
 
   return (
     <Flex
-      sx={{ flexDirection: "column" }}
+      sx={{ flexDirection: "column", minHeight: "100vh" }}
       onClick={() => setIsDropdownOpen(false)}
     >
       <Navbar />
-      {loading ? <Spinner /> : children}
+      {loading ? (
+        <Spinner
+          sx={{ margin: "auto", width: 100, height: 100, color: "brand" }}
+        />
+      ) : (
+        children
+      )}
     </Flex>
   )
 }

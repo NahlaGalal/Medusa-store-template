@@ -7,6 +7,7 @@ import {
   Grid,
   Image,
   Link,
+  Spinner,
   Text,
 } from "theme-ui"
 import NextLink from "next/link"
@@ -14,19 +15,21 @@ import { client } from "../utils/client"
 
 const Cart = ({ collections }) => {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const getCartItems = async () => {
       const cartId = localStorage.getItem("cart_id")
       let res
-
+      // console.log(cartId)
+      setLoading(true)
       if (cartId) res = await client.carts.retrieve(cartId)
       else res = await client.carts.create()
 
       const cart = res.cart
       localStorage.setItem("cart_id", cart.id)
       setProducts(cart.items)
-      console.log(cart.items)
+      setLoading(false)
     }
 
     getCartItems()
@@ -36,11 +39,13 @@ const Cart = ({ collections }) => {
     return collections.find(collection => collection.id === collectioId).title
   }
 
-  return (
+  return loading ? (
+    <Spinner sx={{ margin: "auto", width: 100, height: 100, color: "brand" }} />
+  ) : (
     <Container variant="layout.container">
       <Grid gap={24} my={4}>
         {products.map(product => (
-          <Card variant="container" sx={{ width: "100%" }}>
+          <Card variant="container" sx={{ width: "100%" }} key={product.id}>
             <Flex variant="layout.stepContainer" sx={{ gap: 3 }}>
               <Image
                 sx={{

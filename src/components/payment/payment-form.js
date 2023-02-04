@@ -1,12 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { Box, Button, Flex, Text } from "@theme-ui/components"
-import { useCart } from "medusa-react"
 import React, { useState } from "react"
 
-const PaymentForm = ({ session, handleSubmit, setLoading }) => {
+const PaymentForm = ({ session, handleSubmit, setLoading, cart }) => {
   const [errorMessage, setErrorMessage] = useState()
-
-  const { cart } = useCart()
   const stripe = useStripe()
   const elements = useElements()
 

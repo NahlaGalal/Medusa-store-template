@@ -22,8 +22,8 @@ const Total = ({ cart }) => {
           mb: "8px",
         }}
       >
-        <Text sx={{ color: "#6B7280", fontSize: "12px" }}>Subtotal</Text>
-        <Text sx={{ fontWeight: 400, color: "#111827", fontSize: "12px" }}>
+        <Text sx={{ color: "darkGrey", fontSize: "12px" }}>Subtotal</Text>
+        <Text sx={{ fontWeight: 400, color: "darkBlack", fontSize: "12px" }}>
           {formatAmount({ amount: cart.subtotal, region: cart.region })}
         </Text>
       </Flex>
@@ -35,8 +35,8 @@ const Total = ({ cart }) => {
           mb: "8px",
         }}
       >
-        <Text sx={{ color: "#6B7280", fontSize: "12px" }}>Shipping</Text>
-        <Text sx={{ fontWeight: 400, color: "#111827", fontSize: "12px" }}>
+        <Text sx={{ color: "darkGrey", fontSize: "12px" }}>Shipping</Text>
+        <Text sx={{ fontWeight: 400, color: "darkBlack", fontSize: "12px" }}>
           {formatAmount({ amount: cart.shipping_total, region: cart.region })}
         </Text>
       </Flex>
@@ -47,10 +47,10 @@ const Total = ({ cart }) => {
           justifyContent: "space-between",
         }}
       >
-        <Text sx={{ fontWeight: 500, color: "#111827", fontSize: "12px" }}>
+        <Text sx={{ fontWeight: 500, color: "darkGrey", fontSize: "12px" }}>
           Total
         </Text>
-        <Text sx={{ fontWeight: 500, color: "#111827", fontSize: "12px" }}>
+        <Text sx={{ fontWeight: 500, color: "darkBlack", fontSize: "12px" }}>
           {formatAmount({ amount: cart.total, region: cart.region })}
         </Text>
       </Flex>

@@ -5,7 +5,16 @@ import React, { useContext, useState } from "react"
 import { useRouter } from "next/router"
 import { formatVariantPrice } from "medusa-react"
 import { client } from "../utils/client"
-import { Container, Flex, Grid, Heading, Text, Image, Button } from "theme-ui"
+import {
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+  Image,
+  Button,
+  Link,
+} from "theme-ui"
 import { PublicContext } from "../context/publicContext"
 
 const ProductPage = ({ product, region }) => {
@@ -132,6 +141,21 @@ const ProductPage = ({ product, region }) => {
                 <Heading color="brand" mb={2}>
                   {product.title}
                 </Heading>
+
+                {/* Tags */}
+                <Flex sx={{ gap: "4px", mb: 2 }}>
+                  {product.tags.map(tag => (
+                    <Link
+                      key={tag.id}
+                      variant="buttons.tags"
+                      href={`tags/${tag.id}`}
+                    >
+                      {tag.value}
+                    </Link>
+                  ))}
+                </Flex>
+
+                {/* Collection name */}
                 <Text as="p">{product?.collection?.title}</Text>
 
                 {/* Choose a variant */}

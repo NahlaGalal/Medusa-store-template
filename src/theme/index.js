@@ -104,6 +104,14 @@ const theme = {
       textDecoration: "underline",
       padding: "0",
     },
+    tags: {
+      bg: "lightGrey",
+      color: "brand",
+      padding: "4px 8px",
+      borderRadius: "6px",
+      fontSize: "14px",
+      textDecoration: "none"
+    },
   },
   box: {
     paymentField: {

@@ -3,11 +3,12 @@
 import Head from "next/head"
 import React, { useState } from "react"
 import { useRouter } from "next/router"
+import {formatVariantPrice} from "medusa-react"
 import Layout from "../components/layout/layout"
 import { client } from "../utils/client"
 import { Container, Flex, Grid, Heading, Text, Image, Button } from "theme-ui"
 
-const ProductPage = ({ product }) => {
+const ProductPage = ({ product, region }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
   const [activeOptionVal, setActiveOptionVal] = useState({})
   const [currentImg, setCurrentImg] = useState({
@@ -182,7 +183,10 @@ const ProductPage = ({ product }) => {
                       color="secondary"
                       sx={{ fontSize: 20, fontWeight: 700 }}
                     >
-                      {product.variants[0].prices[0].amount} L.E.
+                      {`${formatVariantPrice({
+                        variant: product.variants[0],
+                        region,
+                      })}`}
                     </Text>
                   </Flex>
                 </Flex>
@@ -260,12 +264,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await client.products.list({ handle: params.handle })
+  const { regions } = await client.regions.list()
 
+  const region = regions.find(region => region.name === "Afrika")
+  
   // handles are unique, so we'll always only be fetching a single product
   const [product] = response.products
 
   // Pass post data to the page via props
-  return { props: { product } }
+  return { props: { product, region } }
 }
 
 export default ProductPage

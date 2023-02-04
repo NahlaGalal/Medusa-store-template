@@ -1,20 +1,18 @@
-import { Flex } from "@theme-ui/components"
+import { Flex, Spinner } from "@theme-ui/components"
 import React, { useContext } from "react"
-import { CollectionContext } from "../../context/collectionContext"
+import { PublicContext } from "../../context/publicContext"
 import Navbar from "./Navbar"
 
 const Layout = ({ children }) => {
-  const { setIsDropdownOpen } = useContext(CollectionContext)
+  const { setIsDropdownOpen, loading } = useContext(PublicContext)
 
   return (
     <Flex
-      sx={{
-        flexDirection: "column",
-      }}
+      sx={{ flexDirection: "column" }}
       onClick={() => setIsDropdownOpen(false)}
     >
       <Navbar />
-      {children}
+      {loading ? <Spinner /> : children}
     </Flex>
   )
 }

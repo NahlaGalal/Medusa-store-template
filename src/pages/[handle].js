@@ -3,8 +3,7 @@
 import Head from "next/head"
 import React, { useState } from "react"
 import { useRouter } from "next/router"
-import {formatVariantPrice} from "medusa-react"
-import Layout from "../components/layout/layout"
+import { formatVariantPrice } from "medusa-react"
 import { client } from "../utils/client"
 import { Container, Flex, Grid, Heading, Text, Image, Button } from "theme-ui"
 
@@ -66,14 +65,14 @@ const ProductPage = ({ product, region }) => {
     } else {
       res = await client.carts.create()
     }
-    
+
     const {
       cart: { id: cart_id },
     } = res
 
     localStorage.setItem("cart_id", cart_id)
     const variant_id = getVariantId()
-    if(variant_id) {
+    if (variant_id) {
       await client.carts.lineItems.create(cart_id, { variant_id, quantity: 1 })
       router.push("/cart")
     }
@@ -81,171 +80,169 @@ const ProductPage = ({ product, region }) => {
 
   return (
     <>
-      <Layout>
-        <Head>
-          <title>{product.title}</title>
-          <meta name="description" content={product?.description || ""} />
-        </Head>
-        <Flex sx={{ height: "calc(100vh - 60px)", flexDirection: "column" }}>
-          <Grid py={4}>
-            <Container className="layout.container">
-              <Grid as="section" columns={[1, 2, 2]}>
-                <Flex sx={{ flexDirection: "column" }}>
-                  {/* Product thumbnail */}
-                  <Image
-                    src={currentImg.url}
-                    alt="Product media"
-                    sx={{ maxHeight: "200px", objectFit: "contain" }}
-                  />
+      <Head>
+        <title>{product.title}</title>
+        <meta name="description" content={product?.description || ""} />
+      </Head>
+      <Flex sx={{ height: "calc(100vh - 60px)", flexDirection: "column" }}>
+        <Grid py={4}>
+          <Container className="layout.container">
+            <Grid as="section" columns={[1, 2, 2]}>
+              <Flex sx={{ flexDirection: "column" }}>
+                {/* Product thumbnail */}
+                <Image
+                  src={currentImg.url}
+                  alt="Product media"
+                  sx={{ maxHeight: "200px", objectFit: "contain" }}
+                />
 
-                  {/* Product images */}
-                  <Flex my={2} sx={{ gap: 3 }}>
-                    {[
-                      { url: product.thumbnail, id: "thumbnail" },
-                      ...product.images,
-                    ].map(({ id, url }) => (
-                      <Image
-                        key={id}
-                        src={url}
-                        alt="Product media"
-                        sx={{
-                          border: "1px solid",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                          transition: "all 0.4s ease-in-out",
-                          maxHeight: "80px",
-                          width: "80px",
-                          objectFit: "contain",
-                          borderColor:
-                            currentImg.id === id ? "secondary" : "brand",
-                        }}
-                        onClick={() => setCurrentImg({ id, url })}
-                      />
-                    ))}
-                  </Flex>
+                {/* Product images */}
+                <Flex my={2} sx={{ gap: 3 }}>
+                  {[
+                    { url: product.thumbnail, id: "thumbnail" },
+                    ...product.images,
+                  ].map(({ id, url }) => (
+                    <Image
+                      key={id}
+                      src={url}
+                      alt="Product media"
+                      sx={{
+                        border: "1px solid",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        transition: "all 0.4s ease-in-out",
+                        maxHeight: "80px",
+                        width: "80px",
+                        objectFit: "contain",
+                        borderColor:
+                          currentImg.id === id ? "secondary" : "brand",
+                      }}
+                      onClick={() => setCurrentImg({ id, url })}
+                    />
+                  ))}
                 </Flex>
+              </Flex>
 
-                <Flex sx={{ flexDirection: "column" }}>
-                  {/* Product title and collection */}
-                  <Heading color="brand" mb={2}>
-                    {product.title}
-                  </Heading>
-                  <Text as="p">{product?.collection?.title}</Text>
+              <Flex sx={{ flexDirection: "column" }}>
+                {/* Product title and collection */}
+                <Heading color="brand" mb={2}>
+                  {product.title}
+                </Heading>
+                <Text as="p">{product?.collection?.title}</Text>
 
-                  {/* Choose a variant */}
-                  <Flex my={2} sx={{ flexWrap: "wrap" }}>
-                    {product.options.map((option, i) => (
-                      <Button
-                        variant="buttons.cta"
-                        key={option.id}
-                        className={`${
-                          option.id === activeOption ? "active" : ""
-                        }`}
-                        onClick={() => setActiveOption(option.id)}
-                        sx={{
-                          borderRadius: !i
-                            ? "4px 0 0 4px"
-                            : i + 1 === product.options.length
-                            ? "0 4px 4px 0"
-                            : 0,
-                          width: `calc(100% / ${product.options.length})`,
-                        }}
-                      >
-                        {option.title}
-                      </Button>
-                    ))}
-                  </Flex>
-
-                  {/* Variant options */}
-                  <Flex sx={{ flexWrap: "wrap", gap: 2, mb: 3 }}>
-                    {renderOptionsValues()}
-                  </Flex>
-
-                  {/* Add to cart button and price */}
-                  <Flex
-                    sx={{
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                      gap: 3,
-                      mt: "auto",
-                    }}
-                  >
+                {/* Choose a variant */}
+                <Flex my={2} sx={{ flexWrap: "wrap" }}>
+                  {product.options.map((option, i) => (
                     <Button
-                      variant="buttons.incrementor"
-                      sx={{ borderRadius: "20px", gap: 3 }}
-                      onClick={addToCartHandler}
+                      variant="buttons.cta"
+                      key={option.id}
+                      className={`${
+                        option.id === activeOption ? "active" : ""
+                      }`}
+                      onClick={() => setActiveOption(option.id)}
+                      sx={{
+                        borderRadius: !i
+                          ? "4px 0 0 4px"
+                          : i + 1 === product.options.length
+                          ? "0 4px 4px 0"
+                          : 0,
+                        width: `calc(100% / ${product.options.length})`,
+                      }}
                     >
-                      Add to Cart
+                      {option.title}
                     </Button>
-
-                    <Text
-                      as="p"
-                      color="secondary"
-                      sx={{ fontSize: 20, fontWeight: 700 }}
-                    >
-                      {`${formatVariantPrice({
-                        variant: product.variants[0],
-                        region,
-                      })}`}
-                    </Text>
-                  </Flex>
+                  ))}
                 </Flex>
-              </Grid>
-            </Container>
-          </Grid>
 
+                {/* Variant options */}
+                <Flex sx={{ flexWrap: "wrap", gap: 2, mb: 3 }}>
+                  {renderOptionsValues()}
+                </Flex>
+
+                {/* Add to cart button and price */}
+                <Flex
+                  sx={{
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: 3,
+                    mt: "auto",
+                  }}
+                >
+                  <Button
+                    variant="buttons.incrementor"
+                    sx={{ borderRadius: "20px", gap: 3 }}
+                    onClick={addToCartHandler}
+                  >
+                    Add to Cart
+                  </Button>
+
+                  <Text
+                    as="p"
+                    color="secondary"
+                    sx={{ fontSize: 20, fontWeight: 700 }}
+                  >
+                    {`${formatVariantPrice({
+                      variant: product.variants[0],
+                      region,
+                    })}`}
+                  </Text>
+                </Flex>
+              </Flex>
+            </Grid>
+          </Container>
+        </Grid>
+
+        <Flex
+          backgroundColor="lightGrey"
+          sx={{ height: "100%", flexDirection: "column", gap: 3 }}
+        >
           <Flex
-            backgroundColor="lightGrey"
-            sx={{ height: "100%", flexDirection: "column", gap: 3 }}
+            as="header"
+            sx={{
+              gap: 3,
+              borderBottom: "1px solid",
+              borderBottomColor: "darkGrey",
+            }}
           >
-            <Flex
-              as="header"
-              sx={{
-                gap: 3,
-                borderBottom: "1px solid",
-                borderBottomColor: "darkGrey",
-              }}
-            >
-              <Container className="layout.container">
-                <Button
-                  onClick={() => setCurrentSection("description")}
-                  variant="buttons.decrementor"
-                  sx={{
-                    height: "auto",
-                    py: "20px",
-                    borderBottomColor: "secondary",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: currentSection === "description" ? 1 : 0,
-                  }}
-                >
-                  Description
-                </Button>
-                <Button
-                  onClick={() => setCurrentSection("reviews")}
-                  variant="buttons.decrementor"
-                  sx={{
-                    height: "auto",
-                    py: "20px",
-                    borderBottomColor: "secondary",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: currentSection === "reviews" ? 1 : 0,
-                  }}
-                >
-                  Reviews
-                </Button>
-              </Container>
-            </Flex>
-
-            <Container className="layout.container" pb={3}>
-              {currentSection === "description" ? (
-                <Text as="p">{product.description}</Text>
-              ) : currentSection === "reviews" ? (
-                <></>
-              ) : undefined}
+            <Container className="layout.container">
+              <Button
+                onClick={() => setCurrentSection("description")}
+                variant="buttons.decrementor"
+                sx={{
+                  height: "auto",
+                  py: "20px",
+                  borderBottomColor: "secondary",
+                  borderBottomStyle: "solid",
+                  borderBottomWidth: currentSection === "description" ? 1 : 0,
+                }}
+              >
+                Description
+              </Button>
+              <Button
+                onClick={() => setCurrentSection("reviews")}
+                variant="buttons.decrementor"
+                sx={{
+                  height: "auto",
+                  py: "20px",
+                  borderBottomColor: "secondary",
+                  borderBottomStyle: "solid",
+                  borderBottomWidth: currentSection === "reviews" ? 1 : 0,
+                }}
+              >
+                Reviews
+              </Button>
             </Container>
           </Flex>
+
+          <Container className="layout.container" pb={3}>
+            {currentSection === "description" ? (
+              <Text as="p">{product.description}</Text>
+            ) : currentSection === "reviews" ? (
+              <></>
+            ) : undefined}
+          </Container>
         </Flex>
-      </Layout>
+      </Flex>
     </>
   )
 }
@@ -267,7 +264,7 @@ export async function getStaticProps({ params }) {
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
-  
+
   // handles are unique, so we'll always only be fetching a single product
   const [product] = response.products
 

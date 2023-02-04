@@ -4,11 +4,11 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { client } from "../../utils/client"
 import { Button, Flex, Link, NavLink } from "theme-ui"
-import { CollectionContext } from "../../context/collectionContext"
+import { PublicContext } from "../../context/publicContext"
 
 const Navbar = () => {
-  const { setIsDropdownOpen, isDropdownOpen } = useContext(CollectionContext)
-  const [isRegistered, setIsRegistered] = useState(false)
+  const { setIsDropdownOpen, isDropdownOpen, isRegistered, setIsRegistered } =
+    useContext(PublicContext)
   const [collection, setCollection] = useState([])
   const route = useRouter()
 
@@ -27,6 +27,7 @@ const Navbar = () => {
     if (res.response.status === 200) {
       localStorage.removeItem("id")
       route.push("/login")
+      setIsRegistered(false)
     }
   }
 
@@ -38,7 +39,7 @@ const Navbar = () => {
         color: "brand",
         py: 10,
         px: "5%",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)"
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)",
       }}
     >
       <NextLink href="/" passHref>
@@ -96,7 +97,7 @@ const Navbar = () => {
                 gap: 2,
                 borderRadius: 4,
                 top: 24,
-                width: "max-content"
+                width: "max-content",
               }}
               onClick={e => e.stopPropagation()}
             >

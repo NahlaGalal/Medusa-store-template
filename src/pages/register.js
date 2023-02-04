@@ -1,20 +1,19 @@
 // @ts-check
 
 import { useFormik } from "formik"
-import React, { useState } from "react"
+import React, { useContext } from "react"
 import { Box, Button, Container, Divider, Flex, Link } from "theme-ui"
 import { useCreateCustomer } from "medusa-react"
 import { useRouter } from "next/router"
 import NextLink from "next/link"
 import * as Yup from "yup"
-import Layout from "../components/layout/layout"
 import Register from "../components/shipping/forms/register"
-import Spinner from "../components/spinner/spinner"
+import { PublicContext } from "../context/publicContext"
 
 const RegisterPage = () => {
-  const [loading, setLoading] = useState(false)
   const createCustomer = useCreateCustomer()
   const router = useRouter()
+  const { setLoading } = useContext(PublicContext)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -50,36 +49,33 @@ const RegisterPage = () => {
   })
 
   return (
-    <Layout>
-      <Container sx={{ maxWidth: "80%", mt: 40 }}>
-        {loading && <Spinner />}
-        <Register formik={formik} />
+    <Container sx={{ maxWidth: "80%", mt: 40 }}>
+      <Register formik={formik} />
 
-        <Box>
-          <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-          <Flex
-            sx={{
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
+      <Box>
+        <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
+        <Flex
+          sx={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          <Button
+            onClick={handleSubmit}
+            color="darkBlack"
+            backgroundColor={"brand"}
+            sx={{ cursor: "pointer" }}
           >
-            <Button
-              onClick={handleSubmit}
-              color="darkBlack"
-              backgroundColor={"brand"}
-              sx={{ cursor: "pointer" }}
-            >
-              Register
-            </Button>
+            Register
+          </Button>
 
-            <NextLink href={"/login"} passHref>
-              <Link sx={{ color: "secondary" }}>Login instead?</Link>
-            </NextLink>
-          </Flex>
-        </Box>
-      </Container>
-    </Layout>
+          <NextLink href={"/login"} passHref>
+            <Link sx={{ color: "secondary" }}>Login instead?</Link>
+          </NextLink>
+        </Flex>
+      </Box>
+    </Container>
   )
 }
 

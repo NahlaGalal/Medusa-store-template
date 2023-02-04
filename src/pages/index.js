@@ -1,7 +1,6 @@
 import Head from "next/head"
 import { useRouter } from "next/router"
 import * as React from "react"
-import Layout from "../components/layout/layout"
 import { client } from "../utils/client"
 
 const IndexPage = ({ product }) => {
@@ -13,9 +12,6 @@ const IndexPage = ({ product }) => {
         <title>Princess Jwellery</title>
         <meta name="description" content="One-page checkout" />
       </Head>
-      <Layout>
-        
-      </Layout>
     </main>
   )
 }

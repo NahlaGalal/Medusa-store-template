@@ -7,7 +7,7 @@ import { ThemeProvider } from "theme-ui"
 import { ProductProvider } from "../context/product-context"
 import { PublicProvider } from "../context/publicContext"
 import theme from "../theme"
-import Layout from "../components/layout/layout"
+import Layout from "../components/layout"
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000"

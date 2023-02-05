@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { Card, Container, Grid, Link, Spinner, Text } from "theme-ui"
+import React, { useContext, useEffect, useState } from "react"
+import { Card, Container, Grid, Link, Text } from "theme-ui"
 import Head from "next/head"
 import { client } from "../utils/client"
 import CartItem from "../components/Cart/CartItem"
+import { PublicContext } from "../context/publicContext"
 
 const Cart = ({ collections }) => {
   const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const { setLoading } = useContext(PublicContext)
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -49,60 +50,54 @@ const Cart = ({ collections }) => {
       <Head>
         <title>My Cart</title>
       </Head>
-      {loading ? (
-        <Spinner
-          sx={{ margin: "auto", width: 100, height: 100, color: "brand" }}
-        />
-      ) : (
-        <Container variant="layout.container">
-          {products.length ? (
-            <>
-              <Grid gap={24} my={4}>
-                {products.map(product => (
-                  <Card
-                    variant="container"
-                    sx={{ width: "100%" }}
-                    key={product.id}
-                  >
-                    <CartItem
-                      product={product}
-                      getCollectionName={getCollectionName}
-                      deleteItem={deleteItem}
-                    />
-                  </Card>
-                ))}
-              </Grid>
+      <Container variant="layout.container">
+        {products.length ? (
+          <>
+            <Grid gap={24} my={4}>
+              {products.map(product => (
+                <Card
+                  variant="container"
+                  sx={{ width: "100%" }}
+                  key={product.id}
+                >
+                  <CartItem
+                    product={product}
+                    getCollectionName={getCollectionName}
+                    deleteItem={deleteItem}
+                  />
+                </Card>
+              ))}
+            </Grid>
 
-              <Link
-                variant="buttons.cta"
-                sx={{
-                  mx: "auto",
-                  mb: 4,
-                  display: "block",
-                  width: "max-content",
-                  padding: "8px 16px",
-                }}
-                href="/shipping"
-              >
-                Proceed to Buy
-              </Link>
-            </>
-          ) : (
-            <Text
+            <Link
+              variant="buttons.cta"
               sx={{
-                color: "secondary",
-                fontWeight: 500,
-                fontSize: 20,
-                textAlign: "center",
-                my: 5
+                mx: "auto",
+                mb: 4,
+                display: "block",
+                width: "max-content",
+                padding: "8px 16px",
               }}
-              as="p"
+              href="/shipping"
             >
-              No products in the cart yet
-            </Text>
-          )}
-        </Container>
-      )}
+              Proceed to Buy
+            </Link>
+          </>
+        ) : (
+          <Text
+            sx={{
+              color: "secondary",
+              fontWeight: 500,
+              fontSize: 20,
+              textAlign: "center",
+              my: 5,
+            }}
+            as="p"
+          >
+            No products in the cart yet
+          </Text>
+        )}
+      </Container>
     </>
   )
 }

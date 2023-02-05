@@ -13,7 +13,7 @@ const Collections = ({ products, region, collection }) => {
       {products.length ? (
         <Grid columns={[1, 2, 3]} gap={24} my={4}>
           {products.map(product => (
-            <Product product={product} region={region} />
+            <Product product={product} region={region} key={product.id} />
           ))}
         </Grid>
       ) : (

@@ -9,7 +9,7 @@ const Shop = ({ products, region }) => {
     <Container variant="layout.container">
       <Grid columns={[1, 2, 3]} gap={24} my={4}>
         {products.map(product => (
-          <Product product={product} region={region} />
+          <Product product={product} region={region} key={product.id} />
         ))}
       </Grid>
     </Container>

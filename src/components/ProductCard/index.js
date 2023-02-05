@@ -1,56 +1,85 @@
 // @ts-check
 
-import { Card, Flex } from "@theme-ui/components"
-import { useCart } from "medusa-react"
-import React, { useState } from "react"
-import ProductSelection from "../product-selection"
-import Spinner from "../spinner/spinner"
+import React from "react"
+import { Card, Flex, Image, Text, Link } from "@theme-ui/components"
+import { formatVariantPrice } from "medusa-react"
+import NextLink from "next/link"
 
-const Product = ({ region, country, product }) => {
-  const [loading, setLoading] = useState(false)
-  const { cart } = useCart()
-
-  let triggerStyles = {}
-
-  if (cart?.id) {
-    triggerStyles.color = "darkgrey"
-    triggerStyles.cursor = "pointer"
-  }
-
+const Product = ({ region, product }) => {
   return (
-    <Flex variant="layout.stepContainer" sx={{ position: "relative" }}>
-      {loading && (
-        <Flex
-          sx={{
-            position: "absolute",
-            bg: "#ffffff",
-            opacity: 0.8,
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Spinner />
-        </Flex>
-      )}
+    <Flex
+      variant="layout.stepContainer"
+      key={product.id}
+      sx={{ justifyContent: "center" }}
+    >
       <Card variant="container">
-        <ProductSelection
-          region={region}
-          country={country.iso_2}
-          product={product}
-          setLoading={setLoading}
-          nextStep={() => {}}
-        />
+        <Flex sx={{ flexDirection: "column", mt: 16 }}>
+          <Image
+            sx={{
+              width: "100%",
+              borderRadius: "4px",
+              objectFit: "contain",
+            }}
+            src={product.thumbnail}
+            alt={product.title}
+          />
+          <Flex sx={{ flexDirection: "column", gap: 2 }}>
+            <Text
+              sx={{
+                fontSize: "12px",
+                fontWeight: 300,
+                color: "#6B7280",
+              }}
+            >
+              {product.collection.title}
+            </Text>
+            <Text
+              sx={{
+                fontSize: "20px",
+                fontWeight: 600,
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              <NextLink href={`/${product.handle}`} passHref>
+                <Link color="brand" sx={{ textDecoration: "none" }}>
+                  {product.title}
+                </Link>
+              </NextLink>
+            </Text>
+            <Text
+              sx={{
+                fontSize: "14px",
+                fontWeight: 300,
+                mb: "1em",
+              }}
+            >
+              {`${formatVariantPrice({
+                variant: product.variants[0],
+                region,
+              })}`}
+            </Text>
+          </Flex>
+        </Flex>
+        <Text
+          sx={{
+            mt: "16px",
+            lineHeight: "24px",
+            fontSize: "14px",
+            fontWeight: 300,
+            color: "#6B7280",
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          variant="fz_s"
+        >
+          {product.description}
+        </Text>
       </Card>
-      {/* <Card variant="accordionTrigger" sx={{ ...triggerStyles }}>
-        Product
-        {cart?.id && (
-          <Image src={"/check.png"} height={"11px"} width={"16px"} />
-        )}
-      </Card> */}
     </Flex>
   )
 }

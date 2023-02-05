@@ -88,7 +88,18 @@ const Cart = ({ collections }) => {
               </Link>
             </>
           ) : (
-            <Text sx={{ color: "secondary" }}>No products in the cart yet</Text>
+            <Text
+              sx={{
+                color: "secondary",
+                fontWeight: 500,
+                fontSize: 20,
+                textAlign: "center",
+                my: 5
+              }}
+              as="p"
+            >
+              No products in the cart yet
+            </Text>
           )}
         </Container>
       )}

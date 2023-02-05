@@ -30,7 +30,7 @@ const Field = ({ formik, value, name, set, placeholder, disabled, type }) => {
         onChange={formik.handleChange}
         placeholder={placeholder}
         sx={{
-          borderColor: error ? "salmon" : "#E5E7EB;",
+          borderColor: error ? "secondary" : "darkGrey",
           fontSize: "14px",
           fontWeight: 300,
         }}

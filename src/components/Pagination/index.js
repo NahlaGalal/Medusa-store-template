@@ -1,5 +1,5 @@
 // @ts-check
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Flex, Button } from "theme-ui"
 import { PublicContext } from "../../context/publicContext"
 import { client } from "../../utils/client"
@@ -10,6 +10,11 @@ const Pagination = ({ setPageProducts, offset, count, limit }) => {
   const [activePage, setActivePage] = useState(offset / LIMIT)
   const [numPages, setNumPages] = useState(Math.ceil(count / limit))
   const { setLoading } = useContext(PublicContext)
+
+  useEffect(() => {
+    setActivePage(offset / LIMIT)
+    setNumPages(Math.ceil(count / limit))
+  }, [count, limit, offset])
 
   const getProductsPage = async pageNum => {
     setLoading(true)

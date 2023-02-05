@@ -49,19 +49,7 @@ const Collections = ({ products, region, collection, count, limit, offset }) => 
   )
 }
 
-export async function getStaticPaths() {
-  const { collections } = await client.collections.list()
-
-  const paths = collections
-    .map(({ handle }) => ({
-      params: { handle },
-    }))
-    .filter(p => !!p.params.handle)
-
-  return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params: { handle } }) {
+export async function getServerSideProps({ params: { handle } }) {
   const { collections } = await client.collections.list({ handle: [handle] })
   const { products, count, limit, offset } = await client.products.list({
     collection_id: [collections[0].id],

@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react"
 
 export const PublicContext = createContext({
   isDropdownOpen: false,
-  setIsDropdownOpen: () => {},
+  setIsDropdownOpen: _ => {},
   loading: false,
   setLoading: _ => {},
   isRegistered: false,
@@ -37,7 +37,7 @@ export const PublicProvider = ({ children, Router }) => {
         loading,
         setLoading,
         isRegistered,
-        setIsRegistered
+        setIsRegistered,
       }}
     >
       {children}

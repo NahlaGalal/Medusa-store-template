@@ -1,15 +1,27 @@
-import React from "react"
-import OuterLayout from "./layout"
+// @ts-check
+import React, { useContext } from "react"
+import { Box, Flex, Spinner } from "@theme-ui/components"
+import { PublicContext } from "../../context/publicContext"
+import Navbar from "./Navbar"
 
-const Layout = ({ children, regions, country, handleRegionChange }) => {
+const Layout = ({ children }) => {
+  const { setIsDropdownOpen, loading } = useContext(PublicContext)
+
   return (
-    <OuterLayout
-      regions={regions}
-      country={country}
-      handleRegionChange={handleRegionChange}
+    <Flex
+      sx={{ flexDirection: "column", minHeight: "100vh" }}
+      onClick={() => setIsDropdownOpen(false)}
     >
-      {children}
-    </OuterLayout>
+      <Navbar />
+      {loading ? (
+        <Spinner
+          sx={{ margin: "auto", width: 100, height: 100, color: "brand" }}
+        />
+      ) : (
+        <></>
+      )}
+      <Box sx={{ display: loading ? "none" : "block" }}>{children}</Box>
+    </Flex>
   )
 }
 

@@ -1,6 +1,6 @@
 // @ts-check
 import React, { useContext, useEffect, useState } from "react"
-import { Container, Grid, Heading, Text } from "theme-ui"
+import { Container, Grid, Heading, Text, Flex } from "theme-ui"
 import Head from "next/head"
 import Product from "../../components/ProductCard"
 import { client } from "../../utils/client"
@@ -34,7 +34,13 @@ const Collections = ({
           <>
             <Grid columns={[1, 2, 3]} gap={24} my={4}>
               {pageProducts.map(product => (
-                <Product hit={product} key={product.id} />
+                <Flex
+                  variant="layout.stepContainer"
+                  key={product.id}
+                  sx={{ justifyContent: "center" }}
+                >
+                  <Product hit={product} />
+                </Flex>
               ))}
             </Grid>
 

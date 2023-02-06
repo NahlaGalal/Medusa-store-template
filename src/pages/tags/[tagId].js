@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react"
 import Head from "next/head"
-import { Container, Grid, Text } from "theme-ui"
+import { Container, Grid, Text, Flex } from "theme-ui"
 import Pagination, { LIMIT } from "../../components/Pagination"
 import { client } from "../../utils/client"
 import Product from "../../components/ProductCard"
@@ -33,7 +33,13 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
           <>
             <Grid columns={[1, 2, 3]} gap={24} my={4}>
               {pageProducts.map(product => (
-                <Product hit={product} key={product.id} />
+                <Flex
+                  variant="layout.stepContainer"
+                  key={product.id}
+                  sx={{ justifyContent: "center" }}
+                >
+                  <Product hit={product} />
+                </Flex>
               ))}
             </Grid>
 

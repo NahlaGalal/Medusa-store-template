@@ -3,7 +3,7 @@ import { useOrder } from "medusa-react"
 import { useRouter } from "next/router"
 import React from "react"
 import OrderConfirmation from "../steps/order-confirmation"
-import Layout from "./layout"
+import Layout from "./index"
 
 const CompletedLayout = () => {
   const router = useRouter()

@@ -3,7 +3,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
 import { Card, Flex } from "theme-ui"
-import Layout from "../components/layout/layout"
+import Layout from "../components/layout"
 import Spinner from "../components/spinner/spinner"
 
 const Completing = () => {

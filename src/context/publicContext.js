@@ -7,12 +7,15 @@ export const PublicContext = createContext({
   setLoading: _ => {},
   isRegistered: false,
   setIsRegistered: _ => {},
+  region: {},
+  setRegion: _ => {},
 })
 
 export const PublicProvider = ({ children, Router }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isRegistered, setIsRegistered] = useState(false)
+  const [region, setRegion] = useState()
 
   useEffect(() => {
     const start = () => setLoading(true)
@@ -38,6 +41,8 @@ export const PublicProvider = ({ children, Router }) => {
         setLoading,
         isRegistered,
         setIsRegistered,
+        region,
+        setRegion,
       }}
     >
       {children}

@@ -1,14 +1,16 @@
 // @ts-check
 
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Head from "next/head"
 import { Container, Grid, Text } from "theme-ui"
 import Pagination, { LIMIT } from "../../components/Pagination"
 import { client } from "../../utils/client"
 import Product from "../../components/ProductCard"
+import { PublicContext } from "../../context/publicContext"
 
 const Tags = ({ products, region, count, limit, offset, tagId }) => {
   const [pageProducts, setPageProducts] = useState(products)
+  const { setRegion } = useContext(PublicContext)
 
   const getTagName = () => {
     const productTags = pageProducts[0].tags
@@ -17,6 +19,8 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
     if (currentTag) return currentTag.value.toLocaleUpperCase()
     return ""
   }
+
+  useEffect(() => setRegion(region), [])
 
   return (
     <>
@@ -29,7 +33,7 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
           <>
             <Grid columns={[1, 2, 3]} gap={24} my={4}>
               {pageProducts.map(product => (
-                <Product product={product} region={region} key={product.id} />
+                <Product hit={product} key={product.id} />
               ))}
             </Grid>
 

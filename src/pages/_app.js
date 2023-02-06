@@ -8,6 +8,7 @@ import { ProductProvider } from "../context/product-context"
 import { PublicProvider } from "../context/publicContext"
 import theme from "../theme"
 import Layout from "../components/layout"
+import "../components/Search/style.css"
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000"
@@ -23,7 +24,7 @@ const queryClient = new QueryClient({
   },
 })
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps, regions }) => {
   return (
     <ThemeProvider theme={theme}>
       <MedusaProvider

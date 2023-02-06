@@ -1,13 +1,24 @@
 // @ts-check
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Container, Grid, Heading, Text } from "theme-ui"
 import Head from "next/head"
 import Product from "../../components/ProductCard"
 import { client } from "../../utils/client"
 import Pagination, { LIMIT } from "../../components/Pagination"
+import { PublicContext } from "../../context/publicContext"
 
-const Collections = ({ products, region, collection, count, limit, offset }) => {
+const Collections = ({
+  products,
+  region,
+  collection,
+  count,
+  limit,
+  offset,
+}) => {
   const [pageProducts, setPageProducts] = useState(products)
+  const { setRegion } = useContext(PublicContext)
+
+  useEffect(() => setRegion(region), [])
 
   return (
     <>
@@ -23,7 +34,7 @@ const Collections = ({ products, region, collection, count, limit, offset }) => 
           <>
             <Grid columns={[1, 2, 3]} gap={24} my={4}>
               {pageProducts.map(product => (
-                <Product product={product} region={region} key={product.id} />
+                <Product hit={product} key={product.id} />
               ))}
             </Grid>
 

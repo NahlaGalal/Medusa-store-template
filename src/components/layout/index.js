@@ -3,6 +3,7 @@ import React, { useContext } from "react"
 import { Box, Flex, Spinner } from "@theme-ui/components"
 import { PublicContext } from "../../context/publicContext"
 import Navbar from "./Navbar"
+import Footer from "./Footer"
 
 const Layout = ({ children }) => {
   const { setIsDropdownOpen, loading } = useContext(PublicContext)
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
       >
         {children}
       </Box>
+      <Footer />
     </Flex>
   )
 }

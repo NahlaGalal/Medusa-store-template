@@ -14,8 +14,13 @@ import {
   Image,
   Button,
   Link,
+  Select,
+  Input,
 } from "theme-ui"
 import { PublicContext } from "../context/publicContext"
+import Variant from "../components/Product/Variant"
+import TabsContainer from "../components/Product/TabsContainer"
+import SelectQuantity from "../components/Product/SelectQuantity"
 
 const ProductPage = ({ product, region }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -24,38 +29,9 @@ const ProductPage = ({ product, region }) => {
     id: "thumbnail",
     url: product.thumbnail,
   })
-  const [currentSection, setCurrentSection] = useState("description")
+  const [quantity, setQuantity] = useState(1)
   const router = useRouter()
   const { setLoading } = useContext(PublicContext)
-
-  const renderOptionsValues = () => {
-    const activeOptionObj = product.options.find(opt => opt.id === activeOption)
-    const optionValues = activeOptionObj.values.filter(
-      (val, index, self) => index === self.findIndex(t => t.value === val.value)
-    )
-
-    return optionValues.map(optionVal => (
-      <Button
-        variant="buttons.cta"
-        key={optionVal.id}
-        className={`${
-          optionVal.id === activeOptionVal[activeOption] ? "active" : ""
-        }`}
-        onClick={() =>
-          setActiveOptionVal({
-            ...activeOptionVal,
-            [activeOption]: optionVal.id,
-          })
-        }
-        sx={{
-          borderRadius: "4px",
-          minWidth: `calc(100% / ${optionValues.length})`,
-        }}
-      >
-        {optionVal.value}
-      </Button>
-    ))
-  }
 
   const getVariantId = () => {
     const variant = product.variants.find(variant =>
@@ -85,11 +61,13 @@ const ProductPage = ({ product, region }) => {
     localStorage.setItem("cart_id", cart_id)
     const variant_id = getVariantId()
     if (variant_id) {
-      await client.carts.lineItems.create(cart_id, { variant_id, quantity: 1 })
+      await client.carts.lineItems.create(cart_id, { variant_id, quantity })
       router.push("/cart")
     }
     setLoading(false)
   }
+
+  console.log(product, activeOption, activeOptionVal)
 
   return (
     <>
@@ -106,7 +84,7 @@ const ProductPage = ({ product, region }) => {
                 <Image
                   src={currentImg.url}
                   alt="Product media"
-                  sx={{ maxHeight: "200px", objectFit: "contain" }}
+                  sx={{ maxHeight: "300px", objectFit: "contain" }}
                 />
 
                 {/* Product images */}
@@ -184,8 +162,20 @@ const ProductPage = ({ product, region }) => {
 
                 {/* Variant options */}
                 <Flex sx={{ flexWrap: "wrap", gap: 2, mb: 3 }}>
-                  {renderOptionsValues()}
+                  <Variant
+                    options={product.options}
+                    activeOption={activeOption}
+                    activeOptionVal={activeOptionVal}
+                    setActiveOptionVal={setActiveOptionVal}
+                  />
                 </Flex>
+
+                {/* Quantity */}
+                <SelectQuantity
+                  variant={product.variants[1]}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
 
                 {/* Add to cart button and price */}
                 <Flex
@@ -220,56 +210,8 @@ const ProductPage = ({ product, region }) => {
           </Container>
         </Grid>
 
-        <Flex
-          backgroundColor="lightGrey"
-          sx={{ height: "100%", flexDirection: "column", gap: 3 }}
-        >
-          <Flex
-            as="header"
-            sx={{
-              gap: 3,
-              borderBottom: "1px solid",
-              borderBottomColor: "darkGrey",
-            }}
-          >
-            <Container className="layout.container">
-              <Button
-                onClick={() => setCurrentSection("description")}
-                variant="buttons.decrementor"
-                sx={{
-                  height: "auto",
-                  py: "20px",
-                  borderBottomColor: "secondary",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: currentSection === "description" ? 1 : 0,
-                }}
-              >
-                Description
-              </Button>
-              <Button
-                onClick={() => setCurrentSection("reviews")}
-                variant="buttons.decrementor"
-                sx={{
-                  height: "auto",
-                  py: "20px",
-                  borderBottomColor: "secondary",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: currentSection === "reviews" ? 1 : 0,
-                }}
-              >
-                Reviews
-              </Button>
-            </Container>
-          </Flex>
-
-          <Container className="layout.container" pb={3}>
-            {currentSection === "description" ? (
-              <Text as="p">{product.description}</Text>
-            ) : currentSection === "reviews" ? (
-              <></>
-            ) : undefined}
-          </Container>
-        </Flex>
+        {/* Description */}
+        <TabsContainer description={product.description} />
       </Flex>
     </>
   )

@@ -26,6 +26,7 @@ const Layout = ({ children }) => {
           display: loading ? "none" : "block",
           position: "relative",
           overflow: "hidden",
+          flex: 1
         }}
       >
         {children}

@@ -128,6 +128,7 @@ const Footer = () => {
                     p: 0,
                     background: "transparent",
                     cursor: "pointer",
+                    color: "darkBlack"
                   }}
                   onClick={logoutHandler}
                 >

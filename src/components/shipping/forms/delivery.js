@@ -9,6 +9,7 @@ const Delivery = ({
   region,
   country,
   setLoading,
+  cartId
 }) => {
   const [fullCountry, setFullCountry] = useState("")
 
@@ -65,6 +66,7 @@ const Delivery = ({
           set={"delivery"}
           region={region}
           setLoading={setLoading}
+          cartId={cartId}
         />
       </>
     </Box>

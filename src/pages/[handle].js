@@ -14,15 +14,14 @@ import {
   Image,
   Button,
   Link,
-  Select,
-  Input,
 } from "theme-ui"
 import { PublicContext } from "../context/publicContext"
 import Variant from "../components/Product/Variant"
 import TabsContainer from "../components/Product/TabsContainer"
 import SelectQuantity from "../components/Product/SelectQuantity"
+import { getTokenCookie } from "../utils/cookie"
 
-const ProductPage = ({ product, region }) => {
+const ProductPage = ({ product, region, cartId }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
   const [activeOptionVal, setActiveOptionVal] = useState({})
   const [currentImg, setCurrentImg] = useState({
@@ -44,30 +43,17 @@ const ProductPage = ({ product, region }) => {
   }
 
   const addToCartHandler = async () => {
-    const id = localStorage.getItem("cart_id")
-    let res
     setLoading(true)
 
-    if (id) {
-      res = await client.carts.retrieve(id)
-    } else {
-      res = await client.carts.create()
-    }
-
-    const {
-      cart: { id: cart_id },
-    } = res
-
-    localStorage.setItem("cart_id", cart_id)
     const variant_id = getVariantId()
     if (variant_id) {
-      await client.carts.lineItems.create(cart_id, { variant_id, quantity })
+      await client.carts.lineItems.create(cartId, { variant_id, quantity })
       router.push("/cart")
     }
     setLoading(false)
   }
 
-  console.log(product, activeOption, activeOptionVal)
+  // console.log(product, activeOption, activeOptionVal)
 
   return (
     <>
@@ -75,7 +61,7 @@ const ProductPage = ({ product, region }) => {
         <title>{product.title}</title>
         <meta name="description" content={product?.description || ""} />
       </Head>
-      <Flex sx={{ height: "calc(100vh - 60px)", flexDirection: "column" }}>
+      <Flex sx={{ flexDirection: "column" }}>
         <Grid py={4}>
           <Container className="layout.container">
             <Grid as="section" columns={[1, 2, 2]}>
@@ -172,7 +158,7 @@ const ProductPage = ({ product, region }) => {
 
                 {/* Quantity */}
                 <SelectQuantity
-                  variant={product.variants[1]}
+                  variant={product.variants[0]}
                   quantity={quantity}
                   setQuantity={setQuantity}
                 />
@@ -217,29 +203,21 @@ const ProductPage = ({ product, region }) => {
   )
 }
 
-export async function getStaticPaths() {
-  const { products } = await client.products.list()
-
-  const paths = products
-    .map(product => ({
-      params: { handle: product.handle },
-    }))
-    .filter(p => !!p.params.handle)
-
-  return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ req, params }) {
   const response = await client.products.list({ handle: params.handle })
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
+  let cartId = getTokenCookie(req, "cart_id")
 
-  // handles are unique, so we'll always only be fetching a single product
+  if (!cartId) {
+    const res = await client.carts.create()
+    cartId = res.cart.id
+  }
+
   const [product] = response.products
 
-  // Pass post data to the page via props
-  return { props: { product, region } }
+  return { props: { cartId, product, region } }
 }
 
 export default ProductPage

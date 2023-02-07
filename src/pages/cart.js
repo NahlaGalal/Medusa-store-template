@@ -4,37 +4,17 @@ import Head from "next/head"
 import { client } from "../utils/client"
 import CartItem from "../components/Cart/CartItem"
 import { PublicContext } from "../context/publicContext"
+import { getTokenCookie, setTokenCookie } from "../utils/cookie"
 
-const Cart = ({ collections }) => {
-  const [products, setProducts] = useState([])
+const Cart = ({ collections, items, cartId }) => {
+  const [products, setProducts] = useState(items)
   const { setLoading } = useContext(PublicContext)
-
-  useEffect(() => {
-    const getCartItems = async () => {
-      const cartId = localStorage.getItem("cart_id")
-      let res
-
-      setLoading(true)
-      if (cartId) res = await client.carts.retrieve(cartId)
-      else res = await client.carts.create()
-
-      const {
-        cart: { id, items },
-      } = res
-      localStorage.setItem("cart_id", id)
-      setProducts(items)
-      setLoading(false)
-    }
-
-    getCartItems()
-  }, [])
 
   const getCollectionName = collectioId => {
     return collections.find(collection => collection.id === collectioId).title
   }
 
   const deleteItem = async lineItemId => {
-    const cartId = localStorage.getItem("cart_id")
     setLoading(true)
 
     const {
@@ -102,10 +82,21 @@ const Cart = ({ collections }) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
   const { collections } = await client.collections.list()
+  const cartId = getTokenCookie(req, "cart_id")
+  let response
 
-  return { props: { collections } }
+  if (cartId) response = await client.carts.retrieve(cartId)
+  else response = await client.carts.create()
+
+  const {
+    cart: { id, items },
+  } = response
+
+  if(!cartId) setTokenCookie(res, "cart_id", id);
+
+  return { props: { collections, items, cartId } }
 }
 
 export default Cart

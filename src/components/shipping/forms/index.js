@@ -1,3 +1,4 @@
+// @ts-check
 import { Box, Button, Divider, Heading, Spinner } from "@theme-ui/components"
 import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
@@ -7,7 +8,7 @@ import Contact from "./contact"
 import Delivery from "./delivery"
 import { client } from "../../../utils/client"
 
-const Forms = ({ country, region }) => {
+const Forms = ({ country, region, customer, cart, cartId }) => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
@@ -53,7 +54,6 @@ const Forms = ({ country, region }) => {
       setLoading(true)
 
       const { delivery, contact } = values
-      const cartId = localStorage.getItem("cart_id")
 
       return client.carts
         .update(cartId, {
@@ -81,41 +81,23 @@ const Forms = ({ country, region }) => {
   })
 
   useEffect(() => {
-    const getCart = async () => {
-      setLoading(true)
-
-      const cartId = localStorage.getItem("cart_id")
-      let res
-
-      if (cartId) res = await client.carts.retrieve(cartId)
-      else res = await client.carts.create()
-
-      const { customer } = await client.customers.retrieve()
-      const { cart } = res
-
-      formik.setValues({
-        contact: {
-          first_name:
-            cart?.shipping_address?.first_name || customer.first_name || "",
-          last_name:
-            cart?.shipping_address?.last_name || customer.last_name || "",
-          email: cart?.email || customer.email || "",
-          phone: cart.shipping_address?.phone || customer.phone || "",
-        },
-        delivery: {
-          address_1: cart?.shipping_address?.address_1 || "",
-          postal_code: cart?.shipping_address?.postal_code || "",
-          city: cart?.shipping_address?.city || "",
-          country_code: cart?.shipping_address?.country_code || "",
-          shipping_option:
-            cart?.shipping_methods?.[0]?.shipping_option_id || "",
-        },
-      })
-
-      setLoading(false)
-    }
-
-    getCart()
+    formik.setValues({
+      contact: {
+        first_name:
+          cart?.shipping_address?.first_name || customer.first_name || "",
+        last_name:
+          cart?.shipping_address?.last_name || customer.last_name || "",
+        email: cart?.email || customer.email || "",
+        phone: cart.shipping_address?.phone || customer.phone || "",
+      },
+      delivery: {
+        address_1: cart?.shipping_address?.address_1 || "",
+        postal_code: cart?.shipping_address?.postal_code || "",
+        city: cart?.shipping_address?.city || "",
+        country_code: cart?.shipping_address?.country_code || "",
+        shipping_option: cart?.shipping_methods?.[0]?.shipping_option_id || "",
+      },
+    })
   }, [])
 
   return loading ? (
@@ -143,6 +125,7 @@ const Forms = ({ country, region }) => {
           country={country}
           formik={formik}
           setLoading={setLoading}
+          cartId={cartId}
         />
       </Box>
 

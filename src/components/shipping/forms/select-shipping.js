@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Box, Flex, Text } from "@theme-ui/components"
-import { formatAmount, useCart, useCartShippingOptions } from "medusa-react"
+import { formatAmount } from "medusa-react"
 import { client } from "../../../utils/client"
 
 const ShippingOption = ({ selected, option, region, onClick }) => {
@@ -61,7 +61,7 @@ const ShippingOption = ({ selected, option, region, onClick }) => {
   )
 }
 
-const SelectShipping = ({ formik, name, set, region }) => {
+const SelectShipping = ({ formik, name, set, region, cartId }) => {
   const [shippingOptions, setShippingOptions] = useState([])
 
   useEffect(() => {
@@ -73,7 +73,6 @@ const SelectShipping = ({ formik, name, set, region }) => {
     }
 
     if (window) {
-      const cartId = localStorage.getItem("cart_id")
       getShippingOptions(cartId)
     }
   }, [])

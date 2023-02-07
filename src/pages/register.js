@@ -63,7 +63,7 @@ const RegisterPage = () => {
         >
           <Button
             onClick={handleSubmit}
-            color="darkBlack"
+            color="white"
             backgroundColor={"brand"}
             sx={{ cursor: "pointer" }}
           >

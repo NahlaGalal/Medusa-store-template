@@ -40,6 +40,7 @@ const Navbar = () => {
         py: 10,
         px: "5%",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)",
+        alignItems: "center"
       }}
     >
       <NextLink href="/" passHref>
@@ -121,26 +122,25 @@ const Navbar = () => {
             <NavLink sx={{ fontWeight: 400 }}>Cart</NavLink>
           </NextLink>
         </li>
-        <li>
-          {isRegistered ? (
-            <Button
-              sx={{
-                p: 0,
-                background: "transparent",
-                cursor: "pointer",
-                color: "brand",
-              }}
-              onClick={logoutHandler}
-            >
-              Logout
-            </Button>
-          ) : (
-            <NextLink href={"/register"} passHref>
-              <NavLink sx={{ fontWeight: 400 }}>Register</NavLink>
-            </NextLink>
-          )}
-        </li>
       </Flex>
+
+      {isRegistered ? (
+        <Button
+          sx={{
+            p: 0,
+            background: "transparent",
+            cursor: "pointer",
+            color: "brand",
+          }}
+          onClick={logoutHandler}
+        >
+          Logout
+        </Button>
+      ) : (
+        <NextLink href={"/register"} passHref>
+          <NavLink sx={{ fontWeight: 400 }}>Register</NavLink>
+        </NextLink>
+      )}
     </Flex>
   )
 }

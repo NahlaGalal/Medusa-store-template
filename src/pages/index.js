@@ -1,27 +1,65 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import * as React from "react"
-import { client } from "../utils/client"
+// @ts-check
 
-const IndexPage = ({ product }) => {
-  const router = useRouter()
+import Head from "next/head"
+import React, { useContext, useEffect } from "react"
+import { Flex } from "theme-ui"
+import { client } from "../utils/client"
+import { PublicContext } from "../context/publicContext"
+import Footer from "../components/layout/Footer"
+import Header from "../components/Home/Header"
+import Features from "../components/Home/Features"
+import AboutUs from "../components/Home/AboutUs"
+import MostPopular from "../components/Home/MostPopular"
+import ImageSec from "../components/Home/ImageSec"
+import GetInTouch from "../components/Home/GetInTouch"
+
+const IndexPage = ({ products, region }) => {
+  const { setRegion } = useContext(PublicContext)
+
+  useEffect(() => setRegion(region), [])
 
   return (
-    <main>
+    <>
       <Head>
-        <title>Princess Jwellery</title>
-        <meta name="description" content="One-page checkout" />
+        <title>ElNagar Classic</title>
+        <meta name="description" content="ElNagar classic landing page" />
       </Head>
-    </main>
+
+      <Flex as="main" sx={{ flexDirection: "column", overflow: "hidden" }}>
+        {/* Header */}
+        <Header />
+
+        {/* Features */}
+        <Features />
+
+        {/* About us */}
+        <AboutUs />
+
+        {/* Most popular products */}
+        <MostPopular products={products} />
+
+        {/* Image section */}
+        <ImageSec />
+
+        {/* Get in touch */}
+        <GetInTouch />
+
+        {/* Footer */}
+        <Footer />
+      </Flex>
+    </>
   )
 }
 
-export async function getStaticProps({ params }) {
-  const response = await client.products.list({ limit: 1 })
+export async function getStaticProps() {
+  const { products } = await client.products.list({ limit: 4 })
+  const { regions } = await client.regions.list()
 
-  const [product, ...rest] = response.products
+  const region = regions.find(region => region.name === "Afrika")
 
-  return { props: { product } }
+  return { props: { products, region } }
 }
 
 export default IndexPage
+
+// FIXME: Image next vs theme UI

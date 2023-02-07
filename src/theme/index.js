@@ -13,7 +13,7 @@ const theme = {
     secondary: "#a73822",
     darkBlack: "#000000",
     darkGrey: "#888888",
-    lightGrey: "#DDDDDD",
+    lightGrey: "#eef2f3",
     white: "#FFFFFF",
   },
   layout: {
@@ -111,7 +111,7 @@ const theme = {
       padding: "4px 8px",
       borderRadius: "6px",
       fontSize: "14px",
-      textDecoration: "none"
+      textDecoration: "none",
     },
   },
   box: {

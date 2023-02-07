@@ -20,7 +20,15 @@ const Layout = ({ children }) => {
       ) : (
         <></>
       )}
-      <Box sx={{ display: loading ? "none" : "block" }}>{children}</Box>
+      <Box
+        sx={{
+          display: loading ? "none" : "block",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {children}
+      </Box>
     </Flex>
   )
 }

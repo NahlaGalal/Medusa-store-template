@@ -5,7 +5,6 @@ import React, { useContext, useEffect } from "react"
 import { Flex } from "theme-ui"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
-import Footer from "../components/layout/Footer"
 import Header from "../components/Home/Header"
 import Features from "../components/Home/Features"
 import AboutUs from "../components/Home/AboutUs"
@@ -43,9 +42,6 @@ const IndexPage = ({ products, region }) => {
 
         {/* Get in touch */}
         <GetInTouch />
-
-        {/* Footer */}
-        <Footer />
       </Flex>
     </>
   )

@@ -1,17 +1,12 @@
 // @ts-check
-import { Box, Button, Heading, Spinner } from "@theme-ui/components"
+import { Box, Button, Heading } from "@theme-ui/components"
 import { useFormik } from "formik"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import * as Yup from "yup"
-import { useRouter } from "next/router"
 import Contact from "./contact"
 import Delivery from "./delivery"
-import { client } from "../../../utils/client"
 
-const Forms = ({ country, region, customer, cart, cartId }) => {
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
-
+const Forms = ({ country, region, customer, cart, createOrder }) => {
   const handleSubmit = e => {
     e.preventDefault()
     formik.submitForm()
@@ -48,36 +43,7 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
         country_code: Yup.string().required("Required"),
       }),
     }),
-    onSubmit: async values => {
-      setLoading(true)
-
-      const { delivery, contact } = values
-
-      await client.carts.update(cartId, {
-        email: contact.email,
-        shipping_address: {
-          first_name: contact.first_name,
-          last_name: contact.last_name,
-          address_1: delivery.address_1,
-          country_code: delivery.country_code,
-          postal_code: delivery.postal_code,
-          city: delivery.city,
-          phone: contact.phone,
-        },
-      })
-      await client.carts.createPaymentSessions(cartId)
-      await client.carts.setPaymentSession(cartId, {
-        provider_id: "manual",
-      })
-      const {
-        shipping_options: [{ id }],
-      } = await client.shippingOptions.listCartOptions(cartId)
-      await client.carts.addShippingMethod(cartId, { option_id: id })
-      await client.carts.complete(cartId)
-
-      router.push("/success")
-      setLoading(false)
-    },
+    onSubmit: ({ contact, delivery }) => createOrder({ contact, delivery }),
   })
 
   useEffect(() => {
@@ -99,17 +65,7 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
     })
   }, [])
 
-  return loading ? (
-    <Spinner
-      sx={{
-        margin: "auto",
-        width: 100,
-        height: 100,
-        color: "brand",
-        display: "block",
-      }}
-    />
-  ) : (
+  return (
     <Box sx={{ my: 4 }}>
       <Heading sx={{ textAlign: "center", color: "brand" }}>
         Shipping and info

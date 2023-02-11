@@ -3,19 +3,55 @@
 import React, { useContext, useEffect } from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
+import { Container, Text } from "theme-ui"
+import axios from "axios"
 import { client } from "../utils/client"
 import Forms from "../components/shipping/forms"
-import { Container, Text } from "theme-ui"
 import { getTokenCookie } from "../utils/cookie"
 import { PublicContext } from "../context/publicContext"
 
 const Shipping = ({ region, cart, cartId }) => {
+  const { setLoading } = useContext(PublicContext)
   const { isRegistered } = useContext(PublicContext)
   const router = useRouter()
 
   useEffect(() => {
     if (!cart) router.push("/")
   }, [])
+
+  const createOrder = async ({ contact, delivery }) => {
+    setLoading(true)
+
+    const {
+      // @ts-ignore
+      data: { message },
+    } = await axios.post(
+      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}store/create-order?cartId=${cartId}`,
+      {
+        cart,
+        shipping_address: {
+          mail: contact.email,
+          shipping_address: {
+            first_name: contact.first_name,
+            last_name: contact.last_name,
+            address_1: delivery.address_1,
+            country_code: delivery.country_code,
+            postal_code: delivery.postal_code,
+            city: delivery.city,
+            phone: contact.phone,
+          },
+        },
+      },
+      {
+        withCredentials: true,
+      }
+    )
+
+    await client.carts.complete(cartId)
+
+    if (message === "Done") router.push("/success")
+    setLoading(false)
+  }
 
   return (
     <>
@@ -29,7 +65,7 @@ const Shipping = ({ region, cart, cartId }) => {
             country={region?.countries[0].iso_2}
             customer={{}}
             cart={cart}
-            cartId={cartId}
+            createOrder={createOrder}
           />
         ) : (
           <Text

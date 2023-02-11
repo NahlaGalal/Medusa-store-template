@@ -2,7 +2,6 @@ import { Box, Heading } from "@theme-ui/components"
 import React, { useEffect, useState } from "react"
 import Field from "./field"
 import FieldSplitter from "./field-splitter"
-import SelectShipping from "./select-shipping"
 
 const Delivery = ({
   formik,
@@ -13,11 +12,8 @@ const Delivery = ({
 
   useEffect(() => {
     formik.setFieldValue("delivery.country_code", country)
-  }, [country])
-
-  useEffect(() => {
     setFullCountry(region.countries.find(c => c.iso_2 === country).display_name)
-  }, [country, region])
+  }, [country])
 
   return (
     <Box as="form">

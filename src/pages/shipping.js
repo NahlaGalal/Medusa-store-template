@@ -10,7 +10,7 @@ import Forms from "../components/shipping/forms"
 import { getTokenCookie } from "../utils/cookie"
 import { PublicContext } from "../context/publicContext"
 
-const Shipping = ({ region, cart, cartId }) => {
+const Shipping = ({ region, cart, cartId, customer }) => {
   const { setLoading } = useContext(PublicContext)
   const { isRegistered } = useContext(PublicContext)
   const router = useRouter()
@@ -63,7 +63,7 @@ const Shipping = ({ region, cart, cartId }) => {
           <Forms
             region={region}
             country={region?.countries[0].iso_2}
-            customer={{}}
+            customer={customer}
             cart={cart}
             createOrder={createOrder}
           />
@@ -90,6 +90,9 @@ export async function getServerSideProps({ req }) {
   const { regions } = await client.regions.list()
   const cartId = getTokenCookie(req, "cart_id") || null
   let cart
+  const { customer } = await client.auth.getSession({
+    cookie: req.headers.cookie,
+  })
 
   try {
     const response = await client.carts.retrieve(cartId)
@@ -100,7 +103,7 @@ export async function getServerSideProps({ req }) {
 
   const region = regions.find(region => region.name === "Afrika")
 
-  return { props: { region, cart, cartId } }
+  return { props: { region, cart, cartId, customer } }
 }
 
 export default Shipping

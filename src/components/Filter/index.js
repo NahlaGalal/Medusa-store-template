@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button, Flex, Grid, Heading, Input } from "theme-ui"
 
-const Filter = ({ variants, client }) => {
+const Filter = ({ variants }) => {
   const [activeVariants, setActiveVariants] = useState([])
   const [price, setPrice] = useState({ min: "", max: "" })
 

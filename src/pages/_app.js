@@ -4,7 +4,6 @@ import React from "react"
 import Router from "next/router"
 import { QueryClient } from "react-query"
 import { ThemeProvider } from "theme-ui"
-import { ProductProvider } from "../context/product-context"
 import { PublicProvider } from "../context/publicContext"
 import theme from "../theme"
 import Layout from "../components/layout"
@@ -24,7 +23,7 @@ const queryClient = new QueryClient({
   },
 })
 
-const App = ({ Component, pageProps, regions }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
       <MedusaProvider
@@ -41,13 +40,11 @@ const App = ({ Component, pageProps, regions }) => {
               rel="stylesheet"
             ></link>
           </Head>
-          <ProductProvider>
-            <PublicProvider Router={Router}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </PublicProvider>
-          </ProductProvider>
+          <PublicProvider Router={Router}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PublicProvider>
         </CartProvider>
       </MedusaProvider>
     </ThemeProvider>

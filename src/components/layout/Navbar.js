@@ -26,7 +26,6 @@ const Navbar = () => {
     const res = await client.auth.deleteSession()
     if (res.response.status === 200) {
       localStorage.removeItem("id")
-      // localStorage.removeItem("cart_id")
       route.push("/login")
       setIsRegistered(false)
     }

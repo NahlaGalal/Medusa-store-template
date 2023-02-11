@@ -25,7 +25,7 @@ const Shop = ({ variants, region }) => {
       <Container variant="layout.container">
         <Flex sx={{ gap: 5, flexDirection: ["column", "row", "row"] }} my={4}>
           {/* Filters */}
-          <Filter variants={getVariants()} client={client} />
+          <Filter variants={getVariants()} />
 
           <Flex sx={{ flex: 4, flexDirection: "column", gap: 3 }}>
             {/* Search */}

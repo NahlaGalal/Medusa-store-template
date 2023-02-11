@@ -1,7 +1,7 @@
 // @ts-check
 
 import React from "react"
-import { Flex, Close, Image, Text, Link, Button } from "theme-ui"
+import { Flex, Close, Image, Text, Link } from "theme-ui"
 import NextLink from "next/link"
 
 const CartItem = ({ product, getCollectionName, deleteItem }) => {

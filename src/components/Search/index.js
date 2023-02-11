@@ -14,9 +14,9 @@ const Search = () => {
   return (
     <InstantSearch indexName={SEARCH_INDEX_NAME} searchClient={searchClient}>
       <RefinementList attribute="tags" />
-      <SearchBox className="search" />
+      <SearchBox />
       <Hits hitComponent={Product} />
-      <Pagination className="dew" />
+      <Pagination />
     </InstantSearch>
   )
 }

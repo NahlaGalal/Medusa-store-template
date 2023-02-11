@@ -1,5 +1,5 @@
 // @ts-check
-import { Box, Button, Divider, Heading, Spinner } from "@theme-ui/components"
+import { Box, Button, Heading, Spinner } from "@theme-ui/components"
 import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
 import * as Yup from "yup"
@@ -30,7 +30,6 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
         postal_code: "",
         city: "",
         country_code: "",
-        shipping_option: "",
       },
     },
     validationSchema: Yup.object({
@@ -47,7 +46,6 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
         postal_code: Yup.string().required("Required"),
         city: Yup.string().required("Required"),
         country_code: Yup.string().required("Required"),
-        shipping_option: Yup.string().required("Required"),
       }),
     }),
     onSubmit: async values => {
@@ -55,28 +53,30 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
 
       const { delivery, contact } = values
 
-      return client.carts
-        .update(cartId, {
-          email: contact.email,
-          shipping_address: {
-            first_name: contact.first_name,
-            last_name: contact.last_name,
-            address_1: delivery.address_1,
-            country_code: delivery.country_code,
-            postal_code: delivery.postal_code,
-            city: delivery.city,
-            phone: contact.phone,
-          },
-        })
-        .then(() => {
-          return client.carts.addShippingMethod(cartId, {
-            option_id: delivery.shipping_option,
-          })
-        })
-        .finally(() => {
-          setLoading(false)
-          router.push("/payment")
-        })
+      await client.carts.update(cartId, {
+        email: contact.email,
+        shipping_address: {
+          first_name: contact.first_name,
+          last_name: contact.last_name,
+          address_1: delivery.address_1,
+          country_code: delivery.country_code,
+          postal_code: delivery.postal_code,
+          city: delivery.city,
+          phone: contact.phone,
+        },
+      })
+      await client.carts.createPaymentSessions(cartId)
+      await client.carts.setPaymentSession(cartId, {
+        provider_id: "manual",
+      })
+      const {
+        shipping_options: [{ id }],
+      } = await client.shippingOptions.listCartOptions(cartId)
+      await client.carts.addShippingMethod(cartId, { option_id: id })
+      await client.carts.complete(cartId)
+
+      router.push("/success")
+      setLoading(false)
     },
   })
 
@@ -95,7 +95,6 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
         postal_code: cart?.shipping_address?.postal_code || "",
         city: cart?.shipping_address?.city || "",
         country_code: cart?.shipping_address?.country_code || "",
-        shipping_option: cart?.shipping_methods?.[0]?.shipping_option_id || "",
       },
     })
   }, [])
@@ -120,17 +119,10 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
       </Box>
 
       <Box pt={1}>
-        <Delivery
-          region={region}
-          country={country}
-          formik={formik}
-          setLoading={setLoading}
-          cartId={cartId}
-        />
+        <Delivery region={region} country={country} formik={formik} />
       </Box>
 
       <Box>
-        <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
         <Button
           onClick={handleSubmit}
           variant="cta"
@@ -141,7 +133,7 @@ const Forms = ({ country, region, customer, cart, cartId }) => {
             display: "block",
           }}
         >
-          Get shipping methods
+          Confirm order
         </Button>
       </Box>
     </Box>

@@ -1,7 +1,8 @@
-import { Flex, Grid, Image, Text } from "@theme-ui/components"
-import React, { useMemo } from "react"
+// @ts-check
+import React from "react"
+import { Grid, Flex, Image, Text } from "theme-ui"
 
-const Review = ({ cart }) => {
+const ReviewProducts = ({ cart }) => {
   return (
     <Grid>
       {cart.items.map(item => (
@@ -57,4 +58,4 @@ const Review = ({ cart }) => {
   )
 }
 
-export default Review
+export default ReviewProducts

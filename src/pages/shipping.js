@@ -1,17 +1,20 @@
 // @ts-check
 
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import Head from "next/head"
+import { useRouter } from "next/router"
 import { client } from "../utils/client"
 import Forms from "../components/shipping/forms"
 import { Container, Text } from "theme-ui"
-import { getTokenCookie, setTokenCookie } from "../utils/cookie"
+import { getTokenCookie } from "../utils/cookie"
+import { PublicContext } from "../context/publicContext"
 
-const Shipping = ({ region, customer, cart, cartId }) => {
-  const [isAuth, setIsAuth] = useState(false)
+const Shipping = ({ region, cart, cartId }) => {
+  const { isRegistered } = useContext(PublicContext)
+  const router = useRouter()
 
   useEffect(() => {
-    if (localStorage.getItem("id")) setIsAuth(true)
+    if (!cart) router.push("/")
   }, [])
 
   return (
@@ -20,11 +23,11 @@ const Shipping = ({ region, customer, cart, cartId }) => {
         <title>Shipping</title>
       </Head>
       <Container variant="layout.container">
-        {isAuth ? (
+        {isRegistered && cart ? (
           <Forms
             region={region}
             country={region?.countries[0].iso_2}
-            customer={customer}
+            customer={{}}
             cart={cart}
             cartId={cartId}
           />
@@ -47,23 +50,21 @@ const Shipping = ({ region, customer, cart, cartId }) => {
   )
 }
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ req }) {
   const { regions } = await client.regions.list()
-  const cartId = getTokenCookie(req, "cart_id")
-  const { customer } = await client.customers.retrieve()
+  const cartId = getTokenCookie(req, "cart_id") || null
+  let cart
+
+  try {
+    const response = await client.carts.retrieve(cartId)
+    cart = response.cart
+  } catch (err) {
+    cart = null
+  }
 
   const region = regions.find(region => region.name === "Afrika")
 
-  let response
-
-  if (cartId) response = await client.carts.retrieve(cartId)
-  else response = await client.carts.create()
-
-  const { cart } = response
-
-  if (!cartId) setTokenCookie(res, "cart_id", cart.id)
-
-  return { props: { region, customer, cart, cartId } }
+  return { props: { region, cart, cartId } }
 }
 
 export default Shipping

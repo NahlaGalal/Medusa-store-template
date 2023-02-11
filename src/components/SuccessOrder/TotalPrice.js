@@ -1,8 +1,9 @@
-import { Flex, Text } from "@theme-ui/components"
-import { formatAmount } from "medusa-react"
+// @ts-check
 import React from "react"
+import { Flex, Text } from "theme-ui"
+import { formatAmount } from "medusa-react"
 
-const Total = ({ cart }) => {
+const TotalPrice = ({ cart }) => {
   return (
     <Flex
       sx={{
@@ -58,4 +59,4 @@ const Total = ({ cart }) => {
   )
 }
 
-export default Total
+export default TotalPrice

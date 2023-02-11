@@ -15,7 +15,7 @@ const Shop = ({ variants, region }) => {
     return variantsTitle
   }
 
-  useEffect(() => setRegion(region), [])
+  useEffect(() => setRegion(region), [region])
 
   return (
     <>

@@ -53,8 +53,6 @@ const ProductPage = ({ product, region, cartId }) => {
     setLoading(false)
   }
 
-  // console.log(product, activeOption, activeOptionVal)
-
   return (
     <>
       <Head>
@@ -204,7 +202,7 @@ const ProductPage = ({ product, region, cartId }) => {
 }
 
 export async function getServerSideProps({ req, params }) {
-  const response = await client.products.list({ handle: params.handle })
+  const { products } = await client.products.list({ handle: params.handle })
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
@@ -215,11 +213,10 @@ export async function getServerSideProps({ req, params }) {
     cartId = res.cart.id
   }
 
-  const [product] = response.products
+  const [product] = products
 
   return { props: { cartId, product, region } }
 }
 
 export default ProductPage
-// TODO: Loading
 // FIXME: Variants

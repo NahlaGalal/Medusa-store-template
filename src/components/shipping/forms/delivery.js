@@ -8,8 +8,6 @@ const Delivery = ({
   formik,
   region,
   country,
-  setLoading,
-  cartId
 }) => {
   const [fullCountry, setFullCountry] = useState("")
 
@@ -55,19 +53,6 @@ const Delivery = ({
           }
         />
         <Field formik={formik} value={fullCountry} disabled={true} />
-        <Heading mt={4} as="h3" sx={{ color: "secondary" }}>
-          Shipping method
-        </Heading>
-        <SelectShipping
-          formik={formik}
-          placeholder={"Select shipping method"}
-          value={formik.values.delivery.shipping_option}
-          name={"shipping_option"}
-          set={"delivery"}
-          region={region}
-          setLoading={setLoading}
-          cartId={cartId}
-        />
       </>
     </Box>
   )

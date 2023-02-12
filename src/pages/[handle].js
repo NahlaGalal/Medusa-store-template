@@ -29,28 +29,62 @@ const ProductPage = ({ product, region, cartId }) => {
     url: product.thumbnail,
   })
   const [quantity, setQuantity] = useState(1)
+  const [isVariant, setIsVariant] = useState(false)
+  const [price, setPrice] = useState("0")
   const router = useRouter()
   const { setLoading } = useContext(PublicContext)
 
   const getVariantId = () => {
     const variant = product.variants.find(variant =>
       variant.options.every(
-        option => activeOptionVal[option.option_id] === option.id
+        option => activeOptionVal[option.option_id] === option.value
       )
     )
+
     if (variant) return variant.id
     return undefined
   }
 
   const addToCartHandler = async () => {
-    setLoading(true)
+    if (isVariant) {
+      setLoading(true)
+      const variant_id = getVariantId()
 
-    const variant_id = getVariantId()
-    if (variant_id) {
-      await client.carts.lineItems.create(cartId, { variant_id, quantity })
-      router.push("/cart")
+      if (variant_id) {
+        await client.carts.lineItems.create(cartId, { variant_id, quantity })
+        router.push("/cart")
+      }
+
+      setLoading(false)
     }
-    setLoading(false)
+  }
+
+  const onChooseVariantHandler = id => {
+    const newActiveOptionVal = {
+      ...activeOptionVal,
+      [activeOption]: id,
+    }
+
+    setActiveOptionVal(newActiveOptionVal)
+
+    const variant = product.variants.find(variant => {
+      return variant.options.every(
+        option => newActiveOptionVal[option.option_id] === option.value
+      )
+    })
+
+    if (variant) {
+      setPrice(
+        formatVariantPrice({
+          variant,
+          region,
+        })
+      )
+      setIsVariant(true)
+    } else {
+      setPrice("0")
+      setIsVariant(false)
+    }
   }
 
   return (
@@ -150,7 +184,7 @@ const ProductPage = ({ product, region, cartId }) => {
                     options={product.options}
                     activeOption={activeOption}
                     activeOptionVal={activeOptionVal}
-                    setActiveOptionVal={setActiveOptionVal}
+                    onChooseVariantHandler={onChooseVariantHandler}
                   />
                 </Flex>
 
@@ -172,8 +206,13 @@ const ProductPage = ({ product, region, cartId }) => {
                 >
                   <Button
                     variant="buttons.incrementor"
-                    sx={{ borderRadius: "20px", gap: 3 }}
+                    sx={{
+                      borderRadius: "20px",
+                      gap: 3,
+                      cursor: isVariant ? "pointer" : "not-allowed",
+                    }}
                     onClick={addToCartHandler}
+                    disabled={!isVariant}
                   >
                     Add to Cart
                   </Button>
@@ -183,10 +222,7 @@ const ProductPage = ({ product, region, cartId }) => {
                     color="secondary"
                     sx={{ fontSize: 20, fontWeight: 700 }}
                   >
-                    {`${formatVariantPrice({
-                      variant: product.variants[0],
-                      region,
-                    })}`}
+                    {price !== "0" && price}
                   </Text>
                 </Flex>
               </Flex>

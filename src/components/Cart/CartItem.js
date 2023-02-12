@@ -16,7 +16,7 @@ const CartItem = ({ product, getCollectionName, deleteItem }) => {
           borderRadius: "50%",
           top: "-24px",
           cursor: "pointer",
-          color: "white"
+          color: "white",
         }}
         onClick={() => deleteItem(product.id)}
       />
@@ -34,6 +34,7 @@ const CartItem = ({ product, getCollectionName, deleteItem }) => {
 
       <Flex sx={{ flexDirection: "column", flex: 1 }}>
         <Text
+          as="p"
           sx={{
             fontSize: "20px",
             fontWeight: 600,
@@ -62,23 +63,33 @@ const CartItem = ({ product, getCollectionName, deleteItem }) => {
         <Text
           sx={{
             mt: "8px",
+            width: "max-content",
+          }}
+          variant="buttons.tags"
+        >
+          {product.description}
+        </Text>
+
+        <Text
+          as="p"
+          sx={{
+            mb: "8px",
             lineHeight: "24px",
             fontSize: "14px",
             fontWeight: 300,
-            color: "#6B7280",
+            color: "darkGrey",
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
-          variant="fz_s"
         >
           {product.variant.product.description}
         </Text>
 
-        <Text>Qty: {product.quantity}</Text>
-        <Text>
+        <Text as="p">Qty: {product.quantity}</Text>
+        <Text as="p" sx={{ textAlign: "right", color: "brand" }}>
           {new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "EGP",

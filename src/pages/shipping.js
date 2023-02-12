@@ -30,16 +30,13 @@ const Shipping = ({ region, cart, cartId, customer }) => {
       {
         cart,
         shipping_address: {
-          mail: contact.email,
-          shipping_address: {
-            first_name: contact.first_name,
-            last_name: contact.last_name,
-            address_1: delivery.address_1,
-            country_code: delivery.country_code,
-            postal_code: delivery.postal_code,
-            city: delivery.city,
-            phone: contact.phone,
-          },
+          first_name: contact.first_name,
+          last_name: contact.last_name,
+          address_1: delivery.address_1,
+          country_code: delivery.country_code,
+          postal_code: delivery.postal_code,
+          city: delivery.city,
+          phone: contact.phone,
         },
       },
       {

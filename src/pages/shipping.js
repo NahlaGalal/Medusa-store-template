@@ -26,7 +26,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
       // @ts-ignore
       data: { message },
     } = await axios.post(
-      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}store/create-order?cartId=${cartId}`,
+      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/create-order?cartId=${cartId}`,
       {
         cart,
         shipping_address: {

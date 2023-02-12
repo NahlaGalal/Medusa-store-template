@@ -88,15 +88,18 @@ export async function getServerSideProps({ req, res }) {
   let response
 
   if (cartId) response = await client.carts.retrieve(cartId)
-  else response = await client.carts.create()
+  else
+    response = await client.carts.create(undefined, {
+      cookie: req.headers.cookie,
+    })
 
   const {
     cart: { id, items },
   } = response
 
-  if(!cartId) setTokenCookie(res, "cart_id", id);
+  if (!cartId) setTokenCookie(res, "cart_id", id)
 
-  return { props: { collections, items, cartId } }
+  return { props: { collections, items, cartId: cartId || id } }
 }
 
 export default Cart

@@ -158,6 +158,14 @@ input[type="search"]::-webkit-search-results-decoration {
   cursor: pointer;
 }
 
+.ais-RefinementList-count::before {
+  content: '(';
+}
+
+.ais-RefinementList-count::after {
+  content: ')';
+}
+
 /* Price range */
 .ais-RangeInput-separator {
   display: none;

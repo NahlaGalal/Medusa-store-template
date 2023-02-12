@@ -9,8 +9,9 @@ import * as Yup from "yup"
 import Login from "../components/shipping/forms/login"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
+import { getTokenCookie } from "../utils/cookie"
 
-const LoginPage = () => {
+const LoginPage = ({ cartId }) => {
   const router = useRouter()
   const { setLoading, setIsRegistered } = useContext(PublicContext)
 
@@ -45,6 +46,9 @@ const LoginPage = () => {
 
         if (res.response.status === 200) {
           localStorage.setItem("id", res.customer.id)
+
+          if (cartId)
+            await client.carts.update(cartId, { customer_id: res.customer.id })
           setIsRegistered(true)
           router.push("/")
         }
@@ -83,6 +87,12 @@ const LoginPage = () => {
       </Box>
     </Container>
   )
+}
+
+export async function getServerSideProps({ req }) {
+  let cartId = getTokenCookie(req, "cart_id") || null
+
+  return { props: { cartId } }
 }
 
 export default LoginPage

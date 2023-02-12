@@ -16,7 +16,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (!cart) router.push("/")
+    if (!cart || !cart.items.length) router.push("/")
   }, [])
 
   const createOrder = async ({ contact, delivery }) => {
@@ -59,7 +59,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
         <title>Shipping</title>
       </Head>
       <Container variant="layout.container">
-        {isRegistered && cart ? (
+        {isRegistered && cart && cart.items.length ? (
           <Forms
             region={region}
             country={region?.countries[0].iso_2}
@@ -89,10 +89,16 @@ const Shipping = ({ region, cart, cartId, customer }) => {
 export async function getServerSideProps({ req }) {
   const { regions } = await client.regions.list()
   const cartId = getTokenCookie(req, "cart_id") || null
-  let cart
-  const { customer } = await client.auth.getSession({
-    cookie: req.headers.cookie,
-  })
+  let cart, customer
+
+  try {
+    const response = await client.auth.getSession({
+      cookie: req.headers.cookie,
+    })
+    customer = response.customer
+  } catch (err) {
+    customer = {}
+  }
 
   try {
     const response = await client.carts.retrieve(cartId)

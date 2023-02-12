@@ -1,5 +1,5 @@
 // @ts-check
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import Head from "next/head"
 import { Flex, Heading, Box, Text, Container } from "theme-ui"
 import { client } from "../utils/client"
@@ -7,14 +7,15 @@ import { getTokenCookie, removeTokenCookie } from "../utils/cookie"
 import ReviewAddress from "../components/SuccessOrder/ReviewAddress"
 import ReviewProducts from "../components/SuccessOrder/ReviewProducts"
 import TotalPrice from "../components/SuccessOrder/TotalPrice"
-
 import { useRouter } from "next/router"
+import { PublicContext } from "../context/publicContext"
 
 const Payment = ({ cart }) => {
   const router = useRouter()
+  const { isRegistered } = useContext(PublicContext)
 
   useEffect(() => {
-    if (!cart) router.push("/")
+    if (!cart || !cart.items.length) router.push("/")
   }, [])
 
   return (
@@ -23,7 +24,7 @@ const Payment = ({ cart }) => {
         <title>Review Products</title>
       </Head>
       <Container variant="layout.container">
-        {cart && (
+        {isRegistered && cart && cart.items.length && (
           <Flex
             sx={{
               my: 4,

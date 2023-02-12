@@ -3,11 +3,11 @@ import NextLink from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { client } from "../../utils/client"
-import { Button, Flex, Link, NavLink } from "theme-ui"
+import { Button, Flex, Link, MenuButton, NavLink } from "theme-ui"
 import { PublicContext } from "../../context/publicContext"
 
-const Navbar = () => {
-  const { setIsDropdownOpen, isDropdownOpen, isRegistered, setIsRegistered } =
+const Navbar = ({ isDropdownOpen, setIsDropdownOpen, isDrawerOpen, setIsDrawerOpen }) => {
+  const { isRegistered, setIsRegistered } =
     useContext(PublicContext)
   const [collection, setCollection] = useState([])
   const route = useRouter()
@@ -31,6 +31,11 @@ const Navbar = () => {
     }
   }
 
+  const onToggleMenu = (e) => {
+    e.stopPropagation()
+    setIsDrawerOpen(!isDrawerOpen)
+  }
+
   return (
     <Flex
       as="nav"
@@ -40,7 +45,8 @@ const Navbar = () => {
         py: 10,
         px: "5%",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.4)",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
       <NextLink href="/" passHref>
@@ -49,14 +55,31 @@ const Navbar = () => {
         </Link>
       </NextLink>
 
+      <MenuButton
+        sx={{ display: ["block", "none"], cursor: "pointer" }}
+        onClick={onToggleMenu}
+      />
+
       <Flex
         as="ul"
         sx={{
           listStyleType: "none",
           gap: 16,
-          p: 0,
-          mx: "auto",
-          alignItems: "center",
+          zIndex: 200,
+          transition: "all 0.4s ease-in-out",
+          // Responsive
+          position: ["fixed", "static"],
+          flexDirection: ["column", "row"],
+          alignItems: ["flex-start", "center"],
+          left: 0,
+          top: 84,
+          py: [24, 0],
+          px: [isDrawerOpen ? 24 : 0, 0],
+          minHeight: ["calc(100vh - 84px)", 0],
+          width: [isDrawerOpen ? 200 : 0, "auto"],
+          opacity: [isDrawerOpen ? 1 : 0, 1],
+          background: ["white", "transparent"],
+          boxShadow: ["0 4px 6px rgba(0, 0, 0, 0.4)", "none"],
         }}
       >
         <li>
@@ -122,11 +145,37 @@ const Navbar = () => {
             <NavLink sx={{ fontWeight: 400 }}>Cart</NavLink>
           </NextLink>
         </li>
+
+        <li>
+          {isRegistered ? (
+            <Button
+              sx={{
+                display: ["inline-block", "none"],
+                p: 0,
+                background: "transparent",
+                cursor: "pointer",
+                color: "brand",
+              }}
+              onClick={logoutHandler}
+            >
+              Logout
+            </Button>
+          ) : (
+            <NextLink href={"/register"} passHref>
+              <NavLink
+                sx={{ display: ["inline-block", "none"], fontWeight: 400 }}
+              >
+                Register
+              </NavLink>
+            </NextLink>
+          )}
+        </li>
       </Flex>
 
       {isRegistered ? (
         <Button
           sx={{
+            display: ["none", "inline-block"],
             p: 0,
             background: "transparent",
             cursor: "pointer",
@@ -138,7 +187,9 @@ const Navbar = () => {
         </Button>
       ) : (
         <NextLink href={"/register"} passHref>
-          <NavLink sx={{ fontWeight: 400 }}>Register</NavLink>
+          <NavLink sx={{ display: ["none", "inline-block"], fontWeight: 400 }}>
+            Register
+          </NavLink>
         </NextLink>
       )}
     </Flex>

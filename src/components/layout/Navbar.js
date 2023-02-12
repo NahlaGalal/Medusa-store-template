@@ -3,12 +3,16 @@ import NextLink from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { client } from "../../utils/client"
-import { Button, Flex, Link, MenuButton, NavLink } from "theme-ui"
+import { Button, Close, Flex, Link, MenuButton, NavLink } from "theme-ui"
 import { PublicContext } from "../../context/publicContext"
 
-const Navbar = ({ isDropdownOpen, setIsDropdownOpen, isDrawerOpen, setIsDrawerOpen }) => {
-  const { isRegistered, setIsRegistered } =
-    useContext(PublicContext)
+const Navbar = ({
+  isDropdownOpen,
+  setIsDropdownOpen,
+  isDrawerOpen,
+  setIsDrawerOpen,
+}) => {
+  const { isRegistered, setIsRegistered } = useContext(PublicContext)
   const [collection, setCollection] = useState([])
   const route = useRouter()
 
@@ -31,7 +35,7 @@ const Navbar = ({ isDropdownOpen, setIsDropdownOpen, isDrawerOpen, setIsDrawerOp
     }
   }
 
-  const onToggleMenu = (e) => {
+  const onToggleMenu = e => {
     e.stopPropagation()
     setIsDrawerOpen(!isDrawerOpen)
   }
@@ -55,10 +59,17 @@ const Navbar = ({ isDropdownOpen, setIsDropdownOpen, isDrawerOpen, setIsDrawerOp
         </Link>
       </NextLink>
 
-      <MenuButton
-        sx={{ display: ["block", "none"], cursor: "pointer" }}
-        onClick={onToggleMenu}
-      />
+      {isDrawerOpen ? (
+        <Close
+          sx={{ display: ["block", "none"], cursor: "pointer" }}
+          onClick={onToggleMenu}
+        />
+      ) : (
+        <MenuButton
+          sx={{ display: ["block", "none"], cursor: "pointer" }}
+          onClick={onToggleMenu}
+        />
+      )}
 
       <Flex
         as="ul"

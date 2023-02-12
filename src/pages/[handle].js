@@ -19,7 +19,7 @@ import { PublicContext } from "../context/publicContext"
 import Variant from "../components/Product/Variant"
 import TabsContainer from "../components/Product/TabsContainer"
 import SelectQuantity from "../components/Product/SelectQuantity"
-import { getTokenCookie } from "../utils/cookie"
+import { getTokenCookie, setTokenCookie } from "../utils/cookie"
 
 const ProductPage = ({ product, region, cartId }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -237,7 +237,7 @@ const ProductPage = ({ product, region, cartId }) => {
   )
 }
 
-export async function getServerSideProps({ req, params }) {
+export async function getServerSideProps({ req, params, res }) {
   const { products } = await client.products.list({ handle: params.handle })
   const { regions } = await client.regions.list()
 
@@ -245,8 +245,11 @@ export async function getServerSideProps({ req, params }) {
   let cartId = getTokenCookie(req, "cart_id")
 
   if (!cartId) {
-    const res = await client.carts.create()
-    cartId = res.cart.id
+    const {
+      cart: { id },
+    } = await client.carts.create()
+    setTokenCookie(res, "cart_id", id)
+    cartId = id
   }
 
   const [product] = products
@@ -255,4 +258,3 @@ export async function getServerSideProps({ req, params }) {
 }
 
 export default ProductPage
-// FIXME: Variants

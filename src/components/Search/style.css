@@ -121,3 +121,99 @@ input[type="search"]::-webkit-search-results-decoration {
 .ais-Pagination-item--selected .ais-Pagination-link {
   background-color: var(--theme-ui-colors-brand);
 }
+
+/* Filters */
+.ais-RefinementList-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 4px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.ais-RefinementList-checkbox {
+  width: 0;
+  height: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+.ais-RefinementList-item {
+  cursor: pointer;
+  background-color: var(--theme-ui-colors-lightGrey);
+  color: var(--theme-ui-colors-brand);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.ais-RefinementList-item--selected {
+  background-color: var(--theme-ui-colors-brand);
+  color: var(--theme-ui-colors-lightGrey);
+}
+
+.ais-RefinementList-label {
+  cursor: pointer;
+}
+
+/* Price range */
+.ais-RangeInput-separator {
+  display: none;
+}
+
+.ais-RangeInput-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ais-RangeInput-input {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  display: block;
+  padding: 8px 16px;
+  appearance: none;
+  line-height: inherit;
+  border-radius: 4px;
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+  transition: all 0.2s linear;
+  font-size: 14px;
+  border: 1px solid var(--theme-ui-colors-darkGrey);
+  outline: none;
+  transition: all 0.2s linear;
+}
+
+.ais-RangeInput-input::placeholder,
+.ais-RangeInput-input:-ms-input-placeholder,
+.ais-RangeInput-input::-ms-input-placeholder {
+  color: var(--theme-ui-colors-darkGrey);
+}
+
+.ais-RangeInput-submit {
+  box-sizing: border-box;
+  margin: 0;
+  appearance: none;
+  display: inline-block;
+  text-align: center;
+  line-height: inherit;
+  padding: 8px 24px;
+  border: 0;
+  background-color: transparent;
+  color: var(--theme-ui-colors-brand);
+  height: 33px;
+  border: 1px solid var(--theme-ui-colors-brand);
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.ais-RangeInput-submit:hover {
+  background-color: var(--theme-ui-colors-brand);
+  color: var(--theme-ui-colors-white);
+}

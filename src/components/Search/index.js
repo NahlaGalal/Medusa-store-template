@@ -1,23 +1,21 @@
 // @ts-check
 import React from "react"
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Pagination,
-  RefinementList
-} from "react-instantsearch-dom"
-import { SEARCH_INDEX_NAME, searchClient } from "../../lib/search-client"
+import { SearchBox, Hits, Pagination } from "react-instantsearch-dom"
+import { Flex } from "theme-ui"
 import Product from "../ProductCard"
 
 const Search = () => {
   return (
-    <InstantSearch indexName={SEARCH_INDEX_NAME} searchClient={searchClient}>
-      <RefinementList attribute="tags" />
+    <Flex sx={{ flex: 4, flexDirection: "column", gap: 3 }}>
+      {/* Search */}
       <SearchBox />
+
+      {/* Products */}
       <Hits hitComponent={Product} />
+
+      {/* Pagination */}
       <Pagination />
-    </InstantSearch>
+    </Flex>
   )
 }
 

@@ -28,7 +28,7 @@ const ProductPage = ({ product, region, cartId }) => {
     id: "thumbnail",
     url: product.thumbnail,
   })
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState({ val: 1, max: 1 })
   const [isVariant, setIsVariant] = useState(false)
   const [price, setPrice] = useState("0")
   const router = useRouter()
@@ -46,17 +46,20 @@ const ProductPage = ({ product, region, cartId }) => {
   }
 
   const addToCartHandler = async () => {
-    if (isVariant) {
+    if (isVariant && quantity.max) {
       setLoading(true)
       const variant_id = getVariantId()
 
       if (variant_id) {
-        await client.carts.lineItems.create(cartId, { variant_id, quantity })
+        await client.carts.lineItems.create(cartId, {
+          variant_id,
+          quantity: quantity.val,
+        })
         router.push("/cart")
       }
 
       setLoading(false)
-    }
+    } 
   }
 
   const onChooseVariantHandler = id => {
@@ -80,6 +83,10 @@ const ProductPage = ({ product, region, cartId }) => {
           region,
         })
       )
+      setQuantity({
+        val: 1,
+        max: variant.inventory_quantity,
+      })
       setIsVariant(true)
     } else {
       setPrice("0")
@@ -189,11 +196,30 @@ const ProductPage = ({ product, region, cartId }) => {
                 </Flex>
 
                 {/* Quantity */}
-                <SelectQuantity
-                  variant={product.variants[0]}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                />
+                {isVariant ? (
+                  <>
+                    {quantity.max ? (
+                      <SelectQuantity
+                        quantity={quantity}
+                        setQuantity={setQuantity}
+                      />
+                    ) : undefined}
+                    {!quantity.max ? (
+                      <Text mb={3} color="secondary">
+                        Sorry no products left for this variant
+                      </Text>
+                    ) : quantity.max < 6 ? (
+                      <Text mb={3} color="secondary">
+                        Hurry up, only {quantity.max} pieces left for this
+                        product.
+                      </Text>
+                    ) : undefined}
+                  </>
+                ) : (
+                  <Text mb={3} color="secondary">
+                    Please, choose a valid variant before adding to cart
+                  </Text>
+                )}
 
                 {/* Add to cart button and price */}
                 <Flex
@@ -209,10 +235,10 @@ const ProductPage = ({ product, region, cartId }) => {
                     sx={{
                       borderRadius: "20px",
                       gap: 3,
-                      cursor: isVariant ? "pointer" : "not-allowed",
+                      cursor:
+                        isVariant && quantity.max ? "pointer" : "not-allowed",
                     }}
                     onClick={addToCartHandler}
-                    disabled={!isVariant}
                   >
                     Add to Cart
                   </Button>

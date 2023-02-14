@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { Container, Text } from "theme-ui"
 import axios from "axios"
 import { client } from "../utils/client"
-import Forms from "../components/shipping/forms"
+import Forms from "../components/shipping"
 import { getTokenCookie } from "../utils/cookie"
 import { PublicContext } from "../context/publicContext"
 

@@ -28,18 +28,6 @@ const theme = {
     },
   },
   cards: {
-    accordionTrigger: {
-      bg: "white",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "375px",
-      borderRadius: "8px",
-      transition: "all .2s linear",
-      fontWeight: "600",
-      px: "24px",
-      py: "16px",
-    },
     container: {
       bg: "white",
       width: "375px",
@@ -97,14 +85,6 @@ const theme = {
       cursor: "pointer",
       transition: "all 0.4s ease-in-out",
     },
-    edit: {
-      bg: "transparent",
-      color: "brand",
-      cursor: "pointer",
-      fontSize: "14px",
-      textDecoration: "underline",
-      padding: "0",
-    },
     tags: {
       bg: "lightGrey",
       color: "brand",
@@ -114,84 +94,16 @@ const theme = {
       textDecoration: "none",
     },
   },
-  box: {
-    paymentField: {
-      bg: "background",
-      padding: "12px",
-      fontSize: "1.1em",
-      borderRadius: "5px",
-      marginBottom: "20px",
-    },
-  },
   text: {
-    fz_s: {
-      fontSize: "10px",
-    },
-    header3: {
-      fontSize: "16px",
-      fontWeight: "600",
-    },
     summary: {
       py: ".1em",
       fontSize: "12px",
       color: "darkGrey",
       fontWeight: 300,
     },
-    landingpageText: {
-      py: ".1em",
-      fontSize: "14px",
-      lineHeight: "24px",
-      color: "#111827",
-      mb: "8px",
-      fontWeight: 300,
-      "& a": {
-        fontWeight: 500,
-        textDecoration: "none",
-        color: "#3B82F6",
-        "&:hover": {
-          color: "brand",
-        },
-      },
-    },
-    landingpageLink: {
-      fontSize: "14px",
-      lineHeight: "24px",
-      color: "#3B82F6",
-      mb: "4px",
-      fontWeight: 500,
-      textDecoration: "none",
-      "&:hover": {
-        color: "brand",
-      },
-    },
-    termsLink: {
-      textDecoration: "none",
-      color: "medusa100",
-    },
-    confirmationHeading: {
-      lineHeight: "1.8em",
-    },
-    confirmationText: {
-      fontSize: "0.8em",
-      lineHeight: "1.5em",
-      fontWeight: "300",
-    },
-    subheading: {
-      fontSize: "12px",
-      fontWeight: 600,
-      color: "black",
-    },
   },
 
   forms: {
-    select: {
-      bg: "cool",
-      border: "none",
-    },
-    input: {
-      bg: "cool",
-      border: "none",
-    },
     field: {
       border: "1px solid grey",
       "::placeholder": {
@@ -211,7 +123,6 @@ const theme = {
     root: {
       fontFamily: "body",
       fontWeight: "body",
-      background: "ui",
     },
   },
 }

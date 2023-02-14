@@ -70,6 +70,7 @@ const Product = ({ hit: product }) => {
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
           textOverflow: "ellipsis",
+          fontSize: 10
         }}
         variant="fz_s"
       >

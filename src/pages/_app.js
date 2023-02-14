@@ -7,6 +7,7 @@ import { ThemeProvider } from "theme-ui"
 import { PublicProvider } from "../context/publicContext"
 import theme from "../theme"
 import Layout from "../components/layout"
+import "../style/globals.css"
 import "../components/Search/style.css"
 
 const BACKEND_URL =

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  stepContainer {
+    @apply w-full h-full mb-2;
+  }
+
+  container {
+    @apply w-4/5 mx-auto;
+  }
+
+  buttonCta {
+    @apply bg-transparent 
+    [ text-brand font-medium ] h-8 cursor-pointer 
+    [ border border-brand ] no-underline
+    [ transition-all duration-300 ] 
+    [ disabled:opacity-50 disabled:cursor-default ] 
+    [ hover:bg-brand hover:text-white ];
+  }
+
+  buttonActive {
+    @apply bg-brand text-white;
+  }
+
+  formField {
+    @apply border border-darkGrey placeholder:text-darkGrey outline-none transition-all duration-200;
+  }
+}

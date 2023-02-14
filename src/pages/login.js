@@ -2,11 +2,10 @@
 
 import { useFormik } from "formik"
 import React, { useContext } from "react"
-import { Box, Button, Container, Divider, Flex, Link } from "theme-ui"
+import { Container } from "theme-ui"
 import { useRouter } from "next/router"
-import NextLink from "next/link"
 import * as Yup from "yup"
-import Login from "../components/shipping/forms/login"
+import Login from "../components/Registeration/Login"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
 import { getTokenCookie } from "../utils/cookie"
@@ -22,25 +21,18 @@ const LoginPage = ({ cartId }) => {
 
   const formik = useFormik({
     initialValues: {
-      login: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      login: Yup.object({
-        email: Yup.string()
-          .email("Please provide a valid email address")
-          .required("Required"),
-        password: Yup.string().required("Required"),
-      }),
+      email: Yup.string()
+        .email("Please provide a valid email address")
+        .required("Required"),
+      password: Yup.string().required("Required"),
     }),
-    onSubmit: async values => {
+    onSubmit: async ({ email, password }) => {
       setLoading(true)
 
-      const {
-        login: { email, password },
-      } = values
       try {
         const res = await client.auth.authenticate({ email, password })
 
@@ -53,38 +45,19 @@ const LoginPage = ({ cartId }) => {
           router.push("/")
         }
       } catch (err) {
-        console.log(err)
+        if (err.response.status === 401) {
+          formik.setErrors({
+            email: "Email or password is incorrect",
+          })
+          setLoading(false)
+        }
       }
     },
   })
 
   return (
     <Container sx={{ maxWidth: "80%", mt: 40 }}>
-      <Login formik={formik} />
-
-      <Box>
-        <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-        <Flex
-          sx={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-          }}
-        >
-          <Button
-            onClick={handleSubmit}
-            color="white"
-            backgroundColor={"brand"}
-            sx={{ cursor: "pointer" }}
-          >
-            Login
-          </Button>
-
-          <NextLink href={"/register"} passHref>
-            <Link sx={{ color: "secondary" }}>Register instead?</Link>
-          </NextLink>
-        </Flex>
-      </Box>
+      <Login formik={formik} handleSubmit={handleSubmit} />
     </Container>
   )
 }

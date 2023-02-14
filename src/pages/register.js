@@ -2,12 +2,11 @@
 
 import { useFormik } from "formik"
 import React, { useContext } from "react"
-import { Box, Button, Container, Divider, Flex, Link } from "theme-ui"
+import { Container } from "theme-ui"
 import { useCreateCustomer } from "medusa-react"
 import { useRouter } from "next/router"
-import NextLink from "next/link"
 import * as Yup from "yup"
-import Register from "../components/shipping/forms/register"
+import Register from "../components/Registeration/Register"
 import { PublicContext } from "../context/publicContext"
 
 const RegisterPage = () => {
@@ -22,59 +21,44 @@ const RegisterPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      register: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-      },
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      register: Yup.object({
-        first_name: Yup.string().required("Required"),
-        last_name: Yup.string().required("Required"),
-        email: Yup.string()
-          .email("Please provide a valid email address")
-          .required("Required"),
-        password: Yup.string().required("Required"),
-      }),
+      first_name: Yup.string().required("Required"),
+      last_name: Yup.string().required("Required"),
+      email: Yup.string()
+        .email("Please provide a valid email address")
+        .required("Required"),
+      password: Yup.string().required("Required"),
     }),
-    onSubmit: async values => {
+    onSubmit: async ({ first_name, last_name, email, password }) => {
       setLoading(true)
 
-      const { register } = values
-      const res = await createCustomer.mutateAsync({ ...register })
-      if (res.response.status === 200) router.push("/login")
+      try {
+        const res = await createCustomer.mutateAsync({
+          first_name,
+          last_name,
+          email,
+          password,
+        })
+        if (res.response.status === 200) router.push("/login")
+      } catch (err) { 
+        if (err.response.status === 422) {
+          formik.setErrors({
+            email: err.response.data.message,
+          })
+          setLoading(false)
+        }
+      }
     },
   })
 
   return (
     <Container sx={{ maxWidth: "80%", mt: 40 }}>
-      <Register formik={formik} />
-
-      <Box>
-        <Divider sx={{ color: "#E5E7EB", my: "16px" }} />
-        <Flex
-          sx={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-          }}
-        >
-          <Button
-            onClick={handleSubmit}
-            color="white"
-            backgroundColor={"brand"}
-            sx={{ cursor: "pointer" }}
-          >
-            Register
-          </Button>
-
-          <NextLink href={"/login"} passHref>
-            <Link sx={{ color: "secondary" }}>Login instead?</Link>
-          </NextLink>
-        </Flex>
-      </Box>
+      <Register formik={formik} handleSubmit={handleSubmit} />
     </Container>
   )
 }

@@ -274,7 +274,7 @@ export async function getServerSideProps({ req, params, res }) {
     const {
       cart: { id },
     } = await client.carts.create(undefined, {
-      cookie: req.headers.cookie,
+      cookie: req.headers?.cookie || "",
     })
     setTokenCookie(res, "cart_id", id)
     cartId = id

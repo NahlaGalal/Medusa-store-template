@@ -1,7 +1,8 @@
 // @ts-check
 import React from "react"
 import { Flex, Grid, Heading } from "theme-ui"
-import { RangeInput, RefinementList } from "react-instantsearch-dom"
+import { RefinementList } from "react-instantsearch-dom"
+import CustomRangeInput from "./RangeInput"
 
 const Filter = () => {
   return (
@@ -15,7 +16,8 @@ const Filter = () => {
         <Heading color="secondary" as="h3">
           Price (EGP)
         </Heading>
-        <RangeInput attribute={"variants.prices.amount"} />
+
+        <CustomRangeInput attribute={"variants.prices.amount"} />
       </Grid>
 
       {/* Variants filter */}

@@ -15,10 +15,14 @@
   border-radius: 4px;
   color: inherit;
   background-color: transparent;
-  border: 1px solid grey;
+  border: 1px solid var(--theme-ui-colors-brand);
   outline: none;
   transition: all 0.2s linear;
   font-size: 14px;
+}
+
+.ais-SearchBox-submitIcon {
+  fill: var(--theme-ui-colors-brand);
 }
 
 .ais-SearchBox button {
@@ -164,64 +168,4 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .ais-RefinementList-count::after {
   content: ')';
-}
-
-/* Price range */
-.ais-RangeInput-separator {
-  display: none;
-}
-
-.ais-RangeInput-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.ais-RangeInput-input {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  display: block;
-  padding: 8px 16px;
-  appearance: none;
-  line-height: inherit;
-  border-radius: 4px;
-  color: inherit;
-  background-color: transparent;
-  outline: none;
-  transition: all 0.2s linear;
-  font-size: 14px;
-  border: 1px solid var(--theme-ui-colors-darkGrey);
-  outline: none;
-  transition: all 0.2s linear;
-}
-
-.ais-RangeInput-input::placeholder,
-.ais-RangeInput-input:-ms-input-placeholder,
-.ais-RangeInput-input::-ms-input-placeholder {
-  color: var(--theme-ui-colors-darkGrey);
-}
-
-.ais-RangeInput-submit {
-  box-sizing: border-box;
-  margin: 0;
-  appearance: none;
-  display: inline-block;
-  text-align: center;
-  line-height: inherit;
-  padding: 8px 24px;
-  border: 0;
-  background-color: transparent;
-  color: var(--theme-ui-colors-brand);
-  height: 33px;
-  border: 1px solid var(--theme-ui-colors-brand);
-  cursor: pointer;
-  transition: all 0.4s ease-in-out;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.ais-RangeInput-submit:hover {
-  background-color: var(--theme-ui-colors-brand);
-  color: var(--theme-ui-colors-white);
 }

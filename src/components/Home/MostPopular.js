@@ -5,7 +5,7 @@ import Product from "../ProductCard"
 
 const MostPopular = ({ products }) => {
   return (
-    <Container variant="layout.container" mb={5} as="section">
+    <Container variant="layout.container" my={5} as="section">
       <Heading as="h2" sx={{ textAlign: "center", color: "secondary" }} mb={3}>
         Most popular products
       </Heading>

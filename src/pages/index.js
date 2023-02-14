@@ -7,7 +7,6 @@ import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
 import Header from "../components/Home/Header"
 import Features from "../components/Home/Features"
-import AboutUs from "../components/Home/AboutUs"
 import MostPopular from "../components/Home/MostPopular"
 import ImageSec from "../components/Home/ImageSec"
 import GetInTouch from "../components/Home/GetInTouch"
@@ -30,9 +29,6 @@ const IndexPage = ({ products, region }) => {
 
         {/* Features */}
         <Features />
-
-        {/* About us */}
-        <AboutUs />
 
         {/* Most popular products */}
         <MostPopular products={products} />

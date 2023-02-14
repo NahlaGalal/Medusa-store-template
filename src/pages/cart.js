@@ -90,7 +90,7 @@ export async function getServerSideProps({ req, res }) {
   if (cartId) response = await client.carts.retrieve(cartId)
   else
     response = await client.carts.create(undefined, {
-      cookie: req.headers.cookie,
+      cookie: req.headers?.cookie || "",
     })
 
   const {

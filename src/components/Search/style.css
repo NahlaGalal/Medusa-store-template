@@ -163,9 +163,38 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .ais-RefinementList-count::before {
-  content: '(';
+  content: "(";
 }
 
 .ais-RefinementList-count::after {
-  content: ')';
+  content: ")";
+}
+
+/* Clear filters */
+.ais-ClearRefinements-button {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  appearance: none;
+  display: inline-block;
+  text-align: center;
+  line-height: inherit;
+  text-decoration: none;
+  font-size: inherit;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: 1px solid;
+  cursor: pointer;
+  border-radius: 0;
+  color: var(--theme-ui-colors-secondary);
+  background-color: var(--theme-ui-colors-white);
+  border-color: var(--theme-ui-colors-secondary);
+  transition: all 0.4s ease-in-out;
+}
+
+.ais-ClearRefinements-button:hover {
+  color: var(--theme-ui-colors-white);
+  background-color: var(--theme-ui-colors-secondary);
 }

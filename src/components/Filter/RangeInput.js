@@ -19,30 +19,32 @@ const RangeInput = ({ min, max, refine }) => {
       <Input
         type="number"
         name="min"
-        placeholder={Math.floor(+min / 100).toString()}
+        placeholder={min ? Math.floor(+min / 100).toString() : '0'}
         sx={{
           fontSize: "14px",
           fontWeight: 300,
           width: "calc(100% / 3 - 8px)",
           borderColor: "brand",
+          minWidth: 70,
         }}
-        max={Math.floor(max / 100)}
-        min={Math.floor(min / 100)}
+        max={Math.floor(max / 100) || 0}
+        min={Math.floor(min / 100) || 0}
         variant="field"
         onChange={event => setMinInput(parseInt(event.target.value))}
       />
       <Input
         type="number"
         name="max"
-        placeholder={Math.floor(+max / 100).toString()}
+        placeholder={max ? Math.floor(+max / 100).toString() : '0'}
         sx={{
           fontSize: "14px",
           fontWeight: 300,
           width: "calc(100% / 3 - 8px)",
           borderColor: "brand",
+          minWidth: 70,
         }}
-        max={Math.floor(max / 100)}
-        min={Math.floor(min / 100)}
+        max={Math.floor(max / 100) || 0}
+        min={Math.floor(min / 100) || 0}
         variant="field"
         onChange={event => setMaxInput(parseInt(event.target.value))}
       />

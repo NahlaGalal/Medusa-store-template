@@ -5,12 +5,18 @@ import { Container, Flex, Box, Image, Heading, Grid, Text } from "theme-ui"
 const GetInTouch = () => {
   return (
     <Container variant="layout.container" my={5} as="section">
-      <Flex sx={{ gap: "80px", alignItems: "flex-start" }}>
+      <Flex
+        sx={{
+          gap: "80px",
+          alignItems: "flex-start",
+          flexDirection: ["column", "row"],
+        }}
+      >
         <Box sx={{ flex: 1, position: "relative" }}>
           <Image
             src="/contact_section.jpg"
             alt="Contact illusturation"
-            sx={{ borderRadius: 10 }}
+            sx={{ borderRadius: 10, maxHeight: [300, "none"] }}
           />
           <Box
             as="span"
@@ -27,8 +33,12 @@ const GetInTouch = () => {
           ></Box>
         </Box>
 
-        <Box sx={{ flex: 2, mt: 5 }}>
-          <Heading as="h2" sx={{ color: "secondary", width: "50%" }} mb={5}>
+        <Box sx={{ flex: 2, mt: [0, 5] }}>
+          <Heading
+            as="h2"
+            sx={{ color: "secondary", width: ["100%", "50%"] }}
+            mb={[4, 5]}
+          >
             Get in touch with us & let's talk
           </Heading>
 

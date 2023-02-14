@@ -21,7 +21,7 @@ const Header = () => {
         <Heading
           as="h1"
           color="brand"
-          sx={{ fontSize: 70, display: "flex", flexDirection: "column" }}
+          sx={{ fontSize: [48, 70], display: "flex", flexDirection: "column" }}
         >
           <Text>A Dream</Text>
           <Text>You</Text>
@@ -50,6 +50,7 @@ const Header = () => {
             objectFit: "cover",
             transform: "rotate(-5deg)",
             width: "100%",
+            height: [300, "auto"]
           }}
         />
       </Flex>

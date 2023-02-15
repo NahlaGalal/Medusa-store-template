@@ -7,7 +7,7 @@ import FieldSplitter from "../Field/FieldSplitter"
 const Register = ({ formik, handleSubmit }) => {
   return (
     <form>
-      <h2 className="mb-4 text-brand text-3xl">Register</h2>
+      <h2 className="mb-4 text-brand text-2xl">Register</h2>
       <FieldSplitter
         left={
           <Field

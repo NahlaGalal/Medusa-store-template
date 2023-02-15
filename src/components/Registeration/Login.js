@@ -6,7 +6,7 @@ import Field from "../Field"
 const Login = ({ formik, handleSubmit }) => {
   return (
     <form>
-      <h2 className="mb-4 text-brand text-3xl">Login</h2>
+      <h2 className="mb-4 text-brand text-2xl">Login</h2>
       <Field
         formik={formik}
         placeholder={"Email"}

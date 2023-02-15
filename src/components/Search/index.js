@@ -6,12 +6,11 @@ import {
   Pagination,
   connectStateResults,
 } from "react-instantsearch-dom"
-import { Flex, Text } from "theme-ui"
 import Product from "../ProductCard"
 
 const Search = () => {
   return (
-    <Flex sx={{ flex: 4, flexDirection: "column", gap: 3 }}>
+    <div className="flex flex-[4] flex-col gap-4">
       {/* Search */}
       <SearchBox />
 
@@ -23,7 +22,7 @@ const Search = () => {
           <Pagination />
         </>
       </Results>
-    </Flex>
+    </div>
   )
 }
 
@@ -33,18 +32,9 @@ const Results = connectStateResults(
     searchResults && searchResults.nbHits !== 0 ? (
       children
     ) : (
-      <Text
-        sx={{
-          color: "secondary",
-          fontWeight: 500,
-          fontSize: 20,
-          textAlign: "center",
-          my: 5,
-        }}
-        as="p"
-      >
+      <p className="text-secondary font-medium text-xl text-center my-16">
         No products found
-      </Text>
+      </p>
     )
 )
 

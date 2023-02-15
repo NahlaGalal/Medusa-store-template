@@ -4,21 +4,10 @@
 }
 
 .ais-SearchBox input {
-  box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-  display: block;
   width: 100%;
   padding: 8px 32px;
-  appearance: none;
-  line-height: inherit;
-  border-radius: 4px;
-  color: inherit;
-  background-color: transparent;
-  border: 1px solid var(--theme-ui-colors-brand);
   outline: none;
-  transition: all 0.2s linear;
-  font-size: 14px;
+  color: inherit;
 }
 
 .ais-SearchBox-submitIcon {
@@ -27,7 +16,7 @@
 
 .ais-SearchBox button {
   position: absolute;
-  top: 10px;
+  top: 16px;
   background: transparent;
   border: 0;
   padding: 0;
@@ -142,6 +131,8 @@ input[type="search"]::-webkit-search-results-decoration {
   height: 0;
   margin: 0;
   opacity: 0;
+  padding: 0;
+  border: 0;
 }
 
 .ais-RefinementList-item {

@@ -1,13 +1,13 @@
 // @ts-check
 import React, { useState } from "react"
 import { connectRange } from "react-instantsearch-dom"
-import { Button, Flex, Input } from "theme-ui"
 
 const RangeInput = ({ min, max, refine }) => {
   const [minInput, setMinInput] = useState(NaN)
   const [maxInput, setMaxInput] = useState(NaN)
 
-  const onFilterHandler = () => {
+  const onFilterHandler = e => {
+    e.preventDefault()
     refine({
       min: Number.isNaN(minInput) ? min : Math.max(minInput * 100, min),
       max: Number.isNaN(maxInput) ? max : Math.min(maxInput * 100, max),
@@ -15,51 +15,32 @@ const RangeInput = ({ min, max, refine }) => {
   }
 
   return (
-    <Flex as="form" sx={{ flexWrap: "wrap", gap: 1 }}>
-      <Input
+    <form className="flex flex-wrap gap-1" onSubmit={onFilterHandler}>
+      <input
         type="number"
         name="min"
-        placeholder={min ? Math.floor(+min / 100).toString() : '0'}
-        sx={{
-          fontSize: "14px",
-          fontWeight: 300,
-          width: "calc(100% / 3 - 8px)",
-          borderColor: "brand",
-          minWidth: 70,
-        }}
+        placeholder={min ? Math.floor(+min / 100).toString() : "0"}
         max={Math.floor(max / 100) || 0}
         min={Math.floor(min / 100) || 0}
-        variant="field"
         onChange={event => setMinInput(parseInt(event.target.value))}
+        className="formField text-sm font-light w-[calc(100%/3_-_8px)] border-brand min-w-[70px]"
       />
-      <Input
+      <input
         type="number"
         name="max"
-        placeholder={max ? Math.floor(+max / 100).toString() : '0'}
-        sx={{
-          fontSize: "14px",
-          fontWeight: 300,
-          width: "calc(100% / 3 - 8px)",
-          borderColor: "brand",
-          minWidth: 70,
-        }}
+        placeholder={max ? Math.floor(+max / 100).toString() : "0"}
         max={Math.floor(max / 100) || 0}
         min={Math.floor(min / 100) || 0}
-        variant="field"
         onChange={event => setMaxInput(parseInt(event.target.value))}
+        className="formField text-sm font-light w-[calc(100%/3_-_8px)] border-brand min-w-[70px]"
       />
-      <Button
+      <button
         onClick={onFilterHandler}
-        variant="cta"
-        type="button"
-        sx={{
-          borderRadius: "4px",
-          "&:hover": { backgroundColor: "brand", color: "white" },
-        }}
+        className="buttonCta rounded hover:bg-brand hover:text-white"
       >
         Filter
-      </Button>
-    </Flex>
+      </button>
+    </form>
   )
 }
 

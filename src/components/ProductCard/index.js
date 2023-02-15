@@ -1,5 +1,4 @@
 import React, { useContext } from "react"
-import { Card, Flex, Image, Text, Link } from "@theme-ui/components"
 import { formatVariantPrice } from "medusa-react"
 import NextLink from "next/link"
 import { PublicContext } from "../../context/publicContext"
@@ -8,75 +7,47 @@ const Product = ({ hit: product }) => {
   const { region } = useContext(PublicContext)
 
   return (
-    <Card variant="container">
-      <Flex sx={{ flexDirection: "column", mt: 16 }}>
-        <Image
-          sx={{
-            width: "100%",
-            borderRadius: "4px",
-            objectFit: "contain",
-          }}
+    <section className="bg-white w-96 px-6 py-4 h-auto rounded-lg justify-center shadow-[0_0_4px_1px_rgba(0,0,0,0.2)] max-w-full">
+      <div className="flex flex-col mt-4">
+        <img
           src={product.thumbnail}
           alt={product.title}
+          className="w-full rounded object-contain"
         />
-        <Flex sx={{ flexDirection: "column", gap: 2 }}>
-          <Text
-            sx={{
-              fontSize: "12px",
-              fontWeight: 300,
-              color: "#6B7280",
-            }}
-          >
+
+        <div className="flex flex-col gap-2">
+          {/* Collection */}
+          <span className="text-xs font-light text-darkGrey">
             {product.collection_title}
-          </Text>
-          <Text
-            sx={{
-              fontSize: "20px",
-              fontWeight: 600,
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            }}
-          >
+          </span>
+
+          {/* Product name */}
+          <p className="text-xl font-semibold text-ellipsis whitespace-nowrap overflow-hidden">
             <NextLink href={`/${product.handle}`} passHref>
-              <Link color="brand" sx={{ textDecoration: "none" }}>
-                {product.title}
-              </Link>
+              <a className="text-brand no-underline">{product.title}</a>
             </NextLink>
-          </Text>
-          <Text
-            sx={{
-              fontSize: "14px",
-              fontWeight: 300,
-              mb: "1em",
-            }}
-          >
+          </p>
+
+          {/* Product price */}
+          <p className="text-sm font-light mb-4">
             {`${formatVariantPrice({
               variant: product.variants[0],
               region,
             })}`}
-          </Text>
-        </Flex>
-      </Flex>
-      <Text
-        sx={{
-          mt: "16px",
-          lineHeight: "24px",
-          fontSize: "14px",
-          fontWeight: 300,
-          color: "#6B7280",
+          </p>
+        </div>
+      </div>
+      <p
+        className="text-sm font-light text-darkGrey overflow-hidden text-ellipsis leading-6"
+        style={{
           display: "-webkit-box",
           WebkitLineClamp: 3,
           WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          fontSize: 10
         }}
-        variant="fz_s"
       >
         {product.description}
-      </Text>
-    </Card>
+      </p>
+    </section>
   )
 }
 

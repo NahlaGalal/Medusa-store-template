@@ -1,6 +1,5 @@
 // @ts-check
 import React, { useContext, useEffect } from "react"
-import { Container, Flex } from "theme-ui"
 import Head from "next/head"
 import { InstantSearch } from "react-instantsearch-dom"
 import { client } from "../utils/client"
@@ -19,8 +18,8 @@ const Shop = ({ region }) => {
       <Head>
         <title>Shop</title>
       </Head>
-      <Container variant="layout.container">
-        <Flex sx={{ gap: 5, flexDirection: ["column", "row", "row"] }} my={4}>
+      <div className="layoutContainer">
+        <div className="flex gap-16 flex-col md:flex-row my-8">
           <InstantSearch
             indexName={SEARCH_INDEX_NAME}
             searchClient={searchClient}
@@ -28,8 +27,8 @@ const Shop = ({ region }) => {
             <Filter />
             <Search />
           </InstantSearch>
-        </Flex>
-      </Container>
+        </div>
+      </div>
     </>
   )
 }

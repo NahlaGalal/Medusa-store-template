@@ -1,97 +1,55 @@
 // @ts-check
 import React from "react"
-import { Container, Flex, Box, Image, Heading, Grid, Text } from "theme-ui"
 
 const GetInTouch = () => {
   return (
-    <Container variant="layout.container" my={5} as="section">
-      <Flex
-        sx={{
-          gap: "80px",
-          alignItems: "flex-start",
-          flexDirection: ["column", "row"],
-        }}
-      >
-        <Box sx={{ flex: 1, position: "relative" }}>
-          <Image
+    <section className="layoutContainer my-16">
+      <div className="flex gap-20 items-center flex-col md:flex-row">
+        <div className="flex-1 relative">
+          <img
             src="/contact_section.jpg"
             alt="Contact illusturation"
-            sx={{ borderRadius: 10, maxHeight: [300, "none"] }}
+            className="rounded-xl max-h-80 md:max-h-none"
           />
-          <Box
-            as="span"
-            sx={{
-              position: "absolute",
-              backgroundColor: "lightGrey",
-              width: "100%",
-              height: "100%",
-              bottom: -40,
-              right: -40,
-              zIndex: -1,
-              borderRadius: 10,
-            }}
-          ></Box>
-        </Box>
 
-        <Box sx={{ flex: 2, mt: [0, 5] }}>
-          <Heading
-            as="h2"
-            sx={{ color: "secondary", width: ["100%", "50%"] }}
-            mb={[4, 5]}
-          >
+          <span className="absolute bg-lightGrey w-full h-full -bottom-10 -right-10 -z-10 rounded-xl"></span>
+        </div>
+
+        <div className="flex-[2] mt-0 md:mt-16">
+          <h2 className="text-secondary w-100 md:w-1/2 mb-8 md:mb-16">
             Get in touch with us & let's talk
-          </Heading>
+          </h2>
 
-          <Grid columns={[1, 2, 2]} gap={4}>
-            <Box>
-              <Text as="p" sx={{ fontWeight: 700, mb: 2 }}>
-                Office Hours
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                Sunday to Thursday
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                9:00 am to 5:00 pm
-              </Text>
-            </Box>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <p className="font-bold mb-2">Office Hours</p>
+              <p className="text-darkGrey">Sunday to Thursday</p>
+              <p className="text-darkGrey">9:00 am to 5:00 pm</p>
+            </div>
 
-            <Box>
-              <Text as="p" sx={{ fontWeight: 700, mb: 2 }}>
-                Our Address
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
+            <div>
+              <p className="font-bold mb-2">Our Address</p>
+              <p className="text-darkGrey">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Dolorum mollitia eius
-              </Text>
-            </Box>
+              </p>
+            </div>
 
-            <Box>
-              <Text as="p" sx={{ fontWeight: 700, mb: 2 }}>
-                Get in Touch
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                +1-264-124-6443
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                +1-264-124-6443
-              </Text>
-            </Box>
+            <div>
+              <p className="font-bold mb-2">Get in Touch</p>
+              <p className="text-darkGrey">+1-264-124-6443</p>
+              <p className="text-darkGrey">+1-264-124-6443</p>
+            </div>
 
-            <Box>
-              <Text as="p" sx={{ fontWeight: 700, mb: 2 }}>
-                Email address
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                elnagar@gmail.com
-              </Text>
-              <Text as="p" sx={{ color: "darkGrey" }}>
-                elnagar2@gmail.com
-              </Text>
-            </Box>
-          </Grid>
-        </Box>
-      </Flex>
-    </Container>
+            <div>
+              <p className="font-bold mb-2">Email address</p>
+              <p className="text-darkGrey">elnagar@gmail.com</p>
+              <p className="text-darkGrey">elnagar2@gmail.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

@@ -1,61 +1,32 @@
 // @ts-check
 import React from "react"
-import { Container, Flex, Box, Text } from "theme-ui"
 
 const Features = () => {
   return (
-    <Container variant="layout.container" mt={5}>
-      <Flex sx={{ flexDirection: ["column", "row", "row"], rowGap: 4 }}>
-        <Box sx={{ flex: 1 }}>
-          <Text
-            as="p"
-            color="darkGrey"
-            sx={{ textAlign: "center", fontStyle: "italic" }}
-            mb={2}
-          >
+    <section className="layoutContainer mt-16">
+      <div className="flex flex-col md:flex-row gap-y-8">
+        <div className="flex-1">
+          <p className="text-darkGrey text-center italic mb-2">
             Satisfaction is
-          </Text>
-          <Text as="p" sx={{ textAlign: "center", fontSize: 24 }}>
-            100% Guaranteed
-          </Text>
-        </Box>
+          </p>
+          <p className="text-center text-2xl">100% Guaranteed</p>
+        </div>
 
-        <Box
-          sx={{
-            flex: 1,
-            borderWidth: [0, "0 1px"],
-            borderStyle: "solid",
-            borderColor: "lightGrey",
-          }}
-        >
-          <Text
-            as="p"
-            color="darkGrey"
-            sx={{ textAlign: "center", fontStyle: "italic" }}
-            mb={2}
-          >
+        <div className="flex-1 border-lightGrey border-0 md:border-x">
+          <p className="text-darkGrey text-center italic mb-2">
             On all standard offers
-          </Text>
-          <Text as="p" sx={{ textAlign: "center", fontSize: 24 }}>
-            Free Shipping
-          </Text>
-        </Box>
+          </p>
+          <p className="text-center text-2xl">Free Shipping</p>
+        </div>
 
-        <Box sx={{ flex: 1 }}>
-          <Text
-            as="p"
-            color="darkGrey"
-            sx={{ textAlign: "center", fontStyle: "italic" }}
-            mb={2}
-          >
+        <div className="flex-1">
+          <p className="text-darkGrey text-center italic mb-2">
             Only in 30 days
-          </Text>
-          <Text as="p" sx={{ textAlign: "center", fontSize: 24 }}>
-            Free Returns
-          </Text>
-        </Box>
-      </Flex>
-    </Container>
+          </p>
+          <p className="text-center text-2xl">Free Returns</p>
+        </div>
+      </div>
+    </section>
   )
 }
 

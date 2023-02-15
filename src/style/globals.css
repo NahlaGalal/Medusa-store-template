@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 @layer components {
-  stepContainer {
+  .stepContainer {
     @apply w-full h-full mb-2;
   }
 
-  container {
+  .layoutContainer {
     @apply w-4/5 mx-auto;
   }
 
-  buttonCta {
-    @apply bg-transparent h-8 cursor-pointer no-underline
+  .buttonCta {
+    @apply bg-transparent cursor-pointer no-underline
   text-brand font-medium 
     border border-brand 
     transition-all duration-300
@@ -20,11 +20,24 @@
   hover:bg-brand hover:text-white;
   }
 
-  buttonActive {
+  .buttonActive {
     @apply bg-brand text-white;
   }
 
-  formField {
+  .formField {
     @apply border border-darkGrey placeholder:text-darkGrey outline-none transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  body {
+    @apply font-Roboto box-border;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-Literata;
   }
 }

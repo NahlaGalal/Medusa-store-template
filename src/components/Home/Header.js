@@ -1,72 +1,38 @@
 // @ts-check
 import React from "react"
-import { Container, Flex, Heading, Text, Link, Image } from "theme-ui"
 import NextLink from "next/link"
 
 const Header = () => {
   return (
-    <Container
-      variant="layout.container"
-      mt={4}
-      as="header"
-      sx={{
-        display: "flex",
-        gap: 4,
-        maxHeight: ["auto", 600, 600],
-        flexDirection: ["column-reverse", "row", "row"],
-        position: "relative",
-      }}
-    >
-      <Flex sx={{ flex: [1, 1, 2], flexDirection: "column" }}>
-        <Heading
-          as="h1"
-          color="brand"
-          sx={{ fontSize: [48, 70], display: "flex", flexDirection: "column" }}
-        >
-          <Text>A Dream</Text>
-          <Text>You</Text>
-          <Text>Deserve</Text>
-        </Heading>
-        <Text color="darkGrey" sx={{ fontSize: 24 }} my={3} as="p">
+    <header className="layoutContainer mt-8 flex gap-8 flex-col-reverse md:flex-row relative">
+      <div className="flex-1 xl:flex-[2] flex-col flex">
+        <h1 className="text-brand text-5xl md:text-7xl flex flex-col">
+          <span>A Dream</span>
+          <span>You</span>
+          <span>Deserve</span>
+        </h1>
+
+        <p className="text-darkGrey text-2xl my-4">
           Bed linen for those who love impeccable style and comfort
-        </Text>
+        </p>
 
         <NextLink href={"/shop"} passHref>
-          <Link
-            variant="buttons.cta"
-            sx={{ width: "max-content" }}
-            py={2}
-            px={3}
-          >
-            Shop now
-          </Link>
+          <a className="buttonCta w-max py-2 px-4">Shop now</a>
         </NextLink>
-      </Flex>
+      </div>
 
-      <Flex sx={{ flex: 1 }}>
-        <Image
+      <div className="flex flex-1">
+        <img
           src={"/home_header.jpg"}
-          sx={{
-            objectFit: "cover",
-            transform: "rotate(-5deg)",
-            width: "100%",
-            height: [300, "auto"]
-          }}
+          className="object-cover -rotate-6 w-full h-80 md:h-auto"
         />
-      </Flex>
+      </div>
 
-      <Image
+      <img
         src="/home_header2.jpg"
-        sx={{
-          position: "absolute",
-          right: "-30%",
-          top: "120px",
-          transform: "rotate(5deg)",
-          height: "80%",
-          display: ["none", "block", "block"],
-        }}
+        className="absolute top-32 rotate-6 h-4/5 -right-1/3 hidden md:block"
       />
-    </Container>
+    </header>
   )
 }
 

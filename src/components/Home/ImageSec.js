@@ -1,62 +1,39 @@
 // @ts-check
 import React from "react"
-import { Box, Container, Flex, Heading, Text } from "theme-ui"
 
 const ImageSec = () => {
   return (
-    <Flex
-      as="section"
-      sx={{
-        backgroundImage: "url('/home_section.jpg')",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        minHeight: "100vh",
-        backgroundAttachment: "fixed",
-        alignItems: "center",
-      }}
+    <section
+      className="[ flex items-center ] min-h-screen
+    [ bg-no-repeat bg-cover bg-home_section bg-fixed ]"
     >
-      <Container
-        variant="layout.container"
-        backgroundColor={"rgba(255,255,255,0.5)"}
-        py={5}
-        px={3}
-        my={5}
-        sx={{
-          height: "calc(100% - 80px)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
+      <div
+        className="layoutContainer 
+      [ py-16 px-4 my-16 ] 
+      [ bg-white bg-opacity-50 ] 
+      h-[calc(100%_-_80px)] 
+      [ flex flex-col justify-center ]"
       >
-        <Heading
-          as="h2"
-          sx={{ textAlign: "center", color: "secondary" }}
-          mb={4}
-        >
-          About US
-        </Heading>
-
-        <Heading sx={{ mb: 3, color: "brand", textAlign: "center" }} as="h3">
+        <h2 className="text-center text-secondary mb-8">About US</h2>
+        <h3 className="mb-4 text-brand text-center">
           Lorem ipsum dolor sit amet consectetur
-        </Heading>
-        <Text
-          as="p"
-          mb={3}
-          sx={{ width: ["100%", "50%"], mx: "auto", textAlign: "center" }}
-        >
+        </h3>
+
+        <p className="mb-4 w-full md:w-1/2 mx-auto text-center">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum,
           officia excepturi. Earum quod nesciunt quia ad. Consequuntur incidunt
           nulla quis at, ducimus ullam, soluta, excepturi sapiente voluptas
           placeat eligendi possimus?
-        </Text>
-        <Text as="p" sx={{ width: ["100%", "50%"], mx: "auto", textAlign: "center" }}>
+        </p>
+
+        <p className="w-full md:w-1/2 mx-auto text-center">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum,
           officia excepturi. Earum quod nesciunt quia ad. Consequuntur incidunt
           nulla quis at, ducimus ullam, soluta, excepturi sapiente voluptas
           placeat eligendi possimus?
-        </Text>
-      </Container>
-    </Flex>
+        </p>
+      </div>
+    </section>
   )
 }
 

@@ -23,7 +23,7 @@ const IndexPage = ({ products, region }) => {
         <meta name="description" content="ElNagar classic landing page" />
       </Head>
 
-      <Flex as="main" sx={{ flexDirection: "column", overflow: "hidden" }}>
+      <main className="flex flex-col overflow-hidden">
         {/* Header */}
         <Header />
 
@@ -38,7 +38,7 @@ const IndexPage = ({ products, region }) => {
 
         {/* Get in touch */}
         <GetInTouch />
-      </Flex>
+      </main>
     </>
   )
 }

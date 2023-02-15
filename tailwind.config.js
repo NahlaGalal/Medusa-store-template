@@ -15,6 +15,9 @@ module.exports = {
         lightGrey: "#eef2f3",
         white: "#FFFFFF",
       },
+      backgroundImage: {
+        home_section: "url('/home_section.jpg')",
+      },
     },
   },
   plugins: [],

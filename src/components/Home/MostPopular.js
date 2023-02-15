@@ -1,27 +1,20 @@
 // @ts-check
 import React from "react"
-import { Container, Heading, Grid, Flex } from "theme-ui"
 import Product from "../ProductCard"
 
 const MostPopular = ({ products }) => {
   return (
-    <Container variant="layout.container" my={5} as="section">
-      <Heading as="h2" sx={{ textAlign: "center", color: "secondary" }} mb={3}>
-        Most popular products
-      </Heading>
+    <section className="layoutContainer my-16">
+      <h2 className="text-center text-secondary mb-4">Most popular products</h2>
 
-      <Grid columns={[1, 2, 4]} gap={24} my={4}>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 my-8">
         {products.map(product => (
-          <Flex
-            variant="layout.stepContainer"
-            key={product.id}
-            sx={{ justifyContent: "center" }}
-          >
+          <div key={product.id} className="flex justify-center stepContainer">
             <Product hit={product} />
-          </Flex>
+          </div>
         ))}
-      </Grid>
-    </Container>
+      </div>
+    </section>
   )
 }
 

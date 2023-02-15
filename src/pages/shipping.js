@@ -55,7 +55,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
       <Head>
         <title>Shipping</title>
       </Head>
-      <Container variant="layout.container">
+      <div className="layoutContainer">
         {isRegistered && cart && cart.items.length ? (
           <Forms
             region={region}
@@ -65,20 +65,11 @@ const Shipping = ({ region, cart, cartId, customer }) => {
             createOrder={createOrder}
           />
         ) : (
-          <Text
-            sx={{
-              color: "secondary",
-              fontWeight: 500,
-              fontSize: 20,
-              textAlign: "center",
-              my: 5,
-            }}
-            as="p"
-          >
+          <p className="text-secondary font-medium text-xl text-center my-16">
             You must Login first
-          </Text>
+          </p>
         )}
-      </Container>
+      </div>
     </>
   )
 }

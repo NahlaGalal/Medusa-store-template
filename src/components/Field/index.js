@@ -1,21 +1,19 @@
 // @ts-check
-import React, { useEffect, useState } from "react"
+import React from "react"
 
-const Field = ({ formik, value, name, placeholder, disabled, type }) => {
-  const [error, setError] = useState("")
-
-  useEffect(() => {
-    if (formik.errors[name] && formik.touched[name]) {
-      setError(formik.errors[name])
-    } else {
-      setError("")
-    }
-  }, [formik.errors, formik.touched, name])
-
+const Field = ({
+  formik,
+  value,
+  name,
+  placeholder,
+  error,
+  disabled = false,
+  type = "text",
+}) => {
   return (
     <div className="flex flex-col mb-3 w-full">
       <input
-        type={type || "text"}
+        type={type}
         defaultValue={value}
         disabled={disabled}
         name={name}

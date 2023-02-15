@@ -15,8 +15,7 @@ const Register = ({ formik, handleSubmit }) => {
             placeholder={"First name"}
             value={formik.values.first_name}
             name={"first_name"}
-            type="string"
-            disabled={false}
+            error={formik.touched.first_name && formik.errors.first_name}
           />
         }
         right={
@@ -25,8 +24,7 @@ const Register = ({ formik, handleSubmit }) => {
             placeholder={"Last name"}
             value={formik.values.last_name}
             name={"last_name"}
-            type="string"
-            disabled={false}
+            error={formik.touched.last_name && formik.errors.last_name}
           />
         }
       />
@@ -36,7 +34,7 @@ const Register = ({ formik, handleSubmit }) => {
         value={formik.values.email}
         name={"email"}
         type="email"
-        disabled={false}
+        error={formik.touched.email && formik.errors.email}
       />
       <Field
         formik={formik}
@@ -44,7 +42,7 @@ const Register = ({ formik, handleSubmit }) => {
         value={formik.values.password}
         name={"password"}
         type="password"
-        disabled={false}
+        error={formik.touched.password && formik.errors.password}
       />
 
       <hr className="border-t-lightGrey my-4" />

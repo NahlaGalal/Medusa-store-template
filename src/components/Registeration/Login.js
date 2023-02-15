@@ -13,7 +13,7 @@ const Login = ({ formik, handleSubmit }) => {
         value={formik.values.email}
         name={"email"}
         type="email"
-        disabled={false}
+        error={formik.touched.email && formik.errors.email}
       />
       <Field
         formik={formik}
@@ -21,7 +21,7 @@ const Login = ({ formik, handleSubmit }) => {
         value={formik.values.password}
         name={"password"}
         type="password"
-        disabled={false}
+        error={formik.touched.password && formik.errors.password}
       />
 
       <hr className="border-t-lightGrey my-4" />

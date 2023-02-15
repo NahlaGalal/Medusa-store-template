@@ -1,5 +1,4 @@
 // @ts-check
-import { Box, Button, Heading } from "@theme-ui/components"
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import * as Yup from "yup"
@@ -66,33 +65,26 @@ const Forms = ({ country, region, customer, cart, createOrder }) => {
   }, [])
 
   return (
-    <Box sx={{ my: 4 }}>
-      <Heading sx={{ textAlign: "center", color: "brand" }}>
-        Shipping and info
-      </Heading>
-      <Box mb={4} sx={{ mb: 4, mt: "16px" }}>
+    <section className="my-16">
+      <h2 className="text-center text-2xl text-brand">Shipping and info</h2>
+
+      <div className="mb-8 mt-4">
         <Contact formik={formik} />
-      </Box>
+      </div>
 
-      <Box pt={1}>
+      <div className="pt-1">
         <Delivery region={region} country={country} formik={formik} />
-      </Box>
+      </div>
 
-      <Box>
-        <Button
+      <div>
+        <button
           onClick={handleSubmit}
-          variant="cta"
-          sx={{
-            color: "white",
-            backgroundColor: "brand",
-            margin: "auto",
-            display: "block",
-          }}
+          className="buttonCta text-white bg-brand m-auto block"
         >
           Confirm order
-        </Button>
-      </Box>
-    </Box>
+        </button>
+      </div>
+    </section>
   )
 }
 

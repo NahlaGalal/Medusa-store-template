@@ -1,29 +1,23 @@
-import { Box, Heading } from "@theme-ui/components"
+// @ts-check
 import React from "react"
-import Field from "./field"
-import FieldSplitter from "./field-splitter"
+import Field from "../Field/index"
+import FieldSplitter from "../Field/FieldSplitter"
 
 const Contact = ({ formik }) => {
   return (
-    <Box as="form">
-      <Heading
-        as="h3"
-        sx={{
-          mb: "8px",
-        }}
-        color="secondary"
-      >
-        Contact
-      </Heading>
+    <form>
+      <h3 className="mb-2 text-secondary">Contact</h3>
       <FieldSplitter
-        split="50/50"
         left={
           <Field
             formik={formik}
             placeholder={"First name"}
             value={formik.values.contact.first_name}
-            name={"first_name"}
-            set={"contact"}
+            name={"contact.first_name"}
+            error={
+              formik.touched.contact?.first_name &&
+              formik.errors.contact?.first_name
+            }
           />
         }
         right={
@@ -31,8 +25,11 @@ const Contact = ({ formik }) => {
             formik={formik}
             placeholder={"Last name"}
             value={formik.values.contact.last_name}
-            name={"last_name"}
-            set={"contact"}
+            name={"contact.last_name"}
+            error={
+              formik.touched.contact?.last_name &&
+              formik.errors.contact?.last_name
+            }
           />
         }
       />
@@ -40,17 +37,17 @@ const Contact = ({ formik }) => {
         formik={formik}
         placeholder={"Email"}
         value={formik.values.contact.email}
-        name={"email"}
-        set={"contact"}
+        name={"contact.email"}
+        error={formik.touched.contact?.email && formik.errors.contact?.email}
       />
       <Field
         formik={formik}
         placeholder={"Phone number"}
         value={formik.values.contact.phone}
-        name={"phone"}
-        set={"contact"}
+        name={"contact.phone"}
+        error={formik.touched.contact?.phone && formik.errors.contact?.phone}
       />
-    </Box>
+    </form>
   )
 }
 

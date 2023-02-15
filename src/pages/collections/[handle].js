@@ -1,6 +1,5 @@
 // @ts-check
 import React, { useContext, useEffect, useState } from "react"
-import { Container, Grid, Heading, Text, Flex } from "theme-ui"
 import Head from "next/head"
 import Product from "../../components/ProductCard"
 import { client } from "../../utils/client"
@@ -20,71 +19,91 @@ const Collections = ({
 
   useEffect(() => setRegion(region), [])
 
+  useEffect(() => {
+    setPageProducts(products)
+  }, [products])
+
   return (
     <>
       <Head>
-        <title>{collection} Collection</title>
+        <title>{collection.title} Collection</title>
       </Head>
 
-      <Container variant="layout.container">
-        <Heading sx={{ textAlign: "center", mt: 4 }}>
-          {collection} Collection
-        </Heading>
+      <div className="layoutContainer">
+        <h2 className="text-center mt-8 text-xl text-brand">
+          {collection.title} Collection
+        </h2>
+
         {pageProducts.length ? (
           <>
-            <Grid columns={[1, 2, 3]} gap={24} my={4}>
+            <div className="grid grid-co1 md:grid-cols-2 xl:grid-cols-3 gap-6 my-8">
               {pageProducts.map(product => (
-                <Flex
-                  variant="layout.stepContainer"
+                <div
                   key={product.id}
-                  sx={{ justifyContent: "center" }}
+                  className="flex justify-center stepContainer"
                 >
                   <Product hit={product} />
-                </Flex>
+                </div>
               ))}
-            </Grid>
+            </div>
 
             <Pagination
               count={count}
               limit={limit}
               offset={offset}
               setPageProducts={setPageProducts}
+              options={{ collection_id: [collection.id] }}
             />
           </>
         ) : (
-          <Text
-            color="secondary"
-            sx={{ fontWeight: 500, fontSize: 20, textAlign: "center" }}
-            as={"p"}
-            my={4}
-          >
+          <p className="text-secondary font-medium text-xl text-center my-8">
             Sorry, no products found
-          </Text>
+          </p>
         )}
-      </Container>
+      </div>
     </>
   )
 }
 
 export async function getServerSideProps({ params: { handle } }) {
   const { collections } = await client.collections.list({ handle: [handle] })
-  const { products, count, limit, offset } = await client.products.list({
-    collection_id: [collections[0].id],
-    limit: LIMIT,
-  })
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
-
-  return {
-    props: {
-      products,
-      region,
-      collection: collections[0].title,
-      count,
-      limit,
-      offset,
-    },
+  
+  if(collections.length) {
+    const { products, count, limit, offset } = await client.products.list({
+      collection_id: [collections[0]?.id],
+      limit: LIMIT,
+    })
+  
+    return {
+      props: {
+        products,
+        region,
+        collection: {
+          title: collections[0].title,
+          id: collections[0].id,
+        },
+        count,
+        limit,
+        offset,
+      },
+    }
+  } else {
+    return {
+      props: {
+        products: [],
+        region,
+        collection: {
+          title: "Not Found",
+          id: "",
+        },
+        count: 0,
+        limit: LIMIT,
+        offset: 0,
+      },
+    }
   }
 }
 

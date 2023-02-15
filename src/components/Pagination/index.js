@@ -1,12 +1,11 @@
 // @ts-check
 import React, { useContext, useEffect, useState } from "react"
-import { Flex, Button } from "theme-ui"
 import { PublicContext } from "../../context/publicContext"
 import { client } from "../../utils/client"
 
 export const LIMIT = 6
 
-const Pagination = ({ setPageProducts, offset, count, limit }) => {
+const Pagination = ({ setPageProducts, offset, count, limit, options }) => {
   const [activePage, setActivePage] = useState(offset / LIMIT)
   const [numPages, setNumPages] = useState(Math.ceil(count / limit))
   const { setLoading } = useContext(PublicContext)
@@ -21,6 +20,7 @@ const Pagination = ({ setPageProducts, offset, count, limit }) => {
     const { products, offset, count, limit } = await client.products.list({
       limit: LIMIT,
       offset: pageNum * LIMIT,
+      ...options,
     })
 
     setPageProducts([...products])
@@ -30,25 +30,25 @@ const Pagination = ({ setPageProducts, offset, count, limit }) => {
   }
 
   return (
-    <Flex my={4} sx={{ justifyContent: "center" }}>
+    <div className="flex my-8 justify-center">
       {new Array(numPages).fill(0).map((_, i) => (
-        <Button
+        <button
           key={i}
-          sx={{
-            backgroundColor: activePage === i ? "brand" : "secondary",
-            borderRadius: !i
-              ? "4px 0 0 4px"
+          className={`cursor-pointer ${
+            activePage === i ? "bg-brand" : "bg-secondary"
+          } ${
+            !i
+              ? "rounded-l rounded-r-none"
               : i + 1 === numPages
-              ? "0 4px 4px 0"
-              : 0,
-            cursor: "pointer",
-          }}
+              ? "rounded-r rounded-l-none"
+              : "rounded-none"
+          }`}
           onClick={() => getProductsPage(i)}
         >
           {i + 1}
-        </Button>
+        </button>
       ))}
-    </Flex>
+    </div>
   )
 }
 

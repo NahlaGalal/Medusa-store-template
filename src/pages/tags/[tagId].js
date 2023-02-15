@@ -2,7 +2,6 @@
 
 import React, { useContext, useEffect, useState } from "react"
 import Head from "next/head"
-import { Container, Grid, Text, Flex } from "theme-ui"
 import Pagination, { LIMIT } from "../../components/Pagination"
 import { client } from "../../utils/client"
 import Product from "../../components/ProductCard"
@@ -13,8 +12,8 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
   const { setRegion } = useContext(PublicContext)
 
   const getTagName = () => {
-    const productTags = pageProducts[0].tags
-    const currentTag = productTags.find(productTag => productTag.id === tagId)
+    const productTags = pageProducts[0]?.tags
+    const currentTag = productTags?.find(productTag => productTag.id === tagId)
 
     if (currentTag) return currentTag.value.toLocaleUpperCase()
     return ""
@@ -28,39 +27,34 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
         <title>{getTagName()} Tag</title>
       </Head>
 
-      <Container variant="layout.container">
+      <div className="layoutContainer">
         {pageProducts.length ? (
           <>
-            <Grid columns={[1, 2, 3]} gap={24} my={4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 my-8">
               {pageProducts.map(product => (
-                <Flex
-                  variant="layout.stepContainer"
+                <div
+                  className="stepContainer flex justify-center"
                   key={product.id}
-                  sx={{ justifyContent: "center" }}
                 >
                   <Product hit={product} />
-                </Flex>
+                </div>
               ))}
-            </Grid>
+            </div>
 
             <Pagination
               count={count}
               limit={limit}
               offset={offset}
               setPageProducts={setPageProducts}
+              options={{ tags: [tagId] }}
             />
           </>
         ) : (
-          <Text
-            color="secondary"
-            sx={{ fontWeight: 500, fontSize: 20, textAlign: "center" }}
-            as={"p"}
-            my={4}
-          >
+          <p className="text-secondary font-medium text-xl text-center my-8">
             Sorry, no products found
-          </Text>
+          </p>
         )}
-      </Container>
+      </div>
     </>
   )
 }

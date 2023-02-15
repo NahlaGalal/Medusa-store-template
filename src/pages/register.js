@@ -3,6 +3,7 @@
 import { useFormik } from "formik"
 import React, { useContext } from "react"
 import { Container } from "theme-ui"
+import Head from "next/head"
 import { useCreateCustomer } from "medusa-react"
 import { useRouter } from "next/router"
 import * as Yup from "yup"
@@ -45,7 +46,7 @@ const RegisterPage = () => {
           password,
         })
         if (res.response.status === 200) router.push("/login")
-      } catch (err) { 
+      } catch (err) {
         if (err.response.status === 422) {
           formik.setErrors({
             email: err.response.data.message,
@@ -57,9 +58,14 @@ const RegisterPage = () => {
   })
 
   return (
-    <Container sx={{ maxWidth: "80%", mt: 40 }}>
-      <Register formik={formik} handleSubmit={handleSubmit} />
-    </Container>
+    <>
+      <Head>
+        <title>Register</title>
+      </Head>
+      <div className="layoutContainer mt-10">
+        <Register formik={formik} handleSubmit={handleSubmit} />
+      </div>
+    </>
   )
 }
 

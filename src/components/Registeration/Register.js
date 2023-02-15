@@ -52,7 +52,7 @@ const Register = ({ formik, handleSubmit }) => {
       <div className="flex items-center justify-between flex-wrap">
         <button onClick={handleSubmit}>Register</button>
 
-        <NextLink href={"/register"} passHref>
+        <NextLink href={"/login"} passHref>
           <a className="text-secondary">Login instead?</a>
         </NextLink>
       </div>

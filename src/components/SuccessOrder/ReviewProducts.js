@@ -1,60 +1,34 @@
 // @ts-check
 import React from "react"
-import { Grid, Flex, Image, Text } from "theme-ui"
 
 const ReviewProducts = ({ cart }) => {
   return (
-    <Grid>
+    <section>
       {cart.items.map(item => (
-        <Flex
-          sx={{
-            alignItems: "top",
-          }}
-          key={item.id}
-        >
-          <Image
+        <div key={item.id} className="flex">
+          <img
             src={item.thumbnail}
             alt={item.title}
-            sx={{
-              height: "90px",
-              width: "50%",
-              borderRadius: "4px",
-              objectFit: "contain",
-              objectPosition: "center center",
-            }}
+            className="h-24 w-1/2 rounded object-contain object-center"
           />
-          <Flex
-            sx={{
-              flex: 1,
-              flexDirection: "column",
-              fontWeight: "500",
-              fontSize: ".8em",
-              paddingLeft: "20px",
-            }}
-          >
-            <Text sx={{ fontWeight: 550, marginBottom: "10px" }}>
-              {item.title}
-            </Text>
-            <Flex
-              sx={{
-                width: "100%",
-                fontWeight: 300,
-                justifyContent: "space-between",
-              }}
-            >
-              <Text sx={{ marginBottom: "15px", color: "darkBlack" }}>
-                <Text sx={{ color: "darkGrey" }}>Size: </Text>
+          <div className="flex-1 font-medium text-sm pl-5">
+            <p className="font-medium mb-3">{item.title}</p>
+
+            <div className="flex w-full font-light justify-between">
+              <p className="mb-4 text-darkBlack">
+                <span className="text-darkGrey">Variant: </span>
                 {item.variant.title}
-              </Text>
-            </Flex>
-            <Text sx={{ fontWeight: 300, color: "darkBlack" }}>
-              <Text sx={{ color: "darkGrey" }}>Quantity: </Text>
+              </p>
+            </div>
+
+            <p className="font-light text-darkBlack">
+              <span className="text-darkGrey">Quantity: </span>
               {item.quantity}
-            </Text>
-          </Flex>
-        </Flex>
+            </p>
+          </div>
+        </div>
       ))}
-    </Grid>
+    </section>
   )
 }
 

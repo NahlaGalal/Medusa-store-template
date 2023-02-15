@@ -1,61 +1,27 @@
 // @ts-check
 import React from "react"
-import { Flex, Text } from "theme-ui"
 import { formatAmount } from "medusa-react"
 
 const TotalPrice = ({ cart }) => {
   return (
-    <Flex
-      sx={{
-        flexDirection: "column",
-        mt: "1em",
-        mb: "8px",
-        py: "16px",
-        borderBottom: "1px solid #E5E7EB",
-        borderTop: "1px solid #E5E7EB",
-      }}
-    >
-      <Flex
-        sx={{
-          flexDirection: "row",
-          width: "100%",
-          justifyContent: "space-between",
-          mb: "8px",
-        }}
-      >
-        <Text sx={{ color: "darkGrey", fontSize: "12px" }}>Subtotal</Text>
-        <Text sx={{ fontWeight: 400, color: "darkBlack", fontSize: "12px" }}>
-          {formatAmount({ amount: cart.subtotal, region: cart.region })}
-        </Text>
-      </Flex>
-      <Flex
-        sx={{
-          flexDirection: "row",
-          width: "100%",
-          justifyContent: "space-between",
-          mb: "8px",
-        }}
-      >
-        <Text sx={{ color: "darkGrey", fontSize: "12px" }}>Shipping</Text>
-        <Text sx={{ fontWeight: 400, color: "darkBlack", fontSize: "12px" }}>
+    <section className="mt-4 mb-2 py-4 border-y border-y-lightGrey">
+      <div className="flex justify-between text-xs">
+        <p className="text-darkGrey">Subtotal</p>
+        <p>{formatAmount({ amount: cart.subtotal, region: cart.region })}</p>
+      </div>
+
+      <div className="flex justify-between my-2 text-xs">
+        <p className="text-darkGrey">Shipping</p>
+        <p>
           {formatAmount({ amount: cart.shipping_total, region: cart.region })}
-        </Text>
-      </Flex>
-      <Flex
-        sx={{
-          flexDirection: "row",
-          width: "100%",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text sx={{ fontWeight: 500, color: "darkGrey", fontSize: "12px" }}>
-          Total
-        </Text>
-        <Text sx={{ fontWeight: 500, color: "darkBlack", fontSize: "12px" }}>
-          {formatAmount({ amount: cart.total, region: cart.region })}
-        </Text>
-      </Flex>
-    </Flex>
+        </p>
+      </div>
+
+      <div className="flex justify-between text-xs">
+        <p className="text-darkGrey">Total</p>
+        <p>{formatAmount({ amount: cart.total, region: cart.region })}</p>
+      </div>
+    </section>
   )
 }
 

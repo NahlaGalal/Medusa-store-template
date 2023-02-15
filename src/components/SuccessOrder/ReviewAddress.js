@@ -1,30 +1,18 @@
 // @ts-check
 import React from "react"
-import { Flex, Heading, Text } from "theme-ui"
 
 const ReviewAddress = ({ delivery, displayCountry }) => {
   return (
-    <Flex
-      sx={{
-        flexDirection: "column",
-        pb: "16px",
-        pt: "8px",
-      }}
-    >
-      <Heading as="h3" sx={{ mb: "8px", color: "secondary" }}>
-        Delivery
-      </Heading>
-      <Text variant="summary" color="darkGrey">
+    <div className="pb-4 pt-2">
+      <h3 className="mb-2 text-secondary">Delivery</h3>
+      <p className="text-darkGrey py-1 text-xs font-light">
         {delivery.address_1}
-      </Text>
-      <Text
-        variant="summary"
-        color="darkGrey"
-      >{`${delivery.postal_code}, ${delivery.city}`}</Text>
-      <Text variant="summary" color="darkGrey">
-        {displayCountry}
-      </Text>
-    </Flex>
+      </p>
+      <p className="text-darkGrey text-xs font-light">
+        {`${delivery.postal_code}, ${delivery.city}`}
+      </p>
+      <p className="text-darkGrey py-1 text-xs font-light">{displayCountry}</p>
+    </div>
   )
 }
 

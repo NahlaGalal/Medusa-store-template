@@ -1,7 +1,6 @@
 // @ts-check
 import React, { useContext, useEffect } from "react"
 import Head from "next/head"
-import { Flex, Heading, Box, Text, Container } from "theme-ui"
 import { client } from "../utils/client"
 import { getTokenCookie, removeTokenCookie } from "../utils/cookie"
 import ReviewAddress from "../components/SuccessOrder/ReviewAddress"
@@ -23,31 +22,26 @@ const Payment = ({ cart }) => {
       <Head>
         <title>Review Products</title>
       </Head>
-      <Container variant="layout.container">
+      <div className="layoutContainer">
         {isRegistered && cart && cart.items.length && (
-          <Flex
-            sx={{
-              my: 4,
-              flexDirection: "column",
-            }}
-          >
-            <Heading color="brand" sx={{ textAlign: "center" }}>
+          <div className="my-8">
+            <h2 className="text-brand text-center text-2xl">
               Congratulations, Order success
-            </Heading>
-            <Text sx={{ textAlign: "center", mb: 3 }}>
+            </h2>
+            <p className="text-center mb-4">
               We will call you soon, to deliver your order
-            </Text>
-            <Box mt={"16px"}>
+            </p>
+            <div className="mt-4">
               <ReviewProducts cart={cart} />
               <TotalPrice cart={cart} />
               <ReviewAddress
                 displayCountry={"Egypt"}
                 delivery={cart?.shipping_address}
               />
-            </Box>
-          </Flex>
+            </div>
+          </div>
         )}
-      </Container>
+      </div>
     </>
   )
 }

@@ -4,17 +4,8 @@ import Head from "next/head"
 import React, { useContext, useState } from "react"
 import { useRouter } from "next/router"
 import { formatVariantPrice } from "medusa-react"
+import NextLink from "next/link"
 import { client } from "../utils/client"
-import {
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-  Image,
-  Button,
-  Link,
-} from "theme-ui"
 import { PublicContext } from "../context/publicContext"
 import Variant from "../components/Product/Variant"
 import TabsContainer from "../components/Product/TabsContainer"
@@ -59,7 +50,7 @@ const ProductPage = ({ product, region, cartId }) => {
       }
 
       setLoading(false)
-    } 
+    }
   }
 
   const onChooseVariantHandler = id => {
@@ -100,165 +91,133 @@ const ProductPage = ({ product, region, cartId }) => {
         <title>{product.title}</title>
         <meta name="description" content={product?.description || ""} />
       </Head>
-      <Flex sx={{ flexDirection: "column" }}>
-        <Grid py={4}>
-          <Container className="layout.container">
-            <Grid as="section" columns={[1, 2, 2]}>
-              <Flex sx={{ flexDirection: "column" }}>
-                {/* Product thumbnail */}
-                <Image
-                  src={currentImg.url}
+      <div>
+        <section className="grid py-8 layoutContainer grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            {/* Product thumbnail */}
+            <img
+              src={currentImg.url}
+              alt="Product media"
+              className="max-h-80 object-contain"
+            />
+
+            {/* Product images */}
+            <div className="flex my-2 gap-4">
+              {[
+                { url: product.thumbnail, id: "thumbnail" },
+                ...product.images,
+              ].map(({ id, url }) => (
+                <img
+                  key={id}
+                  src={url}
                   alt="Product media"
-                  sx={{ maxHeight: "300px", objectFit: "contain" }}
+                  className={`[ border rounded ] 
+                  cursor-pointer object-contain
+                  [ transition-all duration-300 ] 
+                  [ max-h-20 max-w-20 ] ${
+                    currentImg.id === id ? "border-secondary" : "border-brand"
+                  }`}
+                  onClick={() => setCurrentImg({ id, url })}
                 />
+              ))}
+            </div>
+          </div>
 
-                {/* Product images */}
-                <Flex my={2} sx={{ gap: 3 }}>
-                  {[
-                    { url: product.thumbnail, id: "thumbnail" },
-                    ...product.images,
-                  ].map(({ id, url }) => (
-                    <Image
-                      key={id}
-                      src={url}
-                      alt="Product media"
-                      sx={{
-                        border: "1px solid",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        transition: "all 0.4s ease-in-out",
-                        maxHeight: "80px",
-                        width: "80px",
-                        objectFit: "contain",
-                        borderColor:
-                          currentImg.id === id ? "secondary" : "brand",
-                      }}
-                      onClick={() => setCurrentImg({ id, url })}
-                    />
-                  ))}
-                </Flex>
-              </Flex>
+          <div>
+            {/* Product title and collection */}
+            <h2 className="text-brand mb-2">{product.title}</h2>
 
-              <Flex sx={{ flexDirection: "column" }}>
-                {/* Product title and collection */}
-                <Heading color="brand" mb={2}>
-                  {product.title}
-                </Heading>
+            {/* Tags */}
+            <div className="flex gap-1 mb-2">
+              {product.tags.map(tag => (
+                <NextLink key={tag.id} href={`tags/${tag.id}`} passHref>
+                  <a className="bg-lightGrey text-brand px-2 py-1 rounded-md text-sm no-underline">
+                    {tag.value}
+                  </a>
+                </NextLink>
+              ))}
+            </div>
 
-                {/* Tags */}
-                <Flex sx={{ gap: "4px", mb: 2 }}>
-                  {product.tags.map(tag => (
-                    <Link
-                      key={tag.id}
-                      variant="buttons.tags"
-                      href={`tags/${tag.id}`}
-                    >
-                      {tag.value}
-                    </Link>
-                  ))}
-                </Flex>
+            {/* Collection name */}
+            <p>{product?.collection?.title}</p>
 
-                {/* Collection name */}
-                <Text as="p">{product?.collection?.title}</Text>
-
-                {/* Choose a variant */}
-                <Flex my={2} sx={{ flexWrap: "wrap" }}>
-                  {product.options.map((option, i) => (
-                    <Button
-                      variant="buttons.cta"
-                      key={option.id}
-                      className={`${
-                        option.id === activeOption ? "active" : ""
-                      }`}
-                      onClick={() => setActiveOption(option.id)}
-                      sx={{
-                        borderRadius: !i
-                          ? "4px 0 0 4px"
-                          : i + 1 === product.options.length
-                          ? "0 4px 4px 0"
-                          : 0,
-                        width: `calc(100% / ${product.options.length})`,
-                      }}
-                    >
-                      {option.title}
-                    </Button>
-                  ))}
-                </Flex>
-
-                {/* Variant options */}
-                <Flex sx={{ flexWrap: "wrap", gap: 2, mb: 3 }}>
-                  <Variant
-                    options={product.options}
-                    activeOption={activeOption}
-                    activeOptionVal={activeOptionVal}
-                    onChooseVariantHandler={onChooseVariantHandler}
-                  />
-                </Flex>
-
-                {/* Quantity */}
-                {isVariant ? (
-                  <>
-                    {quantity.max ? (
-                      <SelectQuantity
-                        quantity={quantity}
-                        setQuantity={setQuantity}
-                      />
-                    ) : undefined}
-                    {!quantity.max ? (
-                      <Text mb={3} color="secondary">
-                        Sorry no products left for this variant
-                      </Text>
-                    ) : quantity.max < 6 ? (
-                      <Text mb={3} color="secondary">
-                        Hurry up, only {quantity.max} pieces left for this
-                        product.
-                      </Text>
-                    ) : undefined}
-                  </>
-                ) : (
-                  <Text mb={3} color="secondary">
-                    Please, choose a valid variant before adding to cart
-                  </Text>
-                )}
-
-                {/* Add to cart button and price */}
-                <Flex
-                  sx={{
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: 3,
-                    mt: "auto",
-                  }}
+            {/* Choose a variant */}
+            <div className="flex flex-wrap my-2">
+              {product.options.map((option, i) => (
+                <button
+                  key={option.id}
+                  className={`buttonCta flex-1 min-w-max ${
+                    option.id === activeOption ? "buttonActive" : ""
+                  } ${
+                    !i
+                      ? "rounded-l rounded-r-none"
+                      : i + 1 === product.options.length
+                      ? "rounded-r rounded-l-none"
+                      : "rounded-none"
+                  }`}
+                  onClick={() => setActiveOption(option.id)}
                 >
-                  <Button
-                    variant="buttons.incrementor"
-                    sx={{
-                      borderRadius: "20px",
-                      gap: 3,
-                      cursor:
-                        isVariant && quantity.max ? "pointer" : "not-allowed",
-                    }}
-                    onClick={addToCartHandler}
-                  >
-                    Add to Cart
-                  </Button>
+                  {option.title}
+                </button>
+              ))}
+            </div>
 
-                  <Text
-                    as="p"
-                    color="secondary"
-                    sx={{ fontSize: 20, fontWeight: 700 }}
-                  >
-                    {price !== "0" && price}
-                  </Text>
-                </Flex>
-              </Flex>
-            </Grid>
-          </Container>
-        </Grid>
+            {/* Variant options */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Variant
+                options={product.options}
+                activeOption={activeOption}
+                activeOptionVal={activeOptionVal}
+                onChooseVariantHandler={onChooseVariantHandler}
+              />
+            </div>
+
+            {/* Quantity */}
+            {isVariant ? (
+              <>
+                {quantity.max ? (
+                  <SelectQuantity
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                  />
+                ) : undefined}
+                <p className="text-secondary mb-4">
+                  {!quantity.max
+                    ? `Sorry no products left for this variant`
+                    : quantity.max < 6
+                    ? `Hurry up, only ${quantity.max} pieces left for this product.`
+                    : undefined}
+                </p>
+              </>
+            ) : (
+              <p className="text-secondary mb-4">
+                Please, choose a valid variant before adding to cart
+              </p>
+            )}
+
+            {/* Add to cart button and price */}
+            <div className="flex items-center flex-wrap gap-4 mt-auto">
+              <button
+                className={`rounded-2xl gap-4 buttonCta flex-1 ${
+                  isVariant && quantity.max
+                    ? "cursor-pointer"
+                    : "cursor-not-allowed"
+                }`}
+                onClick={addToCartHandler}
+              >
+                Add to Cart
+              </button>
+
+              <p className="text-secondary text-xl font-bold">
+                {price !== "0" && price}
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* Description */}
         <TabsContainer description={product.description} />
-      </Flex>
+      </div>
     </>
   )
 }

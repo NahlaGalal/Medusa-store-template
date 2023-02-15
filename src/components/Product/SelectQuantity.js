@@ -1,6 +1,5 @@
 // @ts-check
 import React from "react"
-import { Flex, Text, Button, Input } from "theme-ui"
 
 const SelectQuantity = ({ quantity, setQuantity }) => {
   const isMostQuantity = () => quantity.val === quantity.max
@@ -12,45 +11,36 @@ const SelectQuantity = ({ quantity, setQuantity }) => {
     !isLeastQuantity() && setQuantity({ ...quantity, val: quantity.val - 1 })
 
   return (
-    <Flex
-      sx={{
-        gap: 2,
-        alignItems: "center",
-        mb: 3,
-        flexWrap: "wrap",
-      }}
-    >
-      <Text as="p">Quantity</Text>
-      <Button
-        variant="cta"
+    <div className="flex items-center gap-2 mb-4 flex-wrap">
+      <p>Quantity</p>
+      <button
+        className={`buttonCta ${
+          isMostQuantity()
+            ? "border-darkGrey text-darkGrey cursor-not-allowed"
+            : "border-brand text-brand cursor-pointer"
+        }`}
         onClick={incrementQuantityHandler}
-        sx={{
-          borderColor: isMostQuantity() ? "darkGrey" : "brand",
-          color: isMostQuantity() ? "darkGrey" : "brand",
-          cursor: isMostQuantity() ? "not-allowed" : "pointer",
-        }}
       >
         +
-      </Button>
-      <Input
+      </button>
+      <input
         type={"number"}
         placeholder="0"
-        sx={{ width: "50px" }}
+        className="w-12 h-8"
         value={quantity.val}
         readOnly
       />
-      <Button
-        variant="cta"
-        sx={{
-          borderColor: isLeastQuantity() ? "darkGrey" : "brand",
-          color: isLeastQuantity() ? "darkGrey" : "brand",
-          cursor: isLeastQuantity() ? "not-allowed" : "pointer",
-        }}
+      <button
+        className={`buttonCta ${
+          isLeastQuantity()
+            ? "border-darkGrey text-darkGrey cursor-not-allowed"
+            : "border-brand text-brand cursor-pointer"
+        }`}
         onClick={decrementQuantityHandler}
       >
         -
-      </Button>
-    </Flex>
+      </button>
+    </div>
   )
 }
 

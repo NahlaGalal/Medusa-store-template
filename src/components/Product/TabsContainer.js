@@ -1,49 +1,34 @@
 // @ts-check
 import React, { useState } from "react"
-import { Flex, Container, Button, Text } from "theme-ui"
 
 const TabsContainer = ({ description }) => {
   const [currentSection, setCurrentSection] = useState("description")
 
   return (
-    <Flex sx={{ height: "100%", flexDirection: "column", gap: 3 }}>
-      <Flex
-        as="header"
-        sx={{
-          gap: 3,
-          backgroundColor: "lightGrey",
-          borderBottom: "1px solid",
-          borderBottomColor: "darkGrey",
-        }}
-      >
-        <Container className="layout.container">
-          <Button
+    <div className="flex h-full flex-col gap-4">
+      <header className="flex gap-4 bg-lightGrey border-b border-b-darkGrey">
+        <div className="layoutContainer">
+          <button
             onClick={() => setCurrentSection("description")}
-            variant="buttons.decrementor"
-            sx={{
-              height: "auto",
-              py: "20px",
-              borderBottomColor: "secondary",
-              borderBottomStyle: "solid",
-              borderBottomWidth: currentSection === "description" ? 1 : 0,
-            }}
+            className={`buttonCta py-5 h-auto border-0 rounded-none border-b-secondary ${
+              currentSection === "description" ? "border-b" : "border-b-0"
+            }`}
           >
             Description
-          </Button>
-        </Container>
-      </Flex>
+          </button>
+        </div>
+      </header>
 
-      <Container className="layout.container" pb={3}>
+      <div className="layoutContainer pb-4">
         {currentSection === "description" ? (
-          <Text
-            as="p"
+          <p
             dangerouslySetInnerHTML={{
               __html: description.replaceAll("\n", "<br />"),
             }}
           />
         ) : undefined}
-      </Container>
-    </Flex>
+      </div>
+    </div>
   )
 }
 

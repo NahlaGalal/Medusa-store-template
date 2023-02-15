@@ -1,7 +1,5 @@
 // @ts-check
-
 import React from "react"
-import { Button } from "theme-ui"
 
 const Variant = ({
   options,
@@ -15,20 +13,15 @@ const Variant = ({
   )
 
   return optionValues.map(optionVal => (
-    <Button
-      variant="buttons.cta"
+    <button
       key={optionVal.id}
-      className={`${
-        optionVal.value === activeOptionVal[activeOption] ? "active" : ""
+      className={`buttonCta rounded flex-1 min-w-max ${
+        optionVal.value === activeOptionVal[activeOption] ? "buttonActive" : ""
       }`}
       onClick={() => onChooseVariantHandler(optionVal.value)}
-      sx={{
-        borderRadius: "4px",
-        minWidth: `calc(100% / ${optionValues.length})`,
-      }}
     >
       {optionVal.value}
-    </Button>
+    </button>
   ))
 }
 

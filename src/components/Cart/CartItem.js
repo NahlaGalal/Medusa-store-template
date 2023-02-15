@@ -1,102 +1,68 @@
 // @ts-check
-
 import React from "react"
-import { Flex, Close, Image, Text, Link } from "theme-ui"
 import NextLink from "next/link"
 
 const CartItem = ({ product, getCollectionName, deleteItem }) => {
   return (
-    <Flex variant="layout.stepContainer" sx={{ gap: 3, position: "relative" }}>
-      <Close
-        sx={{
-          position: "absolute",
-          right: "-36px",
-          padding: 0,
-          backgroundColor: "secondary",
-          borderRadius: "50%",
-          top: "-24px",
-          cursor: "pointer",
-          color: "white",
-        }}
+    <div className="flex stepContainer gap-4 relative flex-col md:flex-row">
+      <button
+        title="Close"
+        aria-label="Close"
+        className="absolute -right-9 p-0 bg-secondary rounded-full -top-6 cursor-pointer text-white"
         onClick={() => deleteItem(product.id)}
-      />
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentcolor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        </svg>
+      </button>
 
-      <Image
-        sx={{
-          borderRadius: "4px",
-          objectFit: "contain",
-          flex: 1,
-          maxWidth: "100px",
-        }}
+      <img
+        className="rounded object-contain flex-1 md:max-w-[250px] max-w-full"
         src={product.thumbnail}
         alt={product.title}
       />
 
-      <Flex sx={{ flexDirection: "column", flex: 1 }}>
-        <Text
-          as="p"
-          sx={{
-            fontSize: "20px",
-            fontWeight: 600,
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
-        >
+      <div className="flex-1">
+        <p className="text-xl font-semibold text-ellipsis flex-nowrap overflow-hidden">
           <NextLink href={`/${product.variant.product.handle}`} passHref>
-            <Link color="brand" sx={{ textDecoration: "none" }}>
-              {product.title}
-            </Link>
+            <a className="text-brand no-underline">{product.title}</a>
           </NextLink>
-        </Text>
+        </p>
 
-        <Text
-          sx={{
-            fontSize: "12px",
-            fontWeight: 300,
-            color: "#6B7280",
-          }}
-        >
+        <span className="text-xs font-light text-darkGrey">
           {getCollectionName(product.variant.product.collection_id) || ""}
-        </Text>
+        </span>
 
-        <Text
-          sx={{
-            mt: "8px",
-            width: "max-content",
-          }}
-          variant="buttons.tags"
-        >
+        <p className="mt-2 w-max bg-lightGrey text-brand px-2 py-1 rounded-md text-sm no-underline">
           {product.description}
-        </Text>
+        </p>
 
-        <Text
-          as="p"
-          sx={{
-            mb: "8px",
-            lineHeight: "24px",
-            fontSize: "14px",
-            fontWeight: 300,
-            color: "darkGrey",
+        <p
+          className="mb-2 text-sm font-light text-darkGrey leading-6 overflow-hidden text-ellipsis"
+          style={{
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
           }}
         >
           {product.variant.product.description}
-        </Text>
+        </p>
 
-        <Text as="p">Qty: {product.quantity}</Text>
-        <Text as="p" sx={{ textAlign: "right", color: "brand" }}>
+        <p>Qty: {product.quantity}</p>
+        <p className="text-right text-brand">
           {new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "EGP",
           }).format(product.total / 100)}{" "}
-        </Text>
-      </Flex>
-    </Flex>
+        </p>
+      </div>
+    </div>
   )
 }
 

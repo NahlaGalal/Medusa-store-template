@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from "react"
-import { Card, Container, Grid, Link, Text } from "theme-ui"
+// @ts-check
+import React, { useContext, useState } from "react"
 import Head from "next/head"
+import NextLink from "next/link"
 import { client } from "../utils/client"
 import CartItem from "../components/Cart/CartItem"
 import { PublicContext } from "../context/publicContext"
@@ -30,14 +31,13 @@ const Cart = ({ collections, items, cartId }) => {
       <Head>
         <title>My Cart</title>
       </Head>
-      <Container variant="layout.container">
+      <div className="layoutContainer">
         {products.length ? (
           <>
-            <Grid gap={24} my={4}>
+            <section className="grid gap-6 my-8">
               {products.map(product => (
-                <Card
-                  variant="container"
-                  sx={{ width: "100%" }}
+                <div
+                  className="w-full bg-white px-6 py-4 h-auto rounded-lg justify-center shadow-[0_0_4px_1px_rgba(0,0,0,0.2)] max-w-full"
                   key={product.id}
                 >
                   <CartItem
@@ -45,39 +45,22 @@ const Cart = ({ collections, items, cartId }) => {
                     getCollectionName={getCollectionName}
                     deleteItem={deleteItem}
                   />
-                </Card>
+                </div>
               ))}
-            </Grid>
+            </section>
 
-            <Link
-              variant="buttons.cta"
-              sx={{
-                mx: "auto",
-                mb: 4,
-                display: "block",
-                width: "max-content",
-                padding: "8px 16px",
-              }}
-              href="/shipping"
-            >
-              Proceed to Buy
-            </Link>
+            <NextLink href="/shipping" passHref>
+              <a className="buttonCta mx-auto mb-8 block w-max px-4 py-2">
+                Proceed to Buy
+              </a>
+            </NextLink>
           </>
         ) : (
-          <Text
-            sx={{
-              color: "secondary",
-              fontWeight: 500,
-              fontSize: 20,
-              textAlign: "center",
-              my: 5,
-            }}
-            as="p"
-          >
+          <p className="text-secondary font-medium text-xl text-center my-16">
             No products in the cart yet
-          </Text>
+          </p>
         )}
-      </Container>
+      </div>
     </>
   )
 }

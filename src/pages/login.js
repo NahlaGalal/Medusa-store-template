@@ -2,7 +2,7 @@
 
 import { useFormik } from "formik"
 import React, { useContext } from "react"
-import { Container } from "theme-ui"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import * as Yup from "yup"
 import Login from "../components/Registeration/Login"
@@ -56,9 +56,14 @@ const LoginPage = ({ cartId }) => {
   })
 
   return (
-    <Container sx={{ maxWidth: "80%", mt: 40 }}>
-      <Login formik={formik} handleSubmit={handleSubmit} />
-    </Container>
+    <>
+      <Head>
+        <title>Login</title>
+      </Head>
+      <div className="layoutContainer mt-10">
+        <Login formik={formik} handleSubmit={handleSubmit} />
+      </div>
+    </>
   )
 }
 

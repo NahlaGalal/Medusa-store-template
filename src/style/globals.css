@@ -25,12 +25,13 @@
   }
 
   .formField {
-    @apply border border-darkGrey placeholder:text-darkGrey outline-none transition-all duration-200;
+    @apply placeholder:text-darkGrey outline-none transition-all duration-200;
   }
 }
 
 @layer utilities {
-  body {
+  body,
+  * {
     @apply font-Roboto box-border;
   }
 
@@ -39,5 +40,13 @@
   h3,
   h4 {
     @apply font-Literata;
+  }
+
+  button {
+    @apply inline-block px-4 py-2 text-white rounded bg-brand border-0 cursor-pointer;
+  }
+
+  input {
+    @apply block p-2 appearance-none rounded border border-darkGrey
   }
 }

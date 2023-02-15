@@ -1,6 +1,4 @@
 // @ts-check
-
-import { Flex, Input, Text } from "@theme-ui/components"
 import React, { useEffect, useState } from "react"
 
 const Field = ({ formik, value, name, placeholder, disabled, type }) => {
@@ -15,14 +13,8 @@ const Field = ({ formik, value, name, placeholder, disabled, type }) => {
   }, [formik.errors, formik.touched, name])
 
   return (
-    <Flex
-      sx={{
-        flexDirection: "column",
-        mb: ".75em",
-        width: "100%",
-      }}
-    >
-      <Input
+    <div className="flex flex-col mb-3 w-full">
+      <input
         type={type || "text"}
         defaultValue={value}
         disabled={disabled}
@@ -30,15 +22,13 @@ const Field = ({ formik, value, name, placeholder, disabled, type }) => {
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         placeholder={placeholder}
-        sx={{
-          borderColor: error ? "secondary" : "darkGrey",
-          fontSize: "14px",
-          fontWeight: 300,
-        }}
-        variant="field"
+        className={`formField text-sm font-light ${
+          error ? "border-secondary" : "border-darkGrey"
+        }`}
       />
-      {error && <Text sx={{ fontSize: 13, color: "secondary" }}>{error}</Text>}
-    </Flex>
+
+      {error && <p className="text-xs text-secondary">{error}</p>}
+    </div>
   )
 }
 

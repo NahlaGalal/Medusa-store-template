@@ -1,31 +1,11 @@
-import { Flex, Box } from "@theme-ui/components"
 import React from "react"
 
 const FieldSplitter = ({ left, right }) => {
   return (
-    <Flex
-      sx={{
-        width: "100%",
-        flexGrow: "1",
-      }}
-    >
-      <Box
-        sx={{
-          mr: ".30em",
-          width: "100%",
-        }}
-      >
-        {left}
-      </Box>
-      <Box
-        sx={{
-          ml: ".30em",
-          width: "100%",
-        }}
-      >
-        {right}
-      </Box>
-    </Flex>
+    <div className="flex w-full flex-1">
+      <div className="mr-1 w-full">{left}</div>
+      <div className="ml-1 w-full">{right}</div>
+    </div>
   )
 }
 

@@ -3,7 +3,6 @@
 import React, { useContext, useEffect } from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { Container, Text } from "theme-ui"
 import axios from "axios"
 import { client } from "../utils/client"
 import Forms from "../components/shipping"

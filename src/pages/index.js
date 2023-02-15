@@ -2,7 +2,6 @@
 
 import Head from "next/head"
 import React, { useContext, useEffect } from "react"
-import { Flex } from "theme-ui"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
 import Header from "../components/Home/Header"

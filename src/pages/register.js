@@ -2,7 +2,6 @@
 
 import { useFormik } from "formik"
 import React, { useContext } from "react"
-import { Container } from "theme-ui"
 import Head from "next/head"
 import { useCreateCustomer } from "medusa-react"
 import { useRouter } from "next/router"

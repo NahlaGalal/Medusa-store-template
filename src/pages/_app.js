@@ -1,11 +1,10 @@
+// @ts-check
 import { CartProvider, MedusaProvider } from "medusa-react"
 import Head from "next/head"
 import React from "react"
 import Router from "next/router"
 import { QueryClient } from "react-query"
-import { ThemeProvider } from "theme-ui"
 import { PublicProvider } from "../context/publicContext"
-import theme from "../theme"
 import Layout from "../components/Layout"
 import "../style/globals.css"
 import "../components/Search/style.css"
@@ -26,29 +25,27 @@ const queryClient = new QueryClient({
 
 const App = ({ Component, pageProps }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <MedusaProvider
-        baseUrl={BACKEND_URL}
-        queryClientProviderProps={{ client: queryClient }}
-      >
-        <CartProvider>
-          <Head>
-            <link rel="icon" href="/favicon.ico" />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,700&family=Roboto:wght@400;700&display=swap"
-              rel="stylesheet"
-            ></link>
-          </Head>
-          <PublicProvider Router={Router}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </PublicProvider>
-        </CartProvider>
-      </MedusaProvider>
-    </ThemeProvider>
+    <MedusaProvider
+      baseUrl={BACKEND_URL}
+      queryClientProviderProps={{ client: queryClient }}
+    >
+      <CartProvider>
+        <Head>
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,700&family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+          ></link>
+        </Head>
+        <PublicProvider Router={Router}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PublicProvider>
+      </CartProvider>
+    </MedusaProvider>
   )
 }
 

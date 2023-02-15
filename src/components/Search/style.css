@@ -1,3 +1,12 @@
+:root {
+  --color-brand: #468d93;
+  --color-secondary: #a73822;
+  --color-darkBlack: #000000;
+  --color-darkGrey: #888888;
+  --color-lightGrey: #eef2f3;
+  --color-white: #FFFFFF;
+}
+
 /* Search */
 .ais-SearchBox form {
   position: relative;
@@ -8,10 +17,11 @@
   padding: 8px 32px;
   outline: none;
   color: inherit;
+  border-color: var(--color-brand);
 }
 
 .ais-SearchBox-submitIcon {
-  fill: var(--theme-ui-colors-brand);
+  fill: var(--color-brand);
 }
 
 .ais-SearchBox button {
@@ -96,9 +106,9 @@ input[type="search"]::-webkit-search-results-decoration {
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  color: var(--theme-ui-colors-white);
+  color: var(--color-white);
   border: 0;
-  background-color: var(--theme-ui-colors-secondary);
+  background-color: var(--color-secondary);
   cursor: pointer;
   border-radius: 0;
 }
@@ -112,7 +122,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .ais-Pagination-item--selected .ais-Pagination-link {
-  background-color: var(--theme-ui-colors-brand);
+  background-color: var(--color-brand);
 }
 
 /* Filters */
@@ -137,16 +147,16 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .ais-RefinementList-item {
   cursor: pointer;
-  background-color: var(--theme-ui-colors-lightGrey);
-  color: var(--theme-ui-colors-brand);
+  background-color: var(--color-lightGrey);
+  color: var(--color-brand);
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 14px;
 }
 
 .ais-RefinementList-item--selected {
-  background-color: var(--theme-ui-colors-brand);
-  color: var(--theme-ui-colors-lightGrey);
+  background-color: var(--color-brand);
+  color: var(--color-lightGrey);
 }
 
 .ais-RefinementList-label {
@@ -179,13 +189,13 @@ input[type="search"]::-webkit-search-results-decoration {
   border: 1px solid;
   cursor: pointer;
   border-radius: 0;
-  color: var(--theme-ui-colors-secondary);
-  background-color: var(--theme-ui-colors-white);
-  border-color: var(--theme-ui-colors-secondary);
+  color: var(--color-secondary);
+  background-color: var(--color-white);
+  border-color: var(--color-secondary);
   transition: all 0.4s ease-in-out;
 }
 
 .ais-ClearRefinements-button:hover {
-  color: var(--theme-ui-colors-white);
-  background-color: var(--theme-ui-colors-secondary);
+  color: var(--color-white);
+  background-color: var(--color-secondary);
 }

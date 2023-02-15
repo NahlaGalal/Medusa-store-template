@@ -20,7 +20,6 @@
     "axios": "^0.23.0",
     "cookie": "^0.5.0",
     "deepmerge": "^4.2.2",
-    "formik": "^2.2.9",
     "medusa-react": "^4.0.2-snapshot-20230112194226",
     "moment": "^2.29.1",
     "next": "^12.0.7",
@@ -28,10 +27,10 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.43.1",
     "react-instantsearch-dom": "^6.39.0",
     "react-query": "^3.34.7",
-    "sharp": "^0.29.3",
-    "yup": "^0.32.11"
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",

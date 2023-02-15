@@ -1,11 +1,9 @@
 // @ts-check
-
-import { useFormik } from "formik"
+import { useForm } from "react-hook-form"
 import React, { useContext } from "react"
 import Head from "next/head"
 import { useCreateCustomer } from "medusa-react"
 import { useRouter } from "next/router"
-import * as Yup from "yup"
 import Register from "../components/Registeration/Register"
 import { PublicContext } from "../context/publicContext"
 
@@ -14,47 +12,32 @@ const RegisterPage = () => {
   const router = useRouter()
   const { setLoading } = useContext(PublicContext)
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    formik.submitForm()
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm()
 
-  const formik = useFormik({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      first_name: Yup.string().required("Required"),
-      last_name: Yup.string().required("Required"),
-      email: Yup.string()
-        .email("Please provide a valid email address")
-        .required("Required"),
-      password: Yup.string().required("Required"),
-    }),
-    onSubmit: async ({ first_name, last_name, email, password }) => {
-      setLoading(true)
+  const onSubmit = async data => {
+    const { first_name, last_name, email, password } = data
+    setLoading(true)
 
-      try {
-        const res = await createCustomer.mutateAsync({
-          first_name,
-          last_name,
-          email,
-          password,
-        })
-        if (res.response.status === 200) router.push("/login")
-      } catch (err) {
-        if (err.response.status === 422) {
-          formik.setErrors({
-            email: err.response.data.message,
-          })
-          setLoading(false)
-        }
+    try {
+      const res = await createCustomer.mutateAsync({
+        first_name,
+        last_name,
+        email,
+        password,
+      })
+      if (res.response.status === 200) router.push("/login")
+    } catch (err) {
+      if (err.response.status > 399 && err.response.status < 500) {
+        setError("email", { message: err.response.data.message })
+        setLoading(false)
       }
-    },
-  })
+    }
+  }
 
   return (
     <>
@@ -62,7 +45,11 @@ const RegisterPage = () => {
         <title>Register</title>
       </Head>
       <div className="layoutContainer mt-10">
-        <Register formik={formik} handleSubmit={handleSubmit} />
+        <Register
+          register={register}
+          errors={errors}
+          handleSubmit={handleSubmit(onSubmit)}
+        />
       </div>
     </>
   )

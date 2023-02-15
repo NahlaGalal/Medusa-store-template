@@ -3,25 +3,31 @@ import React from "react"
 import NextLink from "next/link"
 import Field from "../Field"
 
-const Login = ({ formik, handleSubmit }) => {
+const Login = ({ register, handleSubmit, errors }) => {
   return (
     <form>
       <h2 className="mb-4 text-brand text-2xl">Login</h2>
       <Field
-        formik={formik}
         placeholder={"Email"}
-        value={formik.values.email}
         name={"email"}
         type="email"
-        error={formik.touched.email && formik.errors.email}
+        error={errors.email}
+        register={register("email", {
+          required: "This field is required",
+          pattern: {
+            value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            message: "Please provide a valid email address",
+          },
+        })}
       />
       <Field
-        formik={formik}
         placeholder={"Password"}
-        value={formik.values.password}
         name={"password"}
         type="password"
-        error={formik.touched.password && formik.errors.password}
+        error={errors.password}
+        register={register("password", {
+          required: "This field is required",
+        })}
       />
 
       <hr className="border-t-lightGrey my-4" />

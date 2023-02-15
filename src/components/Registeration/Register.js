@@ -4,45 +4,51 @@ import NextLink from "next/link"
 import Field from "../Field"
 import FieldSplitter from "../Field/FieldSplitter"
 
-const Register = ({ formik, handleSubmit }) => {
+const Register = ({  handleSubmit, register, errors }) => {
   return (
     <form>
       <h2 className="mb-4 text-brand text-2xl">Register</h2>
       <FieldSplitter
         left={
           <Field
-            formik={formik}
             placeholder={"First name"}
-            value={formik.values.first_name}
             name={"first_name"}
-            error={formik.touched.first_name && formik.errors.first_name}
+            error={errors.first_name}
+            register={register("first_name", {
+              required: "This field is required",
+            })}
           />
         }
         right={
           <Field
-            formik={formik}
             placeholder={"Last name"}
-            value={formik.values.last_name}
             name={"last_name"}
-            error={formik.touched.last_name && formik.errors.last_name}
+            error={errors.last_name}
+            register={register("last_name", {
+              required: "This field is required",
+            })}
           />
         }
       />
       <Field
-        formik={formik}
         placeholder={"Email"}
-        value={formik.values.email}
         name={"email"}
         type="email"
-        error={formik.touched.email && formik.errors.email}
+        error={errors.email}
+        register={register("email", {
+          required: "This field is required",
+          pattern: {
+            value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            message: "Please provide a valid email address",
+          },
+        })}
       />
       <Field
-        formik={formik}
         placeholder={"Password"}
-        value={formik.values.password}
         name={"password"}
         type="password"
-        error={formik.touched.password && formik.errors.password}
+        error={errors.password}
+        register={register("password", { required: "This field is required" })}
       />
 
       <hr className="border-t-lightGrey my-4" />

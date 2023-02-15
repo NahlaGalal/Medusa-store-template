@@ -2,13 +2,13 @@
 import React from "react"
 
 const Field = ({
-  formik,
-  value,
+  value = "",
   name,
   placeholder,
   error,
   disabled = false,
   type = "text",
+  register,
 }) => {
   return (
     <div className="flex flex-col mb-3 w-full">
@@ -17,15 +17,14 @@ const Field = ({
         defaultValue={value}
         disabled={disabled}
         name={name}
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
         placeholder={placeholder}
         className={`formField text-sm font-light ${
           error ? "border-secondary" : "border-darkGrey"
         }`}
+        {...register}
       />
 
-      {error && <p className="text-xs text-secondary">{error}</p>}
+      {error && <p className="text-xs text-secondary">{error.message}</p>}
     </div>
   )
 }

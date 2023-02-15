@@ -1,52 +1,16 @@
 // @ts-check
-import { useFormik } from "formik"
-import React, { useEffect } from "react"
-import * as Yup from "yup"
-import Contact from "./contact"
-import Delivery from "./delivery"
+import { useForm } from "react-hook-form"
+import React from "react"
+import Contact from "./Contact"
+import Delivery from "./Delivery"
 
 const Forms = ({ country, region, customer, cart, createOrder }) => {
-  const handleSubmit = e => {
-    e.preventDefault()
-    formik.submitForm()
-  }
-
-  const formik = useFormik({
-    initialValues: {
-      contact: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        phone: "",
-      },
-      delivery: {
-        address_1: "",
-        postal_code: "",
-        city: "",
-        country_code: "",
-      },
-    },
-    validationSchema: Yup.object({
-      contact: Yup.object({
-        first_name: Yup.string().required("Required"),
-        last_name: Yup.string().required("Required"),
-        email: Yup.string()
-          .email("Please provide a valid email address")
-          .required("Required"),
-        phone: Yup.string().optional(),
-      }),
-      delivery: Yup.object({
-        address_1: Yup.string().required("Required"),
-        postal_code: Yup.string().required("Required"),
-        city: Yup.string().required("Required"),
-        country_code: Yup.string().required("Required"),
-      }),
-    }),
-    onSubmit: ({ contact, delivery }) => createOrder({ contact, delivery }),
-  })
-
-  useEffect(() => {
-    formik.setValues({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
       contact: {
         first_name:
           cart?.shipping_address?.first_name || customer.first_name || "",
@@ -59,26 +23,37 @@ const Forms = ({ country, region, customer, cart, createOrder }) => {
         address_1: cart?.shipping_address?.address_1 || "",
         postal_code: cart?.shipping_address?.postal_code || "",
         city: cart?.shipping_address?.city || "",
-        country_code: cart?.shipping_address?.country_code || "",
+        country_code: cart?.shipping_address?.country_code || country,
       },
-    })
-  }, [])
+    },
+  })
+
+  const onSubmit = async data => {
+    const { contact, delivery } = data
+    createOrder({ contact, delivery })
+  }
 
   return (
     <section className="my-16">
       <h2 className="text-center text-2xl text-brand">Shipping and info</h2>
 
       <div className="mb-8 mt-4">
-        <Contact formik={formik} />
+        <Contact register={register} errors={errors} />
       </div>
 
       <div className="pt-1">
-        <Delivery region={region} country={country} formik={formik} />
+        <Delivery
+          register={register}
+          errors={errors}
+          fullCountry={
+            region.countries.find(c => c.iso_2 === country).display_name
+          }
+        />
       </div>
 
       <div>
         <button
-          onClick={handleSubmit}
+          onClick={handleSubmit(onSubmit)}
           className="buttonCta text-white bg-brand m-auto block"
         >
           Confirm order

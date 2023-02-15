@@ -6,7 +6,7 @@ import { QueryClient } from "react-query"
 import { ThemeProvider } from "theme-ui"
 import { PublicProvider } from "../context/publicContext"
 import theme from "../theme"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import "../style/globals.css"
 import "../components/Search/style.css"
 

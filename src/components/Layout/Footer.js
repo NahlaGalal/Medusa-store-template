@@ -4,6 +4,13 @@ import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { client } from "../../utils/client"
 import { PublicContext } from "../../context/publicContext"
+import {
+  HomeIcon,
+  ArrowRightOnRectangleIcon,
+  ArrowLeftOnRectangleIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/solid"
 
 const Footer = () => {
   const { isRegistered, setIsRegistered } = useContext(PublicContext)
@@ -31,30 +38,46 @@ const Footer = () => {
           <ul className="flex list-none gap-4 p-0 mx-auto items-center">
             <li>
               <NextLink href={"/"} passHref>
-                <a className="font-medium">Home</a>
+                <a className="flex gap-1 items-center">
+                  <HomeIcon className="text-brand" width={20} />
+                  Home
+                </a>
               </NextLink>
             </li>
             <li>
               <NextLink href={"/shop"} passHref>
-                <a className="font-medium">Shop</a>
+                <a className="flex gap-1 items-center">
+                  <ShoppingBagIcon className="text-brand" width={20} />
+                  Shop
+                </a>
               </NextLink>
             </li>
             <li>
               <NextLink href={"/cart"} passHref>
-                <a className="font-medium">Cart</a>
+                <a className="flex gap-1 items-center">
+                  <ShoppingCartIcon className="text-brand" width={20} />
+                  Cart
+                </a>
               </NextLink>
             </li>
             <li>
               {isRegistered ? (
                 <button
-                  className="p-0 bg-transparent cursor-pointer text-darkBlack"
+                  className="p-0 bg-transparent cursor-pointer text-darkBlack flex gap-1 items-center"
                   onClick={logoutHandler}
                 >
+                  <ArrowLeftOnRectangleIcon className="text-brand" width={20} />
                   Logout
                 </button>
               ) : (
                 <NextLink href={"/register"} passHref>
-                  <a className="font-medium">Register</a>
+                  <a className="flex gap-1 items-center">
+                    <ArrowRightOnRectangleIcon
+                      className="text-brand"
+                      width={20}
+                    />
+                    Register
+                  </a>
                 </NextLink>
               )}
             </li>

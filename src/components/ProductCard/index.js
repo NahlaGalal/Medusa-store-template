@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import { formatVariantPrice } from "medusa-react"
 import NextLink from "next/link"
+import { RectangleStackIcon } from "@heroicons/react/20/solid"
 import { PublicContext } from "../../context/publicContext"
 
 const Product = ({ hit: product }) => {
@@ -17,7 +18,8 @@ const Product = ({ hit: product }) => {
 
         <div className="flex flex-col gap-2">
           {/* Collection */}
-          <span className="text-xs font-light text-darkGrey">
+          <span className="text-xs font-light text-darkGrey flex gap-0.5 items-center">
+            <RectangleStackIcon width={12} />
             {product.collection_title}
           </span>
 

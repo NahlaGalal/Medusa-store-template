@@ -2,6 +2,7 @@
 import React from "react"
 import NextLink from "next/link"
 import Field from "../Field"
+import { LockClosedIcon, EnvelopeIcon } from "@heroicons/react/20/solid"
 
 const Login = ({ register, handleSubmit, errors }) => {
   return (
@@ -19,6 +20,7 @@ const Login = ({ register, handleSubmit, errors }) => {
             message: "Please provide a valid email address",
           },
         })}
+        Icon={EnvelopeIcon}
       />
       <Field
         placeholder={"Password"}
@@ -28,6 +30,7 @@ const Login = ({ register, handleSubmit, errors }) => {
         register={register("password", {
           required: "This field is required",
         })}
+        Icon={LockClosedIcon}
       />
 
       <hr className="border-t-lightGrey my-4" />

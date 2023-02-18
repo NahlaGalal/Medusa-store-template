@@ -14,7 +14,7 @@ const ImageSec = () => {
       h-[calc(100%_-_80px)] 
       [ flex flex-col justify-center ]"
       >
-        <h2 className="text-center text-secondary mb-8">About US</h2>
+        <h2 className="text-center text-secondary mb-8 text-2xl">About US</h2>
         <h3 className="mb-4 text-brand text-center">
           Lorem ipsum dolor sit amet consectetur
         </h3>

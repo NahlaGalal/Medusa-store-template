@@ -3,8 +3,13 @@ import React from "react"
 import NextLink from "next/link"
 import Field from "../Field"
 import FieldSplitter from "../Field/FieldSplitter"
+import {
+  LockClosedIcon,
+  EnvelopeIcon,
+  UserIcon,
+} from "@heroicons/react/20/solid"
 
-const Register = ({  handleSubmit, register, errors }) => {
+const Register = ({ handleSubmit, register, errors }) => {
   return (
     <form>
       <h2 className="mb-4 text-brand text-2xl">Register</h2>
@@ -17,6 +22,7 @@ const Register = ({  handleSubmit, register, errors }) => {
             register={register("first_name", {
               required: "This field is required",
             })}
+            Icon={UserIcon}
           />
         }
         right={
@@ -27,6 +33,7 @@ const Register = ({  handleSubmit, register, errors }) => {
             register={register("last_name", {
               required: "This field is required",
             })}
+            Icon={UserIcon}
           />
         }
       />
@@ -42,6 +49,7 @@ const Register = ({  handleSubmit, register, errors }) => {
             message: "Please provide a valid email address",
           },
         })}
+        Icon={EnvelopeIcon}
       />
       <Field
         placeholder={"Password"}
@@ -49,6 +57,7 @@ const Register = ({  handleSubmit, register, errors }) => {
         type="password"
         error={errors.password}
         register={register("password", { required: "This field is required" })}
+        Icon={LockClosedIcon}
       />
 
       <hr className="border-t-lightGrey my-4" />

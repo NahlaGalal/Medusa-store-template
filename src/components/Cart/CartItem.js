@@ -1,6 +1,7 @@
 // @ts-check
 import React from "react"
 import NextLink from "next/link"
+import { RectangleStackIcon } from "@heroicons/react/20/solid"
 
 const CartItem = ({ product, getCollectionName, deleteItem }) => {
   return (
@@ -35,7 +36,8 @@ const CartItem = ({ product, getCollectionName, deleteItem }) => {
           </NextLink>
         </p>
 
-        <span className="text-xs font-light text-darkGrey">
+        <span className="text-xs font-light text-darkGrey flex items-center gap-1">
+          <RectangleStackIcon width={12} />
           {getCollectionName(product.variant.product.collection_id) || ""}
         </span>
 

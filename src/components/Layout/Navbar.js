@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
+import {
+  RectangleStackIcon,
+  HomeIcon,
+  ArrowRightOnRectangleIcon,
+  ArrowLeftOnRectangleIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/20/solid"
 import { client } from "../../utils/client"
 import { PublicContext } from "../../context/publicContext"
 
@@ -49,7 +57,10 @@ const Navbar = ({
 
       {/* Link for shop page => In mobile screens only */}
       <NextLink href={"/shop"} passHref>
-        <a className="md:hidden">Shop Now</a>
+        <a className="md:hidden flex items-center gap-1">
+          <ShoppingBagIcon width={20} />
+          Shop Now
+        </a>
       </NextLink>
 
       {/* Hamburger menu icon */}
@@ -89,24 +100,31 @@ const Navbar = ({
       >
         <li>
           <NextLink href={"/"} passHref>
-            <a>Home</a>
+            <a className="flex items-center gap-1">
+              <HomeIcon width={20} />
+              <span>Home</span>
+            </a>
           </NextLink>
         </li>
         <li>
           <NextLink href={"/shop"} passHref>
-            <a>Shop</a>
+            <a className="flex items-center gap-1">
+              <ShoppingBagIcon width={20} />
+              <span>Shop</span>
+            </a>
           </NextLink>
         </li>
 
         {/* Collectio */}
         <li className="relative">
           <button
-            className="p-0 bg-transparent cursor-pointer text-brand"
+            className="p-0 bg-transparent cursor-pointer text-brand flex items-center gap-1"
             onClick={e => {
               e.stopPropagation()
               setIsDropdownOpen(!isDropdownOpen)
             }}
           >
+            <RectangleStackIcon width={20} />
             Collection
           </button>
 
@@ -132,7 +150,10 @@ const Navbar = ({
         </li>
         <li>
           <NextLink href={"/cart"} passHref>
-            <a>Cart</a>
+            <a className="flex items-center gap-1">
+              <ShoppingCartIcon width={20} />
+              <span>Cart</span>
+            </a>
           </NextLink>
         </li>
 
@@ -140,14 +161,18 @@ const Navbar = ({
         <li>
           {isRegistered ? (
             <button
-              className="inline-block md:hidden p-0 bg-transparent cursor-pointer text-brand"
+              className="md:hidden p-0 bg-transparent cursor-pointer text-brand flex items-center gap-1"
               onClick={logoutHandler}
             >
+              <ArrowLeftOnRectangleIcon width={20} />
               Logout
             </button>
           ) : (
             <NextLink href={"/register"} passHref>
-              <a className="inline-block md:hidden">Register</a>
+              <a className="flex md:hidden items-center gap-1">
+                <ArrowRightOnRectangleIcon width={20} />
+                Register
+              </a>
             </NextLink>
           )}
         </li>
@@ -156,14 +181,18 @@ const Navbar = ({
       {/* Register / Logout */}
       {isRegistered ? (
         <button
-          className="hidden md:inline-block p-0 bg-transparent cursor-pointer text-brand"
+          className="hidden md:flex p-0 bg-transparent cursor-pointer text-brand items-center gap-1"
           onClick={logoutHandler}
         >
           Logout
+          <ArrowLeftOnRectangleIcon width={20} />
         </button>
       ) : (
         <NextLink href={"/register"} passHref>
-          <a className="hidden md:inline-block">Register</a>
+          <a className="hidden md:flex items-center gap-1">
+            Register
+            <ArrowRightOnRectangleIcon width={20} />
+          </a>
         </NextLink>
       )}
     </nav>

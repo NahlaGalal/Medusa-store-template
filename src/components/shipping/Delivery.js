@@ -2,6 +2,7 @@
 import React from "react"
 import Field from "../Field/index"
 import FieldSplitter from "../Field/FieldSplitter"
+import { MapPinIcon, BuildingOffice2Icon } from "@heroicons/react/20/solid"
 
 const Delivery = ({ fullCountry, register, errors }) => {
   return (
@@ -14,6 +15,7 @@ const Delivery = ({ fullCountry, register, errors }) => {
         register={register("delivery.address_1", {
           required: "This field is required",
         })}
+        Icon={MapPinIcon}
       />
       <FieldSplitter
         left={
@@ -24,6 +26,7 @@ const Delivery = ({ fullCountry, register, errors }) => {
             register={register("delivery.postal_code", {
               required: "This field is required",
             })}
+            Icon={MapPinIcon}
           />
         }
         right={
@@ -34,6 +37,7 @@ const Delivery = ({ fullCountry, register, errors }) => {
             register={register("delivery.city", {
               required: "This field is required",
             })}
+            Icon={BuildingOffice2Icon}
           />
         }
       />
@@ -44,6 +48,7 @@ const Delivery = ({ fullCountry, register, errors }) => {
         placeholder={""}
         error=""
         register={{}}
+        Icon={BuildingOffice2Icon}
       />
     </form>
   )

@@ -11,6 +11,7 @@ import Variant from "../components/Product/Variant"
 import TabsContainer from "../components/Product/TabsContainer"
 import SelectQuantity from "../components/Product/SelectQuantity"
 import { getTokenCookie, setTokenCookie } from "../utils/cookie"
+import { RectangleStackIcon, ShoppingCartIcon } from "@heroicons/react/20/solid"
 
 const ProductPage = ({ product, region, cartId }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -125,7 +126,7 @@ const ProductPage = ({ product, region, cartId }) => {
 
           <div>
             {/* Product title and collection */}
-            <h2 className="text-brand mb-2">{product.title}</h2>
+            <h2 className="text-brand mb-2 text-2xl">{product.title}</h2>
 
             {/* Tags */}
             <div className="flex gap-1 mb-2">
@@ -139,7 +140,10 @@ const ProductPage = ({ product, region, cartId }) => {
             </div>
 
             {/* Collection name */}
-            <p>{product?.collection?.title}</p>
+            <p className="flex gap-1">
+              <RectangleStackIcon width={20} />
+              {product?.collection?.title}
+            </p>
 
             {/* Choose a variant */}
             <div className="flex flex-wrap my-2">
@@ -198,7 +202,7 @@ const ProductPage = ({ product, region, cartId }) => {
             {/* Add to cart button and price */}
             <div className="flex items-center flex-wrap gap-4 mt-auto">
               <button
-                className={`rounded-2xl gap-4 buttonCta flex-1 ${
+                className={`rounded-2xl gap-1 buttonCta flex-1 flex justify-center ${
                   isVariant && quantity.max
                     ? "cursor-pointer"
                     : "cursor-not-allowed"
@@ -206,6 +210,7 @@ const ProductPage = ({ product, region, cartId }) => {
                 onClick={addToCartHandler}
               >
                 Add to Cart
+                <ShoppingCartIcon width={20} />
               </button>
 
               <p className="text-secondary text-xl font-bold">

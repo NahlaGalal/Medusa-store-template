@@ -2,6 +2,7 @@
 import React from "react"
 import Field from "../Field/index"
 import FieldSplitter from "../Field/FieldSplitter"
+import { EnvelopeIcon, PhoneIcon, UserIcon } from "@heroicons/react/20/solid"
 
 const Contact = ({ register, errors }) => {
   return (
@@ -16,6 +17,7 @@ const Contact = ({ register, errors }) => {
             register={register("contact.first_name", {
               required: "This field is required",
             })}
+            Icon={UserIcon}
           />
         }
         right={
@@ -26,6 +28,7 @@ const Contact = ({ register, errors }) => {
             register={register("contact.last_name", {
               required: "This field is required",
             })}
+            Icon={UserIcon}
           />
         }
       />
@@ -40,12 +43,14 @@ const Contact = ({ register, errors }) => {
             message: "Please provide a valid email address",
           },
         })}
+        Icon={EnvelopeIcon}
       />
       <Field
         placeholder={"Phone number"}
         name={"contact.phone"}
         error={errors.contact?.phone}
         register={register("contact.phone")}
+        Icon={PhoneIcon}
       />
     </form>
   )

@@ -26,7 +26,7 @@ const SelectQuantity = ({ quantity, setQuantity }) => {
       <input
         type={"number"}
         placeholder="0"
-        className="w-12 h-8"
+        className="w-16 h-8"
         value={quantity.val}
         readOnly
       />

@@ -3,6 +3,7 @@ import React, { useContext } from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
+import { ExclamationTriangleIcon } from "@heroicons/react/20/solid"
 import Login from "../components/Registeration/Login"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
@@ -35,11 +36,11 @@ const LoginPage = ({ cartId }) => {
         if (cartId)
           await client.carts.update(cartId, { customer_id: res.customer.id })
         setIsRegistered(true)
-        router.push("/")
+        if (router.asPath === "/not-loggedin") router.push("/shipping")
+        else router.push("/")
       }
     } catch (err) {
       if (err.response.status > 399 && err.response.status < 500) {
-        console.log(err.response)
         setError("email", {
           message: err.response.data.message || "Wrong email or password",
         })
@@ -54,6 +55,12 @@ const LoginPage = ({ cartId }) => {
         <title>Login</title>
       </Head>
       <div className="layoutContainer mt-10">
+        {router.asPath === "/not-loggedin" && (
+          <p className="text-secondary p-2 bg-lightGrey mb-3 rounded text-sm flex gap-1">
+            <ExclamationTriangleIcon width={14} />
+            You must login first
+          </p>
+        )}
         <Login
           register={register}
           errors={errors}

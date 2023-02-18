@@ -15,7 +15,8 @@ const Shipping = ({ region, cart, cartId, customer }) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (!cart || !cart.items.length) router.push("/")
+    if (!isRegistered) router.push("/login", { pathname: "not-loggedin" })
+    else if (!cart || !cart.items.length) router.push("/")
   }, [])
 
   const createOrder = async ({ contact, delivery }) => {
@@ -63,11 +64,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
             cart={cart}
             createOrder={createOrder}
           />
-        ) : (
-          <p className="text-secondary font-medium text-xl text-center my-16">
-            You must Login first
-          </p>
-        )}
+        ) : undefined}
       </div>
     </>
   )

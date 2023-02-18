@@ -1,11 +1,32 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { formatVariantPrice } from "medusa-react"
 import NextLink from "next/link"
 import { RectangleStackIcon } from "@heroicons/react/20/solid"
 import { PublicContext } from "../../context/publicContext"
+import { PriceContext } from "../../pages/shop"
 
 const Product = ({ hit: product }) => {
   const { region } = useContext(PublicContext)
+  const { min, max } = useContext(PriceContext)
+  const [currentVariant, setCurrentVariant] = useState(product.variants[0])
+
+  useEffect(() => {
+    const smallestPriceVariant = product.variants.reduce((prev, variant) =>
+      prev.prices[0].amount < variant.prices[0].amount ? prev : variant
+    )
+
+    setCurrentVariant(smallestPriceVariant)
+  }, [])
+
+  useEffect(() => {
+    const smallestPriceVariant = product.variants.reduce((prev, variant) =>
+      min <= variant.prices[0].amount && variant.prices[0].amount <= max
+        ? variant
+        : prev
+    )
+
+    setCurrentVariant(smallestPriceVariant)
+  }, [min, max])
 
   return (
     <section className="bg-white w-96 px-6 py-4 h-auto rounded-lg justify-center shadow-[0_0_4px_1px_rgba(0,0,0,0.2)] max-w-full">
@@ -20,7 +41,7 @@ const Product = ({ hit: product }) => {
           {/* Collection */}
           <span className="text-xs font-light text-darkGrey flex gap-0.5 items-center">
             <RectangleStackIcon width={12} />
-            {product.collection_title}
+            {product.collection_title || product.collection.title}
           </span>
 
           {/* Product name */}
@@ -33,7 +54,7 @@ const Product = ({ hit: product }) => {
           {/* Product price */}
           <p className="text-sm font-light mb-4">
             {`${formatVariantPrice({
-              variant: product.variants[0],
+              variant: currentVariant,
               region,
             })}`}
           </p>

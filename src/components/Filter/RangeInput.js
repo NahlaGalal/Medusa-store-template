@@ -1,17 +1,24 @@
 // @ts-check
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { connectRange } from "react-instantsearch-dom"
+import { PriceContext } from "../../pages/shop"
 
 const RangeInput = ({ min, max, refine }) => {
   const [minInput, setMinInput] = useState(NaN)
   const [maxInput, setMaxInput] = useState(NaN)
+  const { setMax, setMin } = useContext(PriceContext)
 
   const onFilterHandler = e => {
     e.preventDefault()
+    const minVal = Number.isNaN(minInput) ? min : Math.max(minInput * 100, min)
+    const maxVal = Number.isNaN(maxInput) ? max : Math.min(maxInput * 100, max)
+
     refine({
       min: Number.isNaN(minInput) ? min : Math.max(minInput * 100, min),
       max: Number.isNaN(maxInput) ? max : Math.min(maxInput * 100, max),
     })
+    setMin(minVal)
+    setMax(maxVal)
   }
 
   return (
@@ -34,10 +41,7 @@ const RangeInput = ({ min, max, refine }) => {
         onChange={event => setMaxInput(parseInt(event.target.value))}
         className="formField text-sm font-light w-[calc(100%/3_-_8px)] border-brand min-w-[70px]"
       />
-      <button
-        onClick={onFilterHandler}
-        className="buttonCta rounded hover:bg-brand hover:text-white"
-      >
+      <button className="buttonCta rounded hover:bg-brand hover:text-white">
         Filter
       </button>
     </form>

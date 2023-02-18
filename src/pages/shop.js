@@ -1,5 +1,5 @@
 // @ts-check
-import React, { useContext, useEffect } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import Head from "next/head"
 import { InstantSearch } from "react-instantsearch-dom"
 import { client } from "../utils/client"
@@ -8,13 +8,22 @@ import { PublicContext } from "../context/publicContext"
 import { SEARCH_INDEX_NAME, searchClient } from "../utils/search-client"
 import Filter from "../components/Filter"
 
+export const PriceContext = createContext({
+  min: NaN,
+  setMin: _ => {},
+  max: NaN,
+  setMax: _ => {},
+})
+
 const Shop = ({ region }) => {
   const { setRegion } = useContext(PublicContext)
+  const [min, setMin] = useState(NaN)
+  const [max, setMax] = useState(NaN)
 
   useEffect(() => setRegion(region), [region])
 
   return (
-    <>
+    <PriceContext.Provider value={{ max, min, setMax, setMin }}>
       <Head>
         <title>Shop</title>
       </Head>
@@ -29,7 +38,7 @@ const Shop = ({ region }) => {
           </InstantSearch>
         </div>
       </div>
-    </>
+    </PriceContext.Provider>
   )
 }
 

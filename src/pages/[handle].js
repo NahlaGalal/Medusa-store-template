@@ -24,7 +24,7 @@ const ProductPage = ({ product, region, cartId }) => {
   const [isVariant, setIsVariant] = useState(false)
   const [price, setPrice] = useState("0")
   const router = useRouter()
-  const { setLoading } = useContext(PublicContext)
+  const { setLoading, isRegistered } = useContext(PublicContext)
 
   const getVariantId = () => {
     const variant = product.variants.find(variant =>
@@ -43,6 +43,11 @@ const ProductPage = ({ product, region, cartId }) => {
       const variant_id = getVariantId()
 
       if (variant_id) {
+        if (isRegistered) {
+          await client.carts.update(cartId, {
+            customer_id: localStorage.getItem("id") || "",
+          })
+        }
         await client.carts.lineItems.create(cartId, {
           variant_id,
           quantity: quantity.val,
@@ -238,7 +243,7 @@ export async function getServerSideProps({ req, params, res }) {
     const {
       cart: { id },
     } = await client.carts.create(undefined, {
-      cookie: req.headers?.cookie || "",
+      cookie: req.headers?.cookie || JSON.stringify(req.cookies) || "",
     })
     setTokenCookie(res, "cart_id", id)
     cartId = id

@@ -39,12 +39,17 @@ const Navbar = ({
   }
 
   return (
-    <nav className="flex flex-wrap text-brand py-3 px-[5%] items-center justify-between shadow-md">
+    <nav className="flex flex-wrap text-brand py-3 px-[5%] items-center justify-between shadow-md sticky top-0 bg-white z-10">
       {/* Logo */}
       <NextLink href="/" passHref>
         <a className="text-white">
           <img src={"/Logo.png"} alt="Logo" height={60} width={60} />
         </a>
+      </NextLink>
+
+      {/* Link for shop page => In mobile screens only */}
+      <NextLink href={"/shop"} passHref>
+        <a className="md:hidden">Shop Now</a>
       </NextLink>
 
       {/* Hamburger menu icon */}

@@ -1,0 +1,28 @@
+{
+  "en-US": {
+    "login_first": "You must login first",
+    "login": "Login",
+    "register": "Register",
+    "required_field": "This field is required",
+    "email_validation": "Please provide a valid email address",
+    "register_instead": "Register instead?",
+    "login_instead": "Login instead?",
+    "email": "Email",
+    "password": "Password",
+    "first_name": "First name",
+    "last_name": "Last name"
+  },
+  "ar": {
+    "login_first": "يجب تسجيل الدخول أولًا",
+    "login": "دخول",
+    "register": "تسجيل",
+    "required_field": "هذا الحقل مطلوب",
+    "email_validation": "من فضلك أدخل بريد الكتروني صحيح",
+    "register_instead": "تسجيل الدخول؟",
+    "login_instead": "دخول؟",
+    "email": "البريد اﻹلكتروني",
+    "password": "كلمة السر",
+    "first_name": "الاسم اﻷول",
+    "last_name": "الاسم اﻷخير"
+  }
+}

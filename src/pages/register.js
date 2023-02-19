@@ -9,7 +9,7 @@ import { PublicContext } from "../context/publicContext"
 
 const RegisterPage = () => {
   const createCustomer = useCreateCustomer()
-  const router = useRouter()
+  const { push, locale } = useRouter()
   const { setLoading } = useContext(PublicContext)
 
   const {
@@ -30,7 +30,7 @@ const RegisterPage = () => {
         email,
         password,
       })
-      if (res.response.status === 200) router.push("/login")
+      if (res.response.status === 200) push("/login")
     } catch (err) {
       if (err.response.status > 399 && err.response.status < 500) {
         setError("email", { message: err.response.data.message })
@@ -49,6 +49,7 @@ const RegisterPage = () => {
           register={register}
           errors={errors}
           handleSubmit={handleSubmit(onSubmit)}
+          locale={locale}
         />
       </div>
     </>

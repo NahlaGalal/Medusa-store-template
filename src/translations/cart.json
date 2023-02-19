@@ -1,0 +1,12 @@
+{
+  "en-US": {
+    "proceed_to_buy": "Proceed to Buy",
+    "no_products": "No products in the cart yet",
+    "qty": "Qty"
+  },
+  "ar": {
+    "proceed_to_buy": "تابع للشراء",
+    "no_products": "لا يوجد منتجات في السلة حتى اﻵن",
+    "qty": "الكمية"
+  }
+}

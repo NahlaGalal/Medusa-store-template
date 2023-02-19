@@ -2,14 +2,19 @@
 import React, { useContext, useState } from "react"
 import Head from "next/head"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 import { client } from "../utils/client"
 import CartItem from "../components/Cart/CartItem"
 import { PublicContext } from "../context/publicContext"
 import { getTokenCookie, setTokenCookie } from "../utils/cookie"
+import translations from "../translations/cart.json"
 
 const Cart = ({ collections, items, cartId }) => {
   const [products, setProducts] = useState(items)
   const { setLoading } = useContext(PublicContext)
+  let { locale } = useRouter()
+
+  if (!locale) locale = "en-US"
 
   const getCollectionName = collectioId => {
     return collections.find(collection => collection.id === collectioId).title
@@ -44,6 +49,7 @@ const Cart = ({ collections, items, cartId }) => {
                     product={product}
                     getCollectionName={getCollectionName}
                     deleteItem={deleteItem}
+                    locale={locale}
                   />
                 </div>
               ))}
@@ -51,13 +57,13 @@ const Cart = ({ collections, items, cartId }) => {
 
             <NextLink href="/shipping" passHref>
               <a className="buttonCta mx-auto mb-8 block w-max px-4 py-2">
-                Proceed to Buy
+                {translations[locale].proceed_to_buy}
               </a>
             </NextLink>
           </>
         ) : (
           <p className="text-secondary font-medium text-xl text-center my-16">
-            No products in the cart yet
+            {translations[locale].no_products}
           </p>
         )}
       </div>

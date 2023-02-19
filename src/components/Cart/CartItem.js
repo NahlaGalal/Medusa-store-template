@@ -2,8 +2,9 @@
 import React from "react"
 import NextLink from "next/link"
 import { RectangleStackIcon } from "@heroicons/react/20/solid"
+import translations from "../../translations/cart.json"
 
-const CartItem = ({ product, getCollectionName, deleteItem }) => {
+const CartItem = ({ product, getCollectionName, deleteItem, locale }) => {
   return (
     <div className="flex stepContainer gap-4 relative flex-col md:flex-row">
       <button
@@ -56,9 +57,11 @@ const CartItem = ({ product, getCollectionName, deleteItem }) => {
           {product.variant.product.description}
         </p>
 
-        <p>Qty: {product.quantity}</p>
+        <p>
+          {translations.ar.qty}: {product.quantity}
+        </p>
         <p className="text-right text-brand">
-          {new Intl.NumberFormat("en-US", {
+          {new Intl.NumberFormat(locale, {
             style: "currency",
             currency: "EGP",
           }).format(product.total / 100)}{" "}

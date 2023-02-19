@@ -81,6 +81,7 @@ const ProductPage = ({ product, region, cartId }) => {
         formatVariantPrice({
           variant,
           region,
+          locale
         })
       )
       setQuantity({

@@ -3,50 +3,51 @@ import React from "react"
 import Field from "../Field/index"
 import FieldSplitter from "../Field/FieldSplitter"
 import { EnvelopeIcon, PhoneIcon, UserIcon } from "@heroicons/react/20/solid"
+import translations from "../../translations/registeration.json"
 
-const Contact = ({ register, errors }) => {
+const Contact = ({ register, errors, title, locale }) => {
   return (
     <form>
-      <h3 className="mb-2 text-secondary">Contact</h3>
+      <h3 className="mb-2 text-secondary font-semibold">{title}</h3>
       <FieldSplitter
         left={
           <Field
-            placeholder={"First name"}
+            placeholder={translations[locale].first_name}
             name={"contact.first_name"}
             error={errors.contact?.first_name}
             register={register("contact.first_name", {
-              required: "This field is required",
+              required: translations[locale].required_field,
             })}
             Icon={UserIcon}
           />
         }
         right={
           <Field
-            placeholder={"Last name"}
+            placeholder={translations[locale].last_name}
             name={"contact.last_name"}
             error={errors.contact?.last_name}
             register={register("contact.last_name", {
-              required: "This field is required",
+              required: translations[locale].required_field,
             })}
             Icon={UserIcon}
           />
         }
       />
       <Field
-        placeholder={"Email"}
+        placeholder={translations[locale].email}
         name={"contact.email"}
         error={errors.contact?.email}
         register={register("contact.email", {
-          required: "This field is required",
+          required: translations[locale].required_field,
           pattern: {
             value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            message: "Please provide a valid email address",
+            message: translations[locale].email_validation,
           },
         })}
         Icon={EnvelopeIcon}
       />
       <Field
-        placeholder={"Phone number"}
+        placeholder={translations[locale].phone}
         name={"contact.phone"}
         error={errors.contact?.phone}
         register={register("contact.phone")}

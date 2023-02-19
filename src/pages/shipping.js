@@ -12,11 +12,11 @@ import { PublicContext } from "../context/publicContext"
 const Shipping = ({ region, cart, cartId, customer }) => {
   const { setLoading } = useContext(PublicContext)
   const { isRegistered } = useContext(PublicContext)
-  const router = useRouter()
+  const { push, locale } = useRouter()
 
   useEffect(() => {
-    if (!isRegistered) router.push("/login", { pathname: "not-loggedin" })
-    else if (!cart || !cart.items.length) router.push("/")
+    if (!isRegistered) push("/login", { pathname: "not-loggedin" })
+    else if (!cart || !cart.items.length) push("/")
   }, [])
 
   const createOrder = async ({ contact, delivery }) => {
@@ -46,7 +46,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
 
     await client.carts.complete(cartId)
 
-    if (message === "Done") router.push("/success")
+    if (message === "Done") push("/success")
     setLoading(false)
   }
 
@@ -63,6 +63,7 @@ const Shipping = ({ region, cart, cartId, customer }) => {
             customer={customer}
             cart={cart}
             createOrder={createOrder}
+            locale={locale}
           />
         ) : undefined}
       </div>

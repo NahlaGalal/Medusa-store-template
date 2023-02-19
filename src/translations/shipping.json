@@ -1,0 +1,14 @@
+{
+  "en-US": {
+    "shipping_n_info": "Shipping and info",
+    "confirm_order": "Confirm order",
+    "contact": "Contact",
+    "delivery_address": "Delivery address"
+  },
+  "ar": {
+    "shipping_n_info": "معلومات الشحن",
+    "confirm_order": "تأكيد الطلب",
+    "contact": "التواصل",
+    "delivery_address": "عنوان التسليم"
+  }
+}

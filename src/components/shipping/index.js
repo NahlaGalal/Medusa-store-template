@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form"
 import React from "react"
 import Contact from "./Contact"
 import Delivery from "./Delivery"
+import translations from "../../translations/shipping.json"
 
-const Forms = ({ country, region, customer, cart, createOrder }) => {
+const Forms = ({ country, region, customer, cart, createOrder, locale }) => {
   const {
     register,
     handleSubmit,
@@ -35,10 +36,17 @@ const Forms = ({ country, region, customer, cart, createOrder }) => {
 
   return (
     <section className="my-16">
-      <h2 className="text-center text-2xl text-brand">Shipping and info</h2>
+      <h2 className="text-center text-2xl text-brand font-bold">
+        {translations[locale].shipping_n_info}
+      </h2>
 
       <div className="mb-8 mt-4">
-        <Contact register={register} errors={errors} />
+        <Contact
+          register={register}
+          errors={errors}
+          title={translations[locale].contact}
+          locale={locale}
+        />
       </div>
 
       <div className="pt-1">
@@ -48,6 +56,8 @@ const Forms = ({ country, region, customer, cart, createOrder }) => {
           fullCountry={
             region.countries.find(c => c.iso_2 === country).display_name
           }
+          title={translations[locale].delivery_address}
+          locale={locale}
         />
       </div>
 
@@ -56,7 +66,7 @@ const Forms = ({ country, region, customer, cart, createOrder }) => {
           onClick={handleSubmit(onSubmit)}
           className="buttonCta text-white bg-brand m-auto block"
         >
-          Confirm order
+          {translations[locale].confirm_order}
         </button>
       </div>
     </section>

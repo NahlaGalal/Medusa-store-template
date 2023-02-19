@@ -11,7 +11,7 @@ module.exports = {
         brand: "#468d93",
         secondary: "#a73822",
         darkBlack: "#000000",
-        darkGrey: "#888888",
+        darkGrey: "#757575",
         lightGrey: "#eef2f3",
         white: "#FFFFFF",
       },

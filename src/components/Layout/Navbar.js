@@ -160,18 +160,20 @@ const Navbar = ({
         </li>
 
         {/* Language */}
-        <NextLink href={asPath} locale={locale === "ar" ? "en-US" : "ar"}>
-          <a className="flex md:hidden items-center gap-1">
-            <GlobeAltIcon width={20} />
-            {translations[locale].language}
-          </a>
-        </NextLink>
+        <li className="md:hidden">
+          <NextLink href={asPath} locale={locale === "ar" ? "en-US" : "ar"}>
+            <a className="flex items-center gap-1">
+              <GlobeAltIcon width={20} />
+              {translations[locale].language}
+            </a>
+          </NextLink>
+        </li>
 
         {/* Register / Logout */}
-        <li>
+        <li className="md:hidden">
           {isRegistered ? (
             <button
-              className="md:hidden p-0 bg-transparent cursor-pointer text-brand flex items-center gap-1"
+              className="p-0 bg-transparent cursor-pointer text-brand flex items-center gap-1"
               onClick={logoutHandler}
             >
               <ArrowLeftOnRectangleIcon width={20} />
@@ -179,7 +181,7 @@ const Navbar = ({
             </button>
           ) : (
             <NextLink href={"/register"} passHref>
-              <a className="flex md:hidden items-center gap-1">
+              <a className="flex items-center gap-1">
                 <ArrowRightOnRectangleIcon width={20} />
                 {translations[locale].register}
               </a>

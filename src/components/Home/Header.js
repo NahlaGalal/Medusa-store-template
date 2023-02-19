@@ -30,12 +30,14 @@ const Header = ({ locale }) => {
         <img
           src={"/home_header.jpg"}
           className="object-cover -rotate-6 w-full h-80 md:h-auto"
+          alt="Header image illustration"
         />
       </div>
 
       <img
         src="/home_header2.jpg"
         className="absolute top-32 rotate-6 h-4/5 hidden md:block ltr:-right-1/3 rtl:-left-1/3"
+        alt="Header image illustration"
       />
     </header>
   )

@@ -8,13 +8,16 @@ import ReviewProducts from "../components/SuccessOrder/ReviewProducts"
 import TotalPrice from "../components/SuccessOrder/TotalPrice"
 import { useRouter } from "next/router"
 import { PublicContext } from "../context/publicContext"
+import translations from "../translations/success.json"
 
 const Payment = ({ cart }) => {
-  const router = useRouter()
+  let { push, locale } = useRouter()
   const { isRegistered } = useContext(PublicContext)
 
+  if (!locale) locale = "en-US"
+
   useEffect(() => {
-    if (!cart || !cart.items.length) router.push("/")
+    if (!cart || !cart.items.length) push("/")
   }, [])
 
   return (
@@ -25,18 +28,19 @@ const Payment = ({ cart }) => {
       <div className="layoutContainer">
         {isRegistered && cart && cart.items.length && (
           <div className="my-8">
-            <h2 className="text-brand text-center text-2xl">
-              Congratulations, Order success
+            <h2 className="text-brand text-center text-2xl font-bold">
+              {translations[locale].congratulations}
             </h2>
             <p className="text-center mb-4">
-              We will call you soon, to deliver your order
+              {translations[locale].we_call_you}
             </p>
             <div className="mt-4">
-              <ReviewProducts cart={cart} />
-              <TotalPrice cart={cart} />
+              <ReviewProducts cart={cart} locale={locale} />
+              <TotalPrice cart={cart} locale={locale} />
               <ReviewAddress
                 displayCountry={"Egypt"}
                 delivery={cart?.shipping_address}
+                locale={locale}
               />
             </div>
           </div>

@@ -1,7 +1,8 @@
 // @ts-check
 import React from "react"
+import translations from "../../translations/success.json"
 
-const ReviewProducts = ({ cart }) => {
+const ReviewProducts = ({ cart, locale }) => {
   return (
     <section>
       {cart.items.map(item => (
@@ -16,13 +17,17 @@ const ReviewProducts = ({ cart }) => {
 
             <div className="flex w-full font-light justify-between">
               <p className="mb-4 text-darkBlack">
-                <span className="text-darkGrey">Variant: </span>
+                <span className="text-darkGrey">
+                  {translations[locale].variant}{" "}
+                </span>
                 {item.variant.title}
               </p>
             </div>
 
             <p className="font-light text-darkBlack">
-              <span className="text-darkGrey">Quantity: </span>
+              <span className="text-darkGrey">
+                {translations[locale].quantity}{" "}
+              </span>
               {item.quantity}
             </p>
           </div>

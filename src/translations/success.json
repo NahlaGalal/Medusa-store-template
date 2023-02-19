@@ -1,0 +1,22 @@
+{
+  "en-US": {
+    "congratulations": "Congratulations, Order success",
+    "we_call_you": "We will call you soon, to deliver your order",
+    "variant": "Variant:",
+    "quantity": "Quantity:",
+    "sub_total": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "delivery": "Delivery"
+  },
+  "ar": {
+    "congratulations": "تهانينا تم الطلب بنجاح",
+    "we_call_you": "سنتصل بك قريبًا لتوصيل طلبك",
+    "variant": "النوع:",
+    "quantity": "الكمية:",
+    "sub_total": "السعر",
+    "shipping": "التوصيل",
+    "total": "اﻹجمالي",
+    "delivery": "التوصيل"
+  }
+}

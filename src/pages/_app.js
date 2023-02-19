@@ -1,8 +1,8 @@
 // @ts-check
 import { CartProvider, MedusaProvider } from "medusa-react"
 import Head from "next/head"
-import React from "react"
-import Router from "next/router"
+import React, { useEffect } from "react"
+import Router, { useRouter } from "next/router"
 import { QueryClient } from "react-query"
 import { PublicProvider } from "../context/publicContext"
 import Layout from "../components/Layout"
@@ -24,6 +24,14 @@ const queryClient = new QueryClient({
 })
 
 const App = ({ Component, pageProps }) => {
+  const {locale} = useRouter();
+
+  const dir = locale === "ar" ? "rtl" : "ltr"
+
+  useEffect(() => {
+    document.documentElement.dir = dir
+  }, [dir])
+
   return (
     <MedusaProvider
       baseUrl={BACKEND_URL}

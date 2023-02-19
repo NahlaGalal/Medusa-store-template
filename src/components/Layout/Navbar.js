@@ -8,6 +8,7 @@ import {
   ArrowLeftOnRectangleIcon,
   ShoppingBagIcon,
   ShoppingCartIcon,
+  GlobeAltIcon,
 } from "@heroicons/react/20/solid"
 import { client } from "../../utils/client"
 import { PublicContext } from "../../context/publicContext"
@@ -21,7 +22,7 @@ const Navbar = ({
 }) => {
   const { isRegistered, setIsRegistered } = useContext(PublicContext)
   const [collection, setCollection] = useState([])
-  const { locale, push } = useRouter()
+  const { locale, push, asPath } = useRouter()
 
   useEffect(() => {
     const getCollections = async () => {
@@ -158,6 +159,14 @@ const Navbar = ({
           </NextLink>
         </li>
 
+        {/* Language */}
+        <NextLink href={asPath} locale={locale === "ar" ? "en-US" : "ar"}>
+          <a className="flex md:hidden items-center gap-1">
+            <GlobeAltIcon width={20} />
+            {translations[locale].language}
+          </a>
+        </NextLink>
+
         {/* Register / Logout */}
         <li>
           {isRegistered ? (
@@ -179,23 +188,33 @@ const Navbar = ({
         </li>
       </ul>
 
-      {/* Register / Logout */}
-      {isRegistered ? (
-        <button
-          className="hidden md:flex p-0 bg-transparent cursor-pointer text-brand items-center gap-1"
-          onClick={logoutHandler}
-        >
-          {translations[locale].logout}
-          <ArrowLeftOnRectangleIcon width={20} />
-        </button>
-      ) : (
-        <NextLink href={"/register"} passHref>
-          <a className="hidden md:flex items-center gap-1">
-            {translations[locale].register}
-            <ArrowRightOnRectangleIcon width={20} />
+      <div className="hidden md:flex gap-3">
+        {/* Language */}
+        <NextLink href={asPath} locale={locale === "ar" ? "en-US" : "ar"}>
+          <a className="flex items-center gap-1">
+            {translations[locale].language}
+            <GlobeAltIcon width={20} />
           </a>
         </NextLink>
-      )}
+
+        {/* Register / Logout */}
+        {isRegistered ? (
+          <button
+            className="flex p-0 bg-transparent cursor-pointer text-brand items-center gap-1"
+            onClick={logoutHandler}
+          >
+            {translations[locale].logout}
+            <ArrowLeftOnRectangleIcon width={20} />
+          </button>
+        ) : (
+          <NextLink href={"/register"} passHref>
+            <a className="flex items-center gap-1">
+              {translations[locale].register}
+              <ArrowRightOnRectangleIcon width={20} />
+            </a>
+          </NextLink>
+        )}
+      </div>
     </nav>
   )
 }

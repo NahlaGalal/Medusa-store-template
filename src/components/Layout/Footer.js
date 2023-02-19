@@ -11,16 +11,19 @@ import {
   ShoppingBagIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/solid"
+import translations from "../../translations/layout.json"
 
 const Footer = () => {
   const { isRegistered, setIsRegistered } = useContext(PublicContext)
-  const route = useRouter()
+  let { push, locale } = useRouter()
+
+  if (!locale) locale = "en-US"
 
   const logoutHandler = async () => {
     const res = await client.auth.deleteSession()
     if (res.response.status === 200) {
       localStorage.removeItem("id")
-      route.push("/login")
+      push("/login")
       setIsRegistered(false)
     }
   }
@@ -40,7 +43,7 @@ const Footer = () => {
               <NextLink href={"/"} passHref>
                 <a className="flex gap-1 items-center">
                   <HomeIcon className="text-brand" width={20} />
-                  Home
+                  {translations[locale].home}
                 </a>
               </NextLink>
             </li>
@@ -48,7 +51,7 @@ const Footer = () => {
               <NextLink href={"/shop"} passHref>
                 <a className="flex gap-1 items-center">
                   <ShoppingBagIcon className="text-brand" width={20} />
-                  Shop
+                  {translations[locale].shop}
                 </a>
               </NextLink>
             </li>
@@ -56,7 +59,7 @@ const Footer = () => {
               <NextLink href={"/cart"} passHref>
                 <a className="flex gap-1 items-center">
                   <ShoppingCartIcon className="text-brand" width={20} />
-                  Cart
+                  {translations[locale].cart}
                 </a>
               </NextLink>
             </li>
@@ -67,7 +70,7 @@ const Footer = () => {
                   onClick={logoutHandler}
                 >
                   <ArrowLeftOnRectangleIcon className="text-brand" width={20} />
-                  Logout
+                  {translations[locale].logout}
                 </button>
               ) : (
                 <NextLink href={"/register"} passHref>
@@ -76,7 +79,7 @@ const Footer = () => {
                       className="text-brand"
                       width={20}
                     />
-                    Register
+                    {translations[locale].register}
                   </a>
                 </NextLink>
               )}
@@ -85,7 +88,7 @@ const Footer = () => {
         </div>
 
         <p className="mt-16 mb-4 text-center text-xs">
-          Copyright &copy; 2023 All Rights Reserved
+          {translations[locale].copyright}
         </p>
       </div>
     </footer>

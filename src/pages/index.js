@@ -2,16 +2,18 @@
 
 import Head from "next/head"
 import React, { useContext, useEffect } from "react"
+import { useRouter } from "next/router"
 import { client } from "../utils/client"
 import { PublicContext } from "../context/publicContext"
 import Header from "../components/Home/Header"
 import Features from "../components/Home/Features"
 import MostPopular from "../components/Home/MostPopular"
-import ImageSec from "../components/Home/ImageSec"
+import AboutUs from "../components/Home/AboutUs"
 import GetInTouch from "../components/Home/GetInTouch"
 
 const IndexPage = ({ products, region }) => {
   const { setRegion } = useContext(PublicContext)
+  const { locale } = useRouter()
 
   useEffect(() => setRegion(region), [])
 
@@ -24,19 +26,19 @@ const IndexPage = ({ products, region }) => {
 
       <main className="flex flex-col overflow-hidden">
         {/* Header */}
-        <Header />
+        <Header locale={locale} />
 
         {/* Features */}
-        <Features />
+        <Features locale={locale} />
 
         {/* Most popular products */}
-        <MostPopular products={products} />
+        <MostPopular products={products} locale={locale} />
 
-        {/* Image section */}
-        <ImageSec />
+        {/* About us */}
+        <AboutUs locale={locale} />
 
         {/* Get in touch */}
-        <GetInTouch />
+        <GetInTouch locale={locale} />
       </main>
     </>
   )

@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/20/solid"
 import { client } from "../../utils/client"
 import { PublicContext } from "../../context/publicContext"
+import translations from "../../translations/layout.json"
 
 const Navbar = ({
   isDropdownOpen,
@@ -20,7 +21,7 @@ const Navbar = ({
 }) => {
   const { isRegistered, setIsRegistered } = useContext(PublicContext)
   const [collection, setCollection] = useState([])
-  const route = useRouter()
+  const { locale, push } = useRouter()
 
   useEffect(() => {
     const getCollections = async () => {
@@ -36,7 +37,7 @@ const Navbar = ({
     const res = await client.auth.deleteSession()
     if (res.response.status === 200) {
       localStorage.removeItem("id")
-      route.push("/login")
+      push("/login")
       setIsRegistered(false)
     }
   }
@@ -59,7 +60,7 @@ const Navbar = ({
       <NextLink href={"/shop"} passHref>
         <a className="md:hidden flex items-center gap-1">
           <ShoppingBagIcon width={20} />
-          Shop Now
+          {translations[locale].shop_now}
         </a>
       </NextLink>
 
@@ -102,7 +103,7 @@ const Navbar = ({
           <NextLink href={"/"} passHref>
             <a className="flex items-center gap-1">
               <HomeIcon width={20} />
-              <span>Home</span>
+              {translations[locale].home}
             </a>
           </NextLink>
         </li>
@@ -110,7 +111,7 @@ const Navbar = ({
           <NextLink href={"/shop"} passHref>
             <a className="flex items-center gap-1">
               <ShoppingBagIcon width={20} />
-              <span>Shop</span>
+              {translations[locale].shop}
             </a>
           </NextLink>
         </li>
@@ -125,7 +126,7 @@ const Navbar = ({
             }}
           >
             <RectangleStackIcon width={20} />
-            Collection
+            {translations[locale].collection}
           </button>
 
           {isDropdownOpen && (
@@ -152,7 +153,7 @@ const Navbar = ({
           <NextLink href={"/cart"} passHref>
             <a className="flex items-center gap-1">
               <ShoppingCartIcon width={20} />
-              <span>Cart</span>
+              {translations[locale].cart}
             </a>
           </NextLink>
         </li>
@@ -165,13 +166,13 @@ const Navbar = ({
               onClick={logoutHandler}
             >
               <ArrowLeftOnRectangleIcon width={20} />
-              Logout
+              {translations[locale].logout}
             </button>
           ) : (
             <NextLink href={"/register"} passHref>
               <a className="flex md:hidden items-center gap-1">
                 <ArrowRightOnRectangleIcon width={20} />
-                Register
+                {translations[locale].register}
               </a>
             </NextLink>
           )}
@@ -184,13 +185,13 @@ const Navbar = ({
           className="hidden md:flex p-0 bg-transparent cursor-pointer text-brand items-center gap-1"
           onClick={logoutHandler}
         >
-          Logout
+          {translations[locale].logout}
           <ArrowLeftOnRectangleIcon width={20} />
         </button>
       ) : (
         <NextLink href={"/register"} passHref>
           <a className="hidden md:flex items-center gap-1">
-            Register
+            {translations[locale].register}
             <ArrowRightOnRectangleIcon width={20} />
           </a>
         </NextLink>

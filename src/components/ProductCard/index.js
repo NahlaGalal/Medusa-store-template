@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { formatVariantPrice } from "medusa-react"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
 import { RectangleStackIcon } from "@heroicons/react/20/solid"
 import { PublicContext } from "../../context/publicContext"
 import { PriceContext } from "../../pages/shop"
@@ -9,6 +10,7 @@ const Product = ({ hit: product }) => {
   const { region } = useContext(PublicContext)
   const { min, max } = useContext(PriceContext)
   const [currentVariant, setCurrentVariant] = useState(product.variants[0])
+  const { locale } = useRouter()
 
   useEffect(() => {
     const smallestPriceVariant = product.variants.reduce((prev, variant) =>
@@ -56,6 +58,7 @@ const Product = ({ hit: product }) => {
             {`${formatVariantPrice({
               variant: currentVariant,
               region,
+              locale,
             })}`}
           </p>
         </div>

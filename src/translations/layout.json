@@ -1,0 +1,22 @@
+{
+  "en-US": {
+    "home": "Home",
+    "shop": "Shop",
+    "collection": "Collection",
+    "cart": "Cart",
+    "register": "Register",
+    "logout": "Logout",
+    "shop_now": "Shop now",
+    "copyright": "Copyright &copy; 2023 All Rights Reserved"
+  },
+  "ar": {
+    "home": "الرئيسية",
+    "shop": "المتجر",
+    "collection": "المجموعات",
+    "cart": "سلة التسوق",
+    "register": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "shop_now": "تسوق اﻵن",
+    "copyright": "جميع الحقوق محفوظة 2023"
+  }
+}

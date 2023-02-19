@@ -12,6 +12,7 @@ import TabsContainer from "../components/Product/TabsContainer"
 import SelectQuantity from "../components/Product/SelectQuantity"
 import { getTokenCookie, setTokenCookie } from "../utils/cookie"
 import { RectangleStackIcon, ShoppingCartIcon } from "@heroicons/react/20/solid"
+import translations from "../translations/product.json"
 
 const ProductPage = ({ product, region, cartId }) => {
   const [activeOption, setActiveOption] = useState(product.options[0].id)
@@ -23,8 +24,10 @@ const ProductPage = ({ product, region, cartId }) => {
   const [quantity, setQuantity] = useState({ val: 1, max: 1 })
   const [isVariant, setIsVariant] = useState(false)
   const [price, setPrice] = useState("0")
-  const router = useRouter()
+  let { push, locale } = useRouter()
   const { setLoading, isRegistered } = useContext(PublicContext)
+
+  if (!locale) locale = "en-US"
 
   const getVariantId = () => {
     const variant = product.variants.find(variant =>
@@ -52,7 +55,7 @@ const ProductPage = ({ product, region, cartId }) => {
           variant_id,
           quantity: quantity.val,
         })
-        router.push("/cart")
+        push("/cart")
       }
 
       setLoading(false)
@@ -188,19 +191,20 @@ const ProductPage = ({ product, region, cartId }) => {
                   <SelectQuantity
                     quantity={quantity}
                     setQuantity={setQuantity}
+                    locale={locale}
                   />
                 ) : undefined}
                 <p className="text-secondary mb-4">
                   {!quantity.max
-                    ? `Sorry no products left for this variant`
+                    ? translations[locale].no_products_variant
                     : quantity.max < 6
-                    ? `Hurry up, only ${quantity.max} pieces left for this product.`
+                    ? `${translations[locale].hurry_up} ${quantity.max} ${translations[locale].pieces_left}`
                     : undefined}
                 </p>
               </>
             ) : (
               <p className="text-secondary mb-4">
-                Please, choose a valid variant before adding to cart
+                {translations[locale].choose_variant}
               </p>
             )}
 
@@ -214,7 +218,7 @@ const ProductPage = ({ product, region, cartId }) => {
                 }`}
                 onClick={addToCartHandler}
               >
-                Add to Cart
+                {translations[locale].add_to_cart}
                 <ShoppingCartIcon width={20} />
               </button>
 
@@ -226,7 +230,7 @@ const ProductPage = ({ product, region, cartId }) => {
         </section>
 
         {/* Description */}
-        <TabsContainer description={product.description} />
+        <TabsContainer description={product.description} locale={locale} />
       </div>
     </>
   )

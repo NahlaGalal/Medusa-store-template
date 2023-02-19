@@ -7,6 +7,7 @@ import Search from "../components/Search"
 import { PublicContext } from "../context/publicContext"
 import { SEARCH_INDEX_NAME, searchClient } from "../utils/search-client"
 import Filter from "../components/Filter"
+import { useRouter } from "next/router"
 
 export const PriceContext = createContext({
   min: NaN,
@@ -19,6 +20,7 @@ const Shop = ({ region }) => {
   const { setRegion } = useContext(PublicContext)
   const [min, setMin] = useState(NaN)
   const [max, setMax] = useState(NaN)
+  const { locale } = useRouter()
 
   useEffect(() => setRegion(region), [region])
 
@@ -33,8 +35,8 @@ const Shop = ({ region }) => {
             indexName={SEARCH_INDEX_NAME}
             searchClient={searchClient}
           >
-            <Filter />
-            <Search />
+            <Filter locale={locale} />
+            <Search locale={locale} />
           </InstantSearch>
         </div>
       </div>

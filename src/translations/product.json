@@ -1,0 +1,20 @@
+{
+  "en-US": {
+    "no_products_variant": "Sorry no products left for this variant",
+    "hurry_up": "Hurry up, only ",
+    "pieces_left": " pieces left for this variant of the product",
+    "choose_variant": "Please, choose a valid variant before adding to cart",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to Cart",
+    "description": "Description"
+  },
+  "ar": {
+    "no_products_variant": "للأسف لا يوجد منتجات من هذا النوع",
+    "hurry_up": "أسرع فقط ",
+    "pieces_left": " قطع متبقية من هذا النوع من المنتج",
+    "choose_variant": "من فضلك اختر نوع صالح قبل الأضافة إلى العربة",
+    "quantity": "الكمية",
+    "add_to_cart": "أضف إلى العربة",
+    "description": "الوصف"
+  }
+}

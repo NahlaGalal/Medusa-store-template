@@ -1,15 +1,19 @@
 // @ts-check
-
 import React, { useContext, useEffect, useState } from "react"
 import Head from "next/head"
 import Pagination, { LIMIT } from "../../components/Pagination"
 import { client } from "../../utils/client"
 import Product from "../../components/ProductCard"
 import { PublicContext } from "../../context/publicContext"
+import translations from "../../translations/shop.json"
+import { useRouter } from "next/router"
 
 const Tags = ({ products, region, count, limit, offset, tagId }) => {
   const [pageProducts, setPageProducts] = useState(products)
   const { setRegion } = useContext(PublicContext)
+  let { locale } = useRouter()
+
+  if (!locale) locale = "en-US"
 
   const getTagName = () => {
     const productTags = pageProducts[0]?.tags
@@ -51,7 +55,7 @@ const Tags = ({ products, region, count, limit, offset, tagId }) => {
           </>
         ) : (
           <p className="text-secondary font-medium text-xl text-center my-8">
-            Sorry, no products found
+            {translations[locale].no_products_found}
           </p>
         )}
       </div>

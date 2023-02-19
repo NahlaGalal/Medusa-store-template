@@ -1,7 +1,8 @@
 // @ts-check
 import React, { useState } from "react"
+import translations from "../../translations/product.json"
 
-const TabsContainer = ({ description }) => {
+const TabsContainer = ({ description, locale }) => {
   const [currentSection, setCurrentSection] = useState("description")
 
   return (
@@ -14,7 +15,7 @@ const TabsContainer = ({ description }) => {
               currentSection === "description" ? "border-b" : "border-b-0"
             }`}
           >
-            Description
+            {translations[locale].description}
           </button>
         </div>
       </header>

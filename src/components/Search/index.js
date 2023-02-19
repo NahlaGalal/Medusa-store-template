@@ -7,12 +7,15 @@ import {
   connectStateResults,
 } from "react-instantsearch-dom"
 import Product from "../ProductCard"
+import translations from "../../translations/shop.json"
 
-const Search = () => {
+const Search = ({ locale }) => {
   return (
     <div className="flex flex-[4] flex-col gap-4">
       {/* Search */}
-      <SearchBox />
+      <SearchBox
+        translations={{ placeholder: translations[locale].search_here }}
+      />
 
       <Results>
         <>

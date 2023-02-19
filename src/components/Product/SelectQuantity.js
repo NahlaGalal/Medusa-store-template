@@ -1,7 +1,8 @@
 // @ts-check
 import React from "react"
+import translations from "../../translations/product.json"
 
-const SelectQuantity = ({ quantity, setQuantity }) => {
+const SelectQuantity = ({ quantity, setQuantity, locale }) => {
   const isMostQuantity = () => quantity.val === quantity.max
   const isLeastQuantity = () => quantity.val <= 1
 
@@ -12,7 +13,7 @@ const SelectQuantity = ({ quantity, setQuantity }) => {
 
   return (
     <div className="flex items-center gap-2 mb-4 flex-wrap">
-      <p>Quantity</p>
+      <p>{translations[locale].quantity}</p>
       <button
         className={`buttonCta ${
           isMostQuantity()

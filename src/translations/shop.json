@@ -1,0 +1,20 @@
+{
+  "en-US": {
+    "filter": "Filter",
+    "price": "Price (EGP)",
+    "variants": "Variants",
+    "tags": "Tags",
+    "search_here": "Search here...",
+    "collection": "Collection",
+    "no_products_found": "Sorry, no products found"
+  },
+  "ar": {
+    "filter": "فرز",
+    "price": "السعر (ج.م.)",
+    "variants": "اﻷنواع",
+    "tags": "الكلمات الدلالية",
+    "search_here": "ابحث هنا...",
+    "collection": "قسم",
+    "no_products_found": "للأسف لم يتم العثور على أية منتجات"
+  }
+}

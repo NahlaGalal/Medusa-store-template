@@ -5,6 +5,8 @@ import Product from "../../components/ProductCard"
 import { client } from "../../utils/client"
 import Pagination, { LIMIT } from "../../components/Pagination"
 import { PublicContext } from "../../context/publicContext"
+import translations from "../../translations/shop.json"
+import { useRouter } from "next/router"
 
 const Collections = ({
   products,
@@ -16,6 +18,9 @@ const Collections = ({
 }) => {
   const [pageProducts, setPageProducts] = useState(products)
   const { setRegion } = useContext(PublicContext)
+  let { locale } = useRouter()
+
+  if (!locale) locale = "en-US"
 
   useEffect(() => setRegion(region), [])
 
@@ -30,8 +35,8 @@ const Collections = ({
       </Head>
 
       <div className="layoutContainer">
-        <h2 className="text-center mt-8 text-xl text-brand">
-          {collection.title} Collection
+        <h2 className="text-center mt-8 text-xl text-brand font-bold">
+          {collection.title} {translations[locale].collection}
         </h2>
 
         {pageProducts.length ? (
@@ -57,7 +62,7 @@ const Collections = ({
           </>
         ) : (
           <p className="text-secondary font-medium text-xl text-center my-8">
-            Sorry, no products found
+            {translations[locale].no_products_found}
           </p>
         )}
       </div>
@@ -70,13 +75,13 @@ export async function getServerSideProps({ params: { handle } }) {
   const { regions } = await client.regions.list()
 
   const region = regions.find(region => region.name === "Afrika")
-  
-  if(collections.length) {
+
+  if (collections.length) {
     const { products, count, limit, offset } = await client.products.list({
       collection_id: [collections[0]?.id],
       limit: LIMIT,
     })
-  
+
     return {
       props: {
         products,

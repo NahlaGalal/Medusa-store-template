@@ -38,9 +38,9 @@ const Pagination = ({ setPageProducts, offset, count, limit, options }) => {
             activePage === i ? "bg-brand" : "bg-secondary"
           } ${
             !i
-              ? "rounded-l rounded-r-none"
+              ? "ltr:rounded-l ltr:rounded-r-none rtl:rounded-r rtl:rounded-l-none"
               : i + 1 === numPages
-              ? "rounded-r rounded-l-none"
+              ? "ltr:rounded-r ltr:rounded-l-none rtl:rounded-l rtl:rounded-r-none"
               : "rounded-none"
           }`}
           onClick={() => getProductsPage(i)}

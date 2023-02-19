@@ -32,11 +32,13 @@
   padding: 0;
 }
 
-.ais-SearchBox .ais-SearchBox-submit {
+[dir=ltr] .ais-SearchBox .ais-SearchBox-submit, 
+[dir=rtl] .ais-SearchBox .ais-SearchBox-reset {
   left: 16px;
 }
 
-.ais-SearchBox .ais-SearchBox-reset {
+[dir=ltr] .ais-SearchBox .ais-SearchBox-reset,
+[dir=rtl] .ais-SearchBox .ais-SearchBox-submit {
   right: 16px;
 }
 
@@ -113,11 +115,13 @@ input[type="search"]::-webkit-search-results-decoration {
   border-radius: 0;
 }
 
-.ais-Pagination-item--firstPage .ais-Pagination-link {
+[dir=ltr] .ais-Pagination-item--firstPage .ais-Pagination-link,
+[dir=rtl] .ais-Pagination-item--nextPage .ais-Pagination-link {
   border-radius: 4px 0 0 4px;
 }
 
-.ais-Pagination-item--nextPage .ais-Pagination-link {
+[dir=ltr] .ais-Pagination-item--nextPage .ais-Pagination-link,
+[dir=rtl] .ais-Pagination-item--firstPage .ais-Pagination-link {
   border-radius: 0 4px 4px 0;
 }
 

@@ -2,8 +2,9 @@
 import React, { useContext, useState } from "react"
 import { connectRange } from "react-instantsearch-dom"
 import { PriceContext } from "../../pages/shop"
+import translations from "../../translations/shop.json"
 
-const RangeInput = ({ min, max, refine }) => {
+const RangeInput = ({ min, max, refine, locale }) => {
   const [minInput, setMinInput] = useState(NaN)
   const [maxInput, setMaxInput] = useState(NaN)
   const { setMax, setMin } = useContext(PriceContext)
@@ -42,7 +43,7 @@ const RangeInput = ({ min, max, refine }) => {
         className="formField text-sm font-light w-[calc(100%/3_-_8px)] border-brand min-w-[70px]"
       />
       <button className="buttonCta rounded hover:bg-brand hover:text-white">
-        Filter
+        {translations[locale].filter}
       </button>
     </form>
   )

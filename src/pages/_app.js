@@ -3,6 +3,7 @@ import { CartProvider, MedusaProvider } from "medusa-react"
 import Head from "next/head"
 import React, { useEffect } from "react"
 import Router, { useRouter } from "next/router"
+import Script from "next/script"
 import { QueryClient } from "react-query"
 import { PublicProvider } from "../context/publicContext"
 import Layout from "../components/Layout"
@@ -24,7 +25,7 @@ const queryClient = new QueryClient({
 })
 
 const App = ({ Component, pageProps }) => {
-  const {locale} = useRouter();
+  const { locale } = useRouter()
 
   const dir = locale === "ar" ? "rtl" : "ltr"
 
@@ -43,6 +44,7 @@ const App = ({ Component, pageProps }) => {
             name="viewport"
             content="width=device-width, initial-scale=1, maximum-scale=1"
           ></meta>
+          {/* Global Site Code Pixel - Facebook Pixel */}
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -51,6 +53,22 @@ const App = ({ Component, pageProps }) => {
             rel="stylesheet"
           ></link>
         </Head>
+        <Script
+          dangerouslySetInnerHTML={{
+            __html: `
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+          fbq('track', 'PageView');
+          `,
+          }}
+        ></Script>
         <PublicProvider Router={Router}>
           <Layout>
             <Component {...pageProps} />

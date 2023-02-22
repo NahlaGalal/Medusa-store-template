@@ -1,5 +1,5 @@
 import React from "react"
-import ErrorFallback from "../components/errorFallbak"
+import ErrorFallback from "../components/ErrorFallback"
 
 const Error = () => {
   return <ErrorFallback />

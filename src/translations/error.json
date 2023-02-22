@@ -1,0 +1,12 @@
+{
+  "en-US": {
+    "there_is_error": "There is an error in the page",
+    "navigate_page": "Navigate to another page then click Try again",
+    "try_again": "Try Again"
+  },
+  "ar": {
+    "there_is_error": "يوجد مشكلة في هذه الصفحة",
+    "navigate_page": "اذهب لصفحة اخرى ثم اضغط على أعد المحاولة",
+    "try_again": "أعد المحاولة"
+  }
+}

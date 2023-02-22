@@ -1,8 +1,12 @@
 import React from "react"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import ErrorImage from "../../../public/error-image.svg"
+import translations from "../../translations/error.json"
 
 const ErrorFallback = ({ resetErrorBoundary = () => {} }) => {
+  const { locale } = useRouter()
+
   return (
     <div className="my-10 w-4/5 mx-auto text-center">
       <Image
@@ -12,11 +16,11 @@ const ErrorFallback = ({ resetErrorBoundary = () => {} }) => {
         width="300px"
       />
       <h1 className="text-5xl sm:text-9xl text-secondary mb-10">OPPS</h1>
-      <p className="text-2xl mb-10">There is an error in this page</p>
-      <p className="text-base mb-10">
-        Navigate to another page then click Try again
-      </p>
-      <button onClick={resetErrorBoundary}>Try Again</button>
+      <p className="text-2xl mb-10">{translations[locale].there_is_error}</p>
+      <p className="text-base mb-10">{translations[locale].navigate_page}</p>
+      <button onClick={resetErrorBoundary}>
+        {translations[locale].try_again}
+      </button>
     </div>
   )
 }

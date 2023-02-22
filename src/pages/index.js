@@ -28,14 +28,6 @@ const IndexPage = ({ products, region }) => {
         {/* Header */}
         <Header locale={locale} />
 
-        <button
-          onClick={() => {
-            throw new Error("Sentry Frontend Error")
-          }}
-        >
-          Throw error
-        </button>
-
         {/* Features */}
         <Features locale={locale} />
 

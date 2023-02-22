@@ -1,14 +1,16 @@
 // @ts-check
 import { CartProvider, MedusaProvider } from "medusa-react"
 import Head from "next/head"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Router, { useRouter } from "next/router"
+import { ErrorBoundary } from "react-error-boundary"
 import Script from "next/script"
 import { QueryClient } from "react-query"
 import { PublicProvider } from "../context/publicContext"
 import Layout from "../components/Layout"
 import "../style/globals.css"
 import "../components/Search/style.css"
+import ErrorFallback from "../components/ErrorFallback"
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000"
@@ -26,6 +28,7 @@ const queryClient = new QueryClient({
 
 const App = ({ Component, pageProps }) => {
   const { locale } = useRouter()
+  const [explodeErr, setExplodeErr] = useState(false)
 
   const dir = locale === "ar" ? "rtl" : "ltr"
 
@@ -71,7 +74,13 @@ const App = ({ Component, pageProps }) => {
         ></Script>
         <PublicProvider Router={Router}>
           <Layout>
-            <Component {...pageProps} />
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              resetKeys={[explodeErr]}
+              onReset={() => setExplodeErr(explodeErr)}
+            >
+              <Component {...pageProps} />
+            </ErrorBoundary>
           </Layout>
         </PublicProvider>
       </CartProvider>

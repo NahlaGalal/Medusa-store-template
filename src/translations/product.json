@@ -6,7 +6,8 @@
     "choose_variant": "Please, choose a valid variant before adding to cart",
     "quantity": "Quantity",
     "add_to_cart": "Add to Cart",
-    "description": "Description"
+    "description": "Description",
+    "no_product_found": "Sorry, no product found with this handle"
   },
   "ar": {
     "no_products_variant": "للأسف لا يوجد منتجات من هذا النوع",
@@ -15,6 +16,7 @@
     "choose_variant": "من فضلك اختر نوع صالح قبل الأضافة إلى العربة",
     "quantity": "الكمية",
     "add_to_cart": "أضف إلى العربة",
-    "description": "الوصف"
+    "description": "الوصف",
+    "no_product_found": "للأسف، لا يوجد منتج بهذا الاسم"
   }
 }

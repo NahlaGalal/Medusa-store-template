@@ -58,7 +58,7 @@ const CartItem = ({ product, getCollectionName, deleteItem, locale }) => {
         </p>
 
         <p>
-          {translations.ar.qty}: {product.quantity}
+          {translations[locale].qty}: {product.quantity}
         </p>
         <p className="text-right text-brand">
           {new Intl.NumberFormat(locale, {

@@ -15,6 +15,7 @@ module.exports = {
 
 module.exports = withSentryConfig(
   module.exports,
+  { dryRun: process.env.VERCEL_ENV !== "production" },
   { silent: true, authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN },
   { hideSourcemaps: true }
 )

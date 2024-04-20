@@ -2,7 +2,7 @@
 // with Sentry.
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-const { withSentryConfig } = require("@sentry/nextjs")
+// const { withSentryConfig } = require("@sentry/nextjs")
 
 module.exports = {
   i18n: {
@@ -13,9 +13,9 @@ module.exports = {
   },
 }
 
-module.exports = withSentryConfig(
-  module.exports,
-  { dryRun: process.env.VERCEL_ENV !== "production" },
-  { silent: true, authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN },
-  { hideSourcemaps: true }
-)
+// module.exports = withSentryConfig(
+//   module.exports,
+//   { dryRun: process.env.VERCEL_ENV !== "production" },
+//   { silent: true, authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN },
+//   { hideSourcemaps: true }
+// )

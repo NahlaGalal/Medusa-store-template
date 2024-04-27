@@ -20,8 +20,8 @@ const IndexPage = ({ products, region }) => {
   return (
     <>
       <Head>
-        <title>ElNagar Classic</title>
-        <meta name="description" content="ElNagar classic landing page" />
+        <title>Our Medusa store</title>
+        <meta name="description" content="Our Medusa store landing page" />
       </Head>
 
       <main className="flex flex-col overflow-hidden">

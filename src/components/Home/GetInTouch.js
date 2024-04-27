@@ -65,8 +65,8 @@ const GetInTouch = ({ locale }) => {
                 <EnvelopeIcon width={20} />
                 {translations[locale].email_address}
               </p>
-              <p className="text-darkGrey pl-6">elnagar@gmail.com</p>
-              <p className="text-darkGrey pl-6">elnagar2@gmail.com</p>
+              <p className="text-darkGrey pl-6">medusa-store@gmail.com</p>
+              <p className="text-darkGrey pl-6">medusa-store@gmail.com</p>
             </div>
           </div>
         </div>

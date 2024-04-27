@@ -36,7 +36,7 @@ const Product = ({ hit: product }) => {
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="w-full rounded object-contain"
+          className="w-full rounded object-contain h-[250px]"
         />
 
         <div className="flex flex-col gap-2">
